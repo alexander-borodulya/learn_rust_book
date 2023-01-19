@@ -1,3 +1,5 @@
+//! apartment - module example from the Rust Book, chapter 7
+
 pub mod apartment {
 
     pub fn lock() {

@@ -1,10 +1,9 @@
+/// sub, left - right
 pub fn sub(left: isize, right: isize) -> isize {
     left - right
 }
 
-///
 /// Internal unit tests
-/// 
 #[cfg(test)]
 mod tests {
     use super::*;

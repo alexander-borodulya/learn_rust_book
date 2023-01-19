@@ -67,7 +67,7 @@ fn chapter_015_1() {
 
 }
 
-/// .chapter_015_2
+/// Runs code for the chapter_015_2
 fn chapter_015_2() {
     println!("Chapter 15.2 - Treating Smart Pointers Like Regular References with the Deref Trait");
     

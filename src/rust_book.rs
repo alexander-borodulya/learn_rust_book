@@ -1,4 +1,5 @@
-/// Common code across all chapters
+//! Common code across all chapters [In the rust_book.rs]
+
 pub mod chapter_005;
 pub mod chapter_006;
 pub mod chapter_011;

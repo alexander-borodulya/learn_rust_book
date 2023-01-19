@@ -4,9 +4,7 @@ pub fn add(left: isize, right: isize) -> isize {
     left + right
 }
 
-///
-/// Internal unit-tests
-/// 
+/// Chapter 11 - unit-tests
 #[cfg(test)]
 mod tests {
     use super::*;

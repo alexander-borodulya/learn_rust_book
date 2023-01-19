@@ -150,7 +150,7 @@ fn first_word(s: &str) -> &str {
     return &s[..]
 }
 
-/// TODO: Return the nth word in a string
+/// nth_word - TODO: Return the nth word in a string
 fn nth_word(s: &String, n: i32) -> &str {
     let bytes = s.as_bytes();
     let mut space_count = 0;

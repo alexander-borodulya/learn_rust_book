@@ -1,18 +1,18 @@
 //////////////////////////////////////////////////////////////////////////////
-///
-/// Chapter 11.3 - Begin
-/// 
+//
+// Chapter 11.3 - Begin
+// 
 
-///
-/// Import functions from the library crate
-/// 
+//
+// Import functions from the library crate
+// 
 use learn_rust_book::add as lib_add;
 use learn_rust_book::sub as lib_sub;
 use learn_rust_book::mult as lib_mult;
 
-///
-/// Binary crate functionality that re-use library functions.
-/// 
+//
+// Binary crate functionality that re-use library functions.
+// 
 pub fn add_sub_mult(left: isize, right: isize) -> isize {
     let p1 = lib_add(left, right);
     let p2 = lib_sub(left, right);
@@ -20,9 +20,9 @@ pub fn add_sub_mult(left: isize, right: isize) -> isize {
     p3
 }
 
-///
-/// Chapter 11.3 - End
-/// 
+//
+// Chapter 11.3 - End
+// 
 //////////////////////////////////////////////////////////////////////////////
 
 pub fn run() {
@@ -55,9 +55,9 @@ fn chapter_011_3() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// 
-/// Chapter 11 - Common Stuff
-/// 
+// 
+// Chapter 11 - Common Stuff
+// 
 
     #[allow(dead_code)]
     pub fn add(left: usize, right: usize) -> usize {
@@ -101,15 +101,15 @@ fn chapter_011_3() {
         String::from("Hello, {}!")
     }
 
-///
-/// Chapter 11 - Common Stuff
-///
+//
+// Chapter 11 - Common Stuff
+//
 ////////////////////////////////////////////////////////////////////////////////
 
 
-///
-/// chapter_011_1 - Begin
-///
+//
+// chapter_011_1 - Begin
+//
 #[cfg(test)]
 mod tests_chapter_011_1 {
     use super::*;
@@ -357,9 +357,9 @@ mod tests_chapter_011_1 {
     }
 }
 
-///
-/// chapter_011_2 - Begin
-/// 
+//
+// chapter_011_2 - Begin
+// 
 #[cfg(test)]
 mod tests_chapter_011_2 {
 
@@ -388,13 +388,13 @@ mod tests_chapter_011_2 {
 }
 
 ////////////////////////////////////////////////////////////////
-///
-/// Chapter 11 - Begin
-/// 
+//
+// Chapter 11 - Begin
+// 
 
-///
-/// Binary crate unit tests.
-/// 
+//
+// Binary crate unit tests.
+// 
 #[cfg(test)]
 mod tests_chapter_011_3 {
     use super::*;

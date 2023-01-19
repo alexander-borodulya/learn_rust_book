@@ -1,14 +1,23 @@
+//! learn_rust_book library crate
+//! 
+//! learn_rust_book - add documentation
+
 #![allow(dead_code)]
 
 ////////////////////////////////////////////////////////////////////////////////
-///
-/// Chapter 7 - Begin
-/// 
+//
+// Chapter 7 - Begin
+// 
 
+/// [pub mod rust_book]
 pub mod rust_book;
 
-mod fron_of_house {
-    mod hosting {
+/// mod fron_of_house
+pub mod fron_of_house {
+
+    /// mod hosting
+    pub mod hosting {
+        /// Adds customer to a waitlist
         fn add_to_waitlist() {}
         fn seat_at_table() {}
     }
@@ -20,17 +29,17 @@ mod fron_of_house {
     }
 }
 
-///
-/// Chapter 7 - End
-/// 
+//
+// Chapter 7 - End
+// 
 ////////////////////////////////////////////////////////////////////////////////
 
 
 
 ////////////////////////////////////////////////////////////////////////////////
-///
-/// Chapter 11 - Begin
-///
+//
+// Chapter 11 - Begin
+//
 
 // 1. Declare internal module
 pub mod chapter_011_math;
@@ -42,32 +51,32 @@ pub fn mult(left: isize, right: isize) -> isize {
     left * right
 }
 
-///
-/// Chapter 11 - End
-///
+//
+// Chapter 11 - End
+//
 ////////////////////////////////////////////////////////////////////////////////
 
 
 
 ////////////////////////////////////////////////////////////////////////////////
-///
-/// Chapter 12 - Begin
-///
+//
+// Chapter 12 - Begin
+//
 
 pub mod chapter_012_lib;
 pub mod chapter_013_lib;
 
-///
-/// Chapter 12 - End
-///
+//
+// Chapter 12 - End
+//
 ////////////////////////////////////////////////////////////////////////////////
 
 
 
 ////////////////////////////////////////////////////////////////////////////////
-///
-/// Library crate unit-tests
-/// 
+//
+// Library crate unit-tests
+// 
 
 #[cfg(test)]
 mod tests {

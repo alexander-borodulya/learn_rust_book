@@ -1,3 +1,5 @@
+//! learn_rust_book - binary crate, top level documentation
+
 mod chapter_001;
 mod chapter_002;
 mod chapter_003;
@@ -11,11 +13,14 @@ mod chapter_010;
 mod chapter_011;
 mod chapter_012;
 mod chapter_013;
+mod chapter_014;
 mod chapter_015;
 mod chapter_016;
 mod chapter_017;
 mod chapter_018;
 mod chapter_019;
+
+///  Common code across all chapters [in the main.rs]
 mod rust_book;
 
 //////////////////////////////////////////////////////////////////////////////
@@ -23,7 +28,7 @@ mod rust_book;
 // Chapter 7 - Begin
 //
 
-// Chapter 7.2: Declare Crate level module: Inlined
+/// Chapter 7.2: Declare Crate level module: Inlined
 mod chapter_007_crate_level_module_v1 {
     #[allow(dead_code)]
     pub fn print_module_name() {
@@ -31,7 +36,7 @@ mod chapter_007_crate_level_module_v1 {
     }
 }
 
-// Chapter 7.2: Declare Crate level module: In the dedicated file
+/// Chapter 7.2: Declare Crate level module: In the dedicated file
 mod chapter_007_crate_level_module_v2;
 
 // Chapter 7.3: Nested function calling crate root level function
@@ -58,6 +63,7 @@ fn main() {
     // chapter_011::run();
     // chapter_012::run();
     // chapter_013::run();
+    // chapter_014::run();
     // chapter_015::run();
     // chapter_016::run();
     // chapter_017::run();
