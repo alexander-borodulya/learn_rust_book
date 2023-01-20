@@ -1,0 +1,8 @@
+[package]
+authors = ["Alexander Borodulya <alexander.borodulya@gmail.com>"]
+name = "chapter_011_math"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rust_book = { path = "../rust_book" }

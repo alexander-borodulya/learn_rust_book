@@ -1,0 +1,19 @@
+[package]
+authors = ["Alexander Borodulya <alexander.borodulya@gmail.com>"]
+name = "rust_book_runner"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+# Local dependencies
+rust_book = { path = "../rust_book" }
+chapter_007 = { path = "../chapter_007" }
+chapter_011_math = { path = "../chapter_011_math" }
+chapter_012 = { path = "../chapter_012" }
+chapter_013 = { path = "../chapter_013" }
+add_one = { path = "../chapter_014_add_one" }
+sub_one = { path = "../chapter_014_sub_one" }
+
+# External dependencies
+rand = "0.8.5"

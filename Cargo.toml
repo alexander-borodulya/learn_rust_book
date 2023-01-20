@@ -1,11 +1,12 @@
-[package]
-authors = ["Alexander Borodulya <alexander.borodulya@gmail.com>"]
-name = "learn_rust_book"
-version = "0.1.0"
-edition = "2021"
-default-run = "learn_rust_book"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
-rand = "0.8.5"
+[workspace]
+members = [
+    "chapter_007",
+    "chapter_009_main_dyn_err",
+    "chapter_011_math",
+    "chapter_012",
+    "chapter_013",
+    "chapter_014_add_one",
+    "chapter_014_sub_one",
+    "rust_book",
+    "rust_book_runner",
+]
