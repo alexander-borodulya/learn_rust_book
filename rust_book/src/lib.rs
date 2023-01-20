@@ -11,6 +11,7 @@ pub mod chapter_008;
 pub mod chapter_009;
 pub mod chapter_010;
 pub mod chapter_011;
+pub mod chapter_012;
 pub mod chapter_015;
 pub mod chapter_016;
 pub mod chapter_017;
