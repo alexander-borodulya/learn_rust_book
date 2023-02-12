@@ -5,6 +5,66 @@ pub fn run () {
     section_6_3();
 }
 
+pub fn run_external () {
+
+    // Concise Control Flow with if let
+    {
+        #[derive(Debug)]
+        enum States {
+            A,
+            B,
+            C
+        }
+
+        #[derive(Debug)]
+        struct StateContainer {
+            state: States,
+        }
+
+        impl StateContainer {
+            pub fn new() -> Self {
+                StateContainer {
+                    state: States::A,
+                }
+            }
+
+            pub fn next(&mut self) {
+                match self.state {
+                    States::A => self.state = States::B,
+                    States::B => self.state = States::C,
+                    States::C => self.state = States::A,
+                }
+            }
+
+            pub fn prints_if_state_b(&self) {
+                if let States::B = self.state {
+                    println!("State {:?}", self.state);
+                }
+            }
+        }
+
+        let mut sc = StateContainer::new();
+
+        // State A
+        println!("sc: {:?}", sc);
+        // Prints nothing
+        sc.prints_if_state_b();
+
+
+        // Change state to B
+        sc.next();
+        println!("sc: {:?}", sc);
+        // Prints State B
+        sc.prints_if_state_b();
+
+        // Change state to C
+        sc.next();
+        println!("sc: {:?}", sc);
+        // Prints nothing
+        sc.prints_if_state_b();
+    }
+}
+
 fn section_6_1 () {
     println!("Chapter 6.1: Defining an Enum");
     

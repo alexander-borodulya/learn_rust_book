@@ -4,8 +4,8 @@ use rust_book::chapter_003;
 use rust_book::chapter_004;
 use rust_book::chapter_005;
 use rust_book::chapter_006;
-use rust_book::chapter_008;
 use chapter_007;
+use rust_book::chapter_008;
 use rust_book::chapter_009;
 use rust_book::chapter_010;
 mod chapter_011;
@@ -27,6 +27,7 @@ fn main() {
     chapter_004::run();
     chapter_005::run();
     chapter_006::run();
+    chapter_006::run_external();
     chapter_007::run();
     chapter_008::run();
     chapter_009::run();
