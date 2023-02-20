@@ -6,6 +6,7 @@ pub fn run() {
     chapter_019_2();
     chapter_019_3();
     chapter_019_4();
+    chapter_019_5();
 }
 
 fn chapter_019_1() {
@@ -879,5 +880,65 @@ fn chapter_019_4() {
             
             println!("i: {:?}", i);
         }
+    }
+}
+
+fn chapter_019_5() {
+    // Declarative Macros with macro_rules! for General Metaprogramming
+    {
+        #[macro_export]
+        macro_rules! my_vec {
+            ( 
+                $(
+                    $x:expr
+                ),* 
+            ) => {
+                {
+                    let mut temp_vec = Vec::new();
+                    $(
+                        temp_vec.push($x);
+                    )*
+                    temp_vec
+                }
+            };
+        }
+
+        let vec = my_vec![1, 2, 3, 4, 5];
+        println!("{:?}", vec);
+
+        #[macro_export]
+        macro_rules! my_sum {
+            (
+                $(
+                    $x:expr
+                ),*
+            ) => {
+                {
+                    let mut sum = 0;
+                    $(
+                        sum += $x;
+                    )*
+                    sum
+                }
+            };
+        }
+
+        let sum = my_sum![1, 2, 3, 4, 5];
+        assert_eq!(sum, 15);
+        println!("sum: {:?}", sum);
+    }
+
+    // Import custom derive local macro
+    {
+        // Import trait
+        use chapter_019_hello_macro::HelloMacro;
+
+        // Import local derive macro
+        use chapter_019_hello_macro_derive::HelloMacro;
+        
+        #[derive(HelloMacro)]
+        struct MyAnotherStruct;
+        
+        MyAnotherStruct::hello_macro();
     }
 }

@@ -5,3 +5,5 @@ edition = "2021"
 
 [dependencies]
 rand = "0.8.5"
+chapter_019_hello_macro = { path = "../chapter_019_hello_macro" }
+chapter_019_hello_macro_derive = { path = "../chapter_019_hello_macro/chapter_019_hello_macro_derive" }

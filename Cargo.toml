@@ -7,6 +7,7 @@ members = [
     "chapter_013",
     "chapter_014_add_one",
     "chapter_014_sub_one",
+    "chapter_019_hello_macro",
     "rust_book",
     "rust_book_runner",
 ]
