@@ -27,7 +27,7 @@ pub mod fron_of_house {
     }
 }
 
-/// Chapter 7.2: Declare Crate level module: Inlined
+/// Chapter 7.2. Declare Crate level module: Inlined
 mod chapter_007_crate_level_module_v1 {
     #[allow(dead_code)]
     pub fn print_module_name() {
@@ -35,15 +35,15 @@ mod chapter_007_crate_level_module_v1 {
     }
 }
 
-/// Chapter 7.2: Declare Crate level module: In the dedicated file
+/// Chapter 7.2. Declare Crate level module: In the dedicated file
 mod chapter_007_crate_level_module_v2;
 
-/// Chapter 7.3: Nested function calls crate root level function
+/// Chapter 7.3. Nested function calls crate root level function
 pub fn chapter_007_3_crate_root_fn() {
     println!("main.rs: chapter_007_3_crate_root_fn called...");
 }
 
-/// Chapter 7.4: Test re-export
+/// Chapter 7.4. Test re-export
 pub use chapter_007_4_reexport::submodule_reexport::test_submodule_re;
 
 pub fn run() {
@@ -61,7 +61,7 @@ pub fn run() {
 }
 
 fn chapter_7_1 () {
-    println!("Chapter 7.1: Packages and Crates");
+    println!("7.1. Packages and Crates");
     // Crates package within a binary crate
     //  > cargo new chapter_007 
 
@@ -76,7 +76,7 @@ fn chapter_7_1 () {
 
 
 fn chapter_7_2 () {
-    println!("Chapter 7.2: Defining Modules to Control Scope and Privacy");
+    println!("7.2. Defining Modules to Control Scope and Privacy");
     
     mod root_level {
         pub fn do_all_tests() {
@@ -108,7 +108,7 @@ fn chapter_7_2 () {
 }
 
 fn chapter_007_2() {
-    println!("chapter_007_2 - Defining Modules to Control Scope and Privacy");
+    println!("7.2. Defining Modules to Control Scope and Privacy");
 
     // Access crate level inlined module
     crate::chapter_007_crate_level_module_v1::print_module_name();
@@ -130,7 +130,7 @@ fn chapter_007_2() {
 }
 
 fn chapter_7_3 () {
-    println!("Chapter 7.3: Paths for Referring to an Item in the Module Tree");
+    println!("7.3. Paths for Referring to an Item in the Module Tree");
     chapter_007_impl::apartment::lock();
     chapter_007_impl::apartment::unlock();
 

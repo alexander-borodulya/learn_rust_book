@@ -1,7 +1,7 @@
 use std::{thread, time::Duration, sync::{mpsc, Mutex, Arc}};
 
 pub fn run() {
-    println!("Chapter 16 - Fearless Concurrency");
+    println!("16. Fearless Concurrency");
     _chapter_016_1();
     _chapter_016_2();
     _chapter_016_3();
@@ -9,7 +9,7 @@ pub fn run() {
 }
 
 fn _chapter_016_1() {
-    println!("Chapter 16.1 - Using Threads to Run Code Simultaneously");
+    println!("16.1. Using Threads to Run Code Simultaneously");
     
     // Creating thread using thread::spawn
     {
@@ -68,7 +68,7 @@ fn _chapter_016_1() {
 }
 
 fn _chapter_016_2() {
-    println!("Chapter 16.2 - Using Message Passing to Transfer Data Between Threads");
+    println!("16.2. Using Message Passing to Transfer Data Between Threads");
 
     // Using Message Passing to Transfer Data Between Threads
     fn mpsc_with_simple_msg_passing()
@@ -275,7 +275,7 @@ fn _chapter_016_2() {
 }
 
 fn _chapter_016_3() {
-    println!("Chapter 16.3 - todo...");
+    println!("16.3. Shared-State Concurrency");
 
     // The API of Mutex<T>
     {
@@ -360,5 +360,5 @@ fn _chapter_016_3() {
 }
 
 fn _chapter_016_4() {
-    println!("Chapter 16.4 - todo...");
+    println!("16.4. todo...");
 }

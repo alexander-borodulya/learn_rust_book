@@ -1,14 +1,14 @@
 pub fn run () {
-    println!("Chapter 003: Common Programming Concepts");
-    section_3_1();
-    section_3_2();
-    section_3_3();
-    section_3_4();
-    section_3_5();
+    println!("3. Common Programming Concepts");
+    chapter_3_1();
+    chapter_3_2();
+    chapter_3_3();
+    chapter_3_4();
+    chapter_3_5();
 }
 
-fn section_3_1 () {
-    println!("Section 3.1: Variables and Mutability");
+fn chapter_3_1 () {
+    println!("3.1. Variables and Mutability");
     
     // Mutable var
     let mut x = 5;
@@ -50,8 +50,8 @@ fn section_3_1 () {
     // m = m.len(); // error: mismatched types
 }
 
-fn section_3_2 () {
-    println!("Section 3.2: Data Types");
+fn chapter_3_2 () {
+    println!("3.2. Data Types");
     
     // Integers...
     let var_i8: i8 = i8::MAX;
@@ -188,8 +188,8 @@ fn section_3_2 () {
     }
 }
 
-fn section_3_3 () {
-    println!("Section 3.3: Functions");
+fn chapter_3_3 () {
+    println!("3.3. Functions");
     another_function(10);
     let x = 100;
     let y = {
@@ -213,8 +213,8 @@ fn some_add (x: i32, y: i32) -> i32 {
     x + y
 }
 
-fn section_3_4 () {
-    println!("Section 3.4: Comments");
+fn chapter_3_4 () {
+    println!("3.4. Comments");
     // Some comment
     // Another comment
     /*
@@ -222,8 +222,8 @@ fn section_3_4 () {
     */
 }
 
-fn section_3_5 () {
-    println!("Section 3.5: Control Flow");
+fn chapter_3_5 () {
+    println!("3.5. Control Flow");
     let number = 51;
     if number > 3 {
         println!("True");

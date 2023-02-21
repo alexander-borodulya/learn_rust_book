@@ -8,7 +8,7 @@ use chapter_011_math::mult;
 
 /// Runs payload test
 pub fn run() {
-    println!("Chapter 11: Writing Automated Tests");
+    println!("11. Writing Automated Tests");
     chapter_011_3();
 }
 
@@ -23,7 +23,7 @@ pub fn add_sub_mult(left: isize, right: isize) -> isize {
 }
 
 fn chapter_011_3() {
-    println!("Chapter 11.3 - Test Organization");
+    println!("11.3. Test Organization");
     
     // [Some Payload] Use functions from the library crate
     {

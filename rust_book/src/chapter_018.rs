@@ -1,12 +1,12 @@
 pub fn run() {
-    println!("Chapter 18. Patterns and Matching");
+    println!("18. Patterns and Matching");
     chapter_018_1();
     chapter_018_2();
     chapter_018_3();
 }
 
 fn chapter_018_1() {
-    println!("Chapter 18.1. All the Places Patterns Can Be Used");
+    println!("18.1. All the Places Patterns Can Be Used");
 
     // match Arms
     {
@@ -89,7 +89,7 @@ fn chapter_018_1() {
 }
 
 fn chapter_018_2() {
-    println!("Chapter 18.2 - 18.2. Refutability: Whether a Pattern Might Fail to Match");
+    println!("18.2. Refutability: Whether a Pattern Might Fail to Match");
 
     // 1
     let _o_val: Option<i32> = Some(10);
@@ -130,7 +130,7 @@ fn chapter_018_2() {
 }
 
 fn chapter_018_3() {
-    println!("Chapter 18.3. Pattern Syntax");
+    println!("18.3. Pattern Syntax");
 
     // Matching Literals
     {

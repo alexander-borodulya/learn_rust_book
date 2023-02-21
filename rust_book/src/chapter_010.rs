@@ -1,5 +1,5 @@
 pub fn run() {
-    println!("Chapter 10: Generic Types, Traits, and Lifetimes");
+    println!("10. Generic Types, Traits, and Lifetimes");
     chapter_010_0();
     chapter_010_1();
     chapter_010_2();
@@ -7,7 +7,7 @@ pub fn run() {
 }
 
 fn chapter_010_0() {
-    println!("Chapter 10.0 - Generic Types, Traits, and Lifetimes");
+    println!("10.0 - Generic Types, Traits, and Lifetimes");
     // 1 - Inline, with two variants
     {
         // A
@@ -56,7 +56,7 @@ fn chapter_010_0() {
 }
 
 fn chapter_010_1() {
-    println!("Chapter 10.1: Generic Data Types");
+    println!("10.1. Generic Data Types");
 
     // In Function Definition
     {
@@ -323,7 +323,7 @@ fn chapter_010_1() {
 }
 
 fn chapter_010_2() {
-    println!("Chapter 10.2: Traits: Defining Shared Behavior");
+    println!("10.2. Traits: Defining Shared Behavior");
 
     // Defining a Trait
     {
@@ -947,7 +947,7 @@ fn chapter_010_2() {
 }
 
 fn chapter_010_3() {
-    println!("Chapter 10.3: Validating References with Lifetimes");
+    println!("10.3. Validating References with Lifetimes");
 
     fn largest<'a >(l: &'a str, r: &'a str) -> &'a str {
         if l.len() > r.len() {

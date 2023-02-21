@@ -1,7 +1,7 @@
 use std::{ops::{Add, AddAssign}, rc::{Rc, Weak}, cell::RefCell};
 
 pub fn run() {
-    println!("Chapter 15 - Smart Pointers");
+    println!("15. Smart Pointers");
     chapter_015_1();
     chapter_015_2();
     chapter_015_3();
@@ -12,7 +12,7 @@ pub fn run() {
 }
 
 fn chapter_015_1() {
-    println!("Chapter 15.1 - Using Box<T> to Point to Data on the Heap");
+    println!("15.1. Using Box<T> to Point to Data on the Heap");
     
     // Using box<T> to Store Data on the Heap
     {
@@ -69,7 +69,7 @@ fn chapter_015_1() {
 
 /// Runs code for the chapter_015_2
 fn chapter_015_2() {
-    println!("Chapter 15.2 - Treating Smart Pointers Like Regular References with the Deref Trait");
+    println!("15.2. Treating Smart Pointers Like Regular References with the Deref Trait");
     
     // Following the Pointer of the Value
     {
@@ -265,7 +265,7 @@ fn chapter_015_2() {
 }
 
 fn chapter_015_3() {
-    println!("Chapter 15.3 - Running Code on Cleanup with the Drop Trait");
+    println!("15.3. Running Code on Cleanup with the Drop Trait");
 
     // ...
     {
@@ -374,7 +374,7 @@ fn chapter_015_3() {
 }
 
 fn chapter_015_4() {
-    println!("Chapter 15.4 - Rc<T>, the Reference Counted Smart Pointer");
+    println!("15.4. Rc<T>, the Reference Counted Smart Pointer");
 
     // Common Scope
     {
@@ -459,7 +459,7 @@ fn chapter_015_4() {
 }
 
 fn chapter_015_5() {
-    println!("Chapter 15.5 - RefCell<T> and the Interior Mutability Pattern");
+    println!("15.5. RefCell<T> and the Interior Mutability Pattern");
 
     // Common
     {
@@ -659,7 +659,7 @@ fn chapter_015_5() {
 }
 
 fn chapter_015_6() {
-    println!("Chapter 15.6 - Reference Cycles Can Leak Memory");
+    println!("15.6. Reference Cycles Can Leak Memory");
 
     // Creating a Reference Cycle
     {

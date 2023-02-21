@@ -1,5 +1,5 @@
 pub fn run() {
-    println!("Chapter 17 - Fearless Concurrency");
+    println!("17. Fearless Concurrency");
     chapter_017_1();
     chapter_017_2();
     chapter_017_3();
@@ -7,7 +7,7 @@ pub fn run() {
 
 #[allow(dead_code)]
 fn chapter_017_1() {
-    println!("Chapter 17.1 - todo...");
+    println!("17.1. Characteristics of Object-Oriented Languages");
 
     pub struct AvaragedCollection {
         list: Vec<i32>,
@@ -72,7 +72,7 @@ fn chapter_017_1() {
 
 #[allow(dead_code)]
 fn chapter_017_2() {
-    println!("Chapter 17.2 - todo...");
+    println!("17.2. Using Trait Objects That Allow for Values of Different Types");
 
     {
         use crate::common::chapter_017::ch_017_02::{Screen, Button, Draw};
@@ -147,7 +147,7 @@ fn chapter_017_2() {
 }
 
 fn chapter_017_3() {
-    println!("Chapter 17.3 - todo...");
+    println!("17.3. Implementing an Object-Oriented Design Pattern");
 
     // Box holding a type
     {

@@ -1,12 +1,12 @@
 pub fn run () {
-    println!("Chapter 004: Understanding Ownership");
-    section_4_1();
-    section_4_2();
-    section_4_3();
+    println!("4. Understanding Ownership");
+    chapter_4_1();
+    chapter_4_2();
+    chapter_4_3();
 }
 
-fn section_4_1 () {
-    println!("Section 4.1: What is Ownership");
+fn chapter_4_1 () {
+    println!("4.1. What is Ownership");
 
     // Mutate string
     let mut s = String::from("String");
@@ -59,8 +59,8 @@ fn takes_and_gives_back(s: String) -> String {
 
 // ----------------------------------------------------------------
 
-fn section_4_2 () {
-    println!("Section 4.2: References and Borrowing");
+fn chapter_4_2 () {
+    println!("4.2. References and Borrowing");
 
     let s = String::from("abc");
     let l = calculate_length(&s);
@@ -113,8 +113,8 @@ fn change(s: &mut String) {
 
 use std::str::FromStr;
 
-fn section_4_3 () {
-    println!("Section 4.3: The Slice Type");
+fn chapter_4_3 () {
+    println!("4.3. The Slice Type");
     let s = String::from("abc def ghj");
     let first = first_word(&s);
     // s.clear(); // Error: cannot borrow s as mutable more than once...

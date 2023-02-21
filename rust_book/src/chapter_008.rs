@@ -1,12 +1,12 @@
 pub fn run() {
-    println!("Chapter 8: Common Collections");
+    println!("8. Common Collections");
     chapter_008_1();
     chapter_008_2();
     chapter_008_3();
 }
 
 fn chapter_008_1() {
-    println!("Chapter 8.1: Storing Lists of Values with Vectors");
+    println!("8.1. Storing Lists of Values with Vectors");
 
     // Creating a New Vector
     {
@@ -209,7 +209,7 @@ fn chapter_008_1() {
 }
 
 fn chapter_008_2() {
-    println!("Chapter 8.2:");
+    println!("8.2.");
 
     // Creating a new string
     {
@@ -369,7 +369,7 @@ fn chapter_008_2() {
 }
 
 fn chapter_008_3() {
-    println!("Chapter 8.3: Storing Keys with Associated Values in Hash Maps");
+    println!("8.3. Storing Keys with Associated Values in Hash Maps");
 
     // Creating a new HashMap
     {

@@ -1,14 +1,14 @@
 use std::error::Error;
 
 pub fn run() {
-    println!("Chapter 9: Error Handling");
+    println!("9. Error Handling");
     chapter_009_1();
     chapter_009_2().expect("rust_book::chapter_009_2 failed");
     chapter_009_3();
 }
 
 pub fn chapter_009_3() {
-    println!("Chapter 9.3: To panic! or Not to panic!");
+    println!("9.3. To panic! or Not to panic!");
     // Creating Custom Types for Validation
     {
         // Check bounds using if...
@@ -72,7 +72,7 @@ pub fn chapter_009_3() {
             // Produces the following output:
             //
             // Chapter 9: Error Handling
-            // Chapter 9.3: To panic! or Not to panic!
+            // Chapter 9.3. To panic! or Not to panic!
             // Equal: guess = 100, secret_number = 100
             // thread 'main' panicked at 'Guess range must be between 1 and 100: 101', src\chapter_009.rs:52:25
             // note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
@@ -82,7 +82,7 @@ pub fn chapter_009_3() {
 }
 
 pub fn chapter_009_2() -> Result<(), Box<dyn Error>> {
-    println!("Chapter 9.2: Recoverable Errors with Result");
+    println!("9.2. Recoverable Errors with Result");
 
     // Basic Result with match
     {
@@ -141,7 +141,7 @@ pub fn chapter_009_2() -> Result<(), Box<dyn Error>> {
         // ... produces the following output:
         //
         // Chapter 9: Error Handling
-        // Chapter 9.2: Recoverable Errors with Result
+        // Chapter 9.2. Recoverable Errors with Result
         // f: Err(Os { code: 2, kind: NotFound, message: "The system cannot find the file specified." })
         // thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: Os { code: 2, kind: NotFound, message: "The system cannot find the file specified." }', src\chapter_009.rs:62:36
         // note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
@@ -156,7 +156,7 @@ pub fn chapter_009_2() -> Result<(), Box<dyn Error>> {
         //... produces the following output:
         //
         // Chapter 9: Error Handling
-        // Chapter 9.2: Recoverable Errors with Result
+        // Chapter 9.2. Recoverable Errors with Result
         // f: Err(Os { code: 2, kind: NotFound, message: "The system cannot find the file specified." })
         // thread 'main' panicked at '<<< CUSTOM ERROR MESSAGE >>> Failed to open file [src/chapter_009_2.txt]: Os { code: 2, kind: NotFound, message: "The system cannot find the file specified."
         // }', src\chapter_009.rs:77:37
@@ -257,7 +257,7 @@ pub fn chapter_009_2() -> Result<(), Box<dyn Error>> {
 }
 
 pub fn chapter_009_1() {
-    println!("Chapter 9.1: Unrecoverable errors with panic");
+    println!("9.1. Unrecoverable errors with panic");
 
     // 1
     // The call...
@@ -279,7 +279,7 @@ pub fn chapter_009_1() {
     // ... produces the following output:
     //
     // Chapter 9: Error Handling
-    // Chapter 9.1: Unrecoverable errors with panic
+    // Chapter 9.1. Unrecoverable errors with panic
     // thread 'main' panicked at 'call panic', src\chapter_009.rs:21:5
     // stack backtrace:
     //    0: std::panicking::begin_panic_handler
@@ -307,7 +307,7 @@ pub fn chapter_009_1() {
     // ... produces the following output:
     //
     // Chapter 9: Error Handling
-    // Chapter 9.1: Unrecoverable errors with panic
+    // Chapter 9.1. Unrecoverable errors with panic
     // thread 'main' panicked at 'index out of bounds: the len is 3 but the index is 100', src\chapter_009.rs:44:18
     // note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
     // error: process didn't exit successfully: `target\debug\learn-rust-book.exe` (exit code: 101)
@@ -322,7 +322,7 @@ pub fn chapter_009_1() {
     // ... produces the following output:
     //
     // Chapter 9: Error Handling
-    // Chapter 9.1: Unrecoverable errors with panic
+    // Chapter 9.1. Unrecoverable errors with panic
     // thread 'main' panicked at 'index out of bounds: the len is 3 but the index is 100', src\chapter_009.rs:61:18
     // stack backtrace:
     //    0: std::panicking::begin_panic_handler
@@ -358,7 +358,7 @@ pub fn chapter_009_1() {
     // ... produces the following output:
     //
     // Chapter 9: Error Handling
-    // Chapter 9.1: Unrecoverable errors with panic
+    // Chapter 9.1. Unrecoverable errors with panic
     // thread 'main' panicked at 'index out of bounds: the len is 3 but the index is 100', src\chapter_009.rs:61:18
     // stack backtrace:
     //    0: std::panicking::begin_panic_handler

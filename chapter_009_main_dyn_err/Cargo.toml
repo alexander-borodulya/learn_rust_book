@@ -3,7 +3,6 @@ authors = ["Alexander Borodulya <alexander.borodulya@gmail.com>"]
 name = "chapter_009_main_dyn_err"
 version = "0.1.0"
 edition = "2021"
-# default-run = "learn_rust_book"
 
 [dependencies]
 rust_book = { path = "../rust_book" }

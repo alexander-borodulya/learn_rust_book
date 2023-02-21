@@ -43,7 +43,7 @@ use module_b::submodule_b;
 use crate::chapter_007_4_reexport;
 
 pub fn chapter_007_4_impl() {
-    println!("chapter_007_4 - Bringing Paths into Scope with the use Keyword");
+    println!("7.4. Bringing Paths into Scope with the use Keyword");
 
     // 1 - Bringing Paths into Scope with the use Keyword
     {

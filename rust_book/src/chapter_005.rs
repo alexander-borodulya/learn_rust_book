@@ -1,12 +1,12 @@
 pub fn run () {
-    println!("Chapter 005: Using Structs to Structure Related Data");
-    section_5_1();
-    section_5_2();
-    section_5_3();
+    println!("5. Using Structs to Structure Related Data");
+    chapter_5_1();
+    chapter_5_2();
+    chapter_5_3();
 }
 
-fn section_5_1 () {
-    println!("Section 5.1: Defining and Instantiating Structs");
+fn chapter_5_1 () {
+    println!("5.1. Defining and Instantiating Structs");
     let user1 = User {
         active: false,
         username: String::from("User 1"),
@@ -62,8 +62,8 @@ fn build_user(username: String, email: String) -> User {
 
 // ----------------------------------------------------------------
 
-fn section_5_2() {
-    println!("Section 5.2: An Example Program Using Structs");
+fn chapter_5_2() {
+    println!("5.2. An Example Program Using Structs");
     rectangles();
 }
 
@@ -119,8 +119,8 @@ fn rectangles() {
 
 // ----------------------------------------------------------------
 
-fn section_5_3() {
-    println!("Section 5.3: Method Syntax");
+fn chapter_5_3() {
+    println!("5.3. Method Syntax");
 
     #[derive(Debug)]
     struct Rectangle {

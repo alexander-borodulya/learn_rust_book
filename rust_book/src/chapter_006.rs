@@ -1,8 +1,8 @@
 pub fn run () {
-    println!("Chapter 006: Enums and Pattern Matching");
-    section_6_1();
-    section_6_2();
-    section_6_3();
+    println!("6. Enums and Pattern Matching");
+    chapter_6_1();
+    chapter_6_2();
+    chapter_6_3();
 }
 
 pub fn run_external () {
@@ -65,8 +65,8 @@ pub fn run_external () {
     }
 }
 
-fn section_6_1 () {
-    println!("Chapter 6.1: Defining an Enum");
+fn chapter_6_1 () {
+    println!("6.1. Defining an Enum");
     
     // 1
     #[derive(Debug)]
@@ -214,8 +214,8 @@ fn section_6_1 () {
     }
 }
 
-fn section_6_2() {
-    println!("Chapter 6.2: The match Control Flow Construct");
+fn chapter_6_2() {
+    println!("6.2. The match Control Flow Construct");
 
     // 1
     enum Coin {
@@ -386,8 +386,8 @@ fn section_6_2() {
     println!("s: {}", s);
 }
 
-fn section_6_3 () {
-    println!("Chapter 6.3: Concise Control Flow with if let");
+fn chapter_6_3 () {
+    println!("6.3. Concise Control Flow with if let");
 
     // Using match
     let some_int = Some(100);

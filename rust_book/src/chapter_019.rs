@@ -10,7 +10,7 @@ pub fn run() {
 }
 
 fn chapter_019_1() {
-    println!("19.1 - Unsafe Rust");
+    println!("19.1. Unsafe Rust");
 
     // Raw Pointers
     {
@@ -622,6 +622,8 @@ fn chapter_019_2() {
 }
 
 fn chapter_019_3() {
+    println!("19.3. Advanced Types");
+
     // Creating Type Synonyms with Type Aliases
     {
         // 1
@@ -787,6 +789,8 @@ fn chapter_019_3() {
 
 /// 19.4. Advanced Functions and Closures
 fn chapter_019_4() {
+    println!("19.4. Advanced Functions and Closures");
+
     // Function Pointers
     {
         
@@ -884,6 +888,8 @@ fn chapter_019_4() {
 }
 
 fn chapter_019_5() {
+    println!("19.5. Macros");
+    
     // Declarative Macros with macro_rules! for General Metaprogramming
     {
         #[macro_export]
