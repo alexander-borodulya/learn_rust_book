@@ -1,0 +1,13 @@
+[workspace]
+members = [
+    "chapter_007",
+    "chapter_009_main_dyn_err",
+    "chapter_011_math",
+    "chapter_012",
+    "chapter_013",
+    "chapter_014_add_one",
+    "chapter_014_sub_one",
+    "chapter_019_hello_macro",
+    "rust_book",
+    "rust_book_runner",
+]

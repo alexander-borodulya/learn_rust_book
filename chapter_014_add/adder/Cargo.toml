@@ -1,0 +1,12 @@
+[package]
+authors = ["Alexander Borodulya <alexander.borodulya@gmail.com>"]
+name = "adder"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+add_one = { path = "../add_one" }
+sub_one = { path = "../sub_one" }
+rand = "0.8.5"

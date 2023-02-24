@@ -1,0 +1,10 @@
+[package]
+authors = ["Alexander Borodulya <alexander.borodulya@gmail.com>"]
+name = "rust_book"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rand = "0.8.5"
+chapter_019_hello_macro = { path = "../chapter_019_hello_macro" }
+chapter_019_hello_macro_derive = { path = "../chapter_019_hello_macro/chapter_019_hello_macro_derive" }
