@@ -1,18 +1,52 @@
 # Introduction
 
-The purpose of this repository is purely self-learning Rust language concepts by coding, using the official Rust book as a base.
+The purpose of this repository is to improve understanding of Rust programming language concepts through coding, using the official Rust book as a foundation.
 
-The repository doesn’t contain any production-ready implementations nor pretends to be any complete project.
+Please note that the repository does not contain any production-ready implementations and is not intended to be a complete project.
 
-Meaning that the codebase structure doesn’t follow any design patterns and in most places as simple as possible (for instance, scope-based delimiters used).
+Therefore, the codebase structure does not follow any design patterns and is kept as simple as possible, with scope-based delimiters being used in most places.
 
 # Internal Structure
 
-The repository contains a bunch of workspaces:
-- `rust_book_runner` - workspace entry point that's responsible for enumerating and running a particular chapter;
-- `rust_book` - the workspace that contains implementations for each chapter;
-- All the rest of the workspaces are chapter-specific implementations where the workspace is a more convenient way to represent a code sample, compared to a module or a single `rs-file`.
+The repository consists of several workspaces:
 
-Each chapter has a corresponding `rs`-file (`rust_book/src/chapter_001.rs`) within the public function `pub fn run()` - a chapter entry point, which encapsulates sub-chapter calls.
+- `rust_book_runner` - serves as the workspace entry point and is responsible for enumerating and running a specific chapter.
+- `rust_book` - contains implementations for each chapter.
+- The other workspaces are chapter-specific implementations where the workspace is a more convenient way to represent a code sample compared to a module or a single rs-file.
 
-Each subchapter corresponds to a function in the format: `fn chapter_m_n()`, where `m` is the chapter index and `n` is the subchapter index.
+Each chapter has a corresponding rs-file (`rust_book/src/chapter_001.rs`) that contains a public function named `pub fn run(subchapter: u32)`. This function serves as the entry point for the chapter and encapsulates sub-chapter calls.
+
+Each subchapter corresponds to a function in the format `fn chapter_m_n()`, where `m` is the chapter index, and `n` is the subchapter index.
+
+# CLI
+
+```console
+$ rust_book_runner --help
+
+Run specific chapter and subchapter.
+
+To run a specific chapter and subchapter, you should specify the chapter ID in the format X.Y, where X is the chapter index and Y is the subchapter index.
+
+For example, to run Chapter 3, Subchapter 2, you would specify 3.2:
+
+$ rust_book_runner -c 3.2
+
+If the chapter ID consists of a single number, that means all subchapters under the specified chapter number will be run.
+
+If no chapter ID is specified, the most recent chapter will be run.
+
+Usage: rust_book_runner [OPTIONS]
+
+Options:
+  -c, --chapter-id <CHAPTER_ID>
+          Chapter ID. For example, `10.1`
+          
+          [default: "ChapterID (0, 0)"]
+
+  -l, --list
+          List available chapters
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+```

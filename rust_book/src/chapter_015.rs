@@ -1,6 +1,6 @@
 use std::{ops::{Add, AddAssign}, rc::{Rc, Weak}, cell::RefCell};
 
-pub fn run() {
+pub fn run(_subchapter_index: u32) {
     println!("15. Smart Pointers");
     chapter_015_1();
     chapter_015_2();

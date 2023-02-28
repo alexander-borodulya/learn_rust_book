@@ -1,4 +1,4 @@
-pub fn run() {
+pub fn run(_subchapter_index: u32) {
     println!("17. Fearless Concurrency");
     chapter_017_1();
     chapter_017_2();

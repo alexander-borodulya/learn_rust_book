@@ -2,7 +2,7 @@ use rand::Rng;
 use std::cmp::Ordering;
 use std::io;
 
-pub fn run () {
+pub fn run(_subchapter_index: u32) {
     println!("2. Programming a Guessing Game");
     println!("Guess the number");
 

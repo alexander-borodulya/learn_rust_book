@@ -1,6 +1,6 @@
 use std::{slice, ops::{Deref, DerefMut}, rc::Rc};
 
-pub fn run() {
+pub fn run(_subchapter_index: u32) {
     println!("19. Advanced Features");
     chapter_019_1();
     chapter_019_2();
