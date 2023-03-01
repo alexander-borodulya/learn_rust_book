@@ -1,4 +1,4 @@
-pub fn run() {
+pub fn run(_subchapter_index: u32) {
     println!("10. Generic Types, Traits, and Lifetimes");
     chapter_010_0();
     chapter_010_1();

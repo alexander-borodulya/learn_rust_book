@@ -1,6 +1,6 @@
 use std::{thread, time::Duration, sync::{mpsc, Mutex, Arc}};
 
-pub fn run() {
+pub fn run(_subchapter_index: u32) {
     println!("16. Fearless Concurrency");
     _chapter_016_1();
     _chapter_016_2();

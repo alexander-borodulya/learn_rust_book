@@ -46,7 +46,7 @@ pub fn chapter_007_3_crate_root_fn() {
 /// Chapter 7.4. Test re-export
 pub use chapter_007_4_reexport::submodule_reexport::test_submodule_re;
 
-pub fn run() {
+pub fn run(_subchapter_index: u32) {
     chapter_7_1();
     chapter_7_2();
     chapter_007_2();

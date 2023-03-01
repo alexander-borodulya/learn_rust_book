@@ -1,4 +1,4 @@
-pub fn run() {
+pub fn run(_subchapter_index: u32) {
     println!("18. Patterns and Matching");
     chapter_018_1();
     chapter_018_2();

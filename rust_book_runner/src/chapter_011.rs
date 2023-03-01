@@ -7,7 +7,7 @@ use chapter_011_math::sub;
 use chapter_011_math::mult;
 
 /// Runs payload test
-pub fn run() {
+pub fn run(_subchapter_index: u32) {
     println!("11. Writing Automated Tests");
     chapter_011_3();
 }

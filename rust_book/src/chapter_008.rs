@@ -1,4 +1,4 @@
-pub fn run() {
+pub fn run(_subchapter_index: u32) {
     println!("8. Common Collections");
     chapter_008_1();
     chapter_008_2();

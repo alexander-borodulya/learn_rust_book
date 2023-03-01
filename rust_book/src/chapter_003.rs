@@ -1,4 +1,4 @@
-pub fn run () {
+pub fn run(_subchapter_index: u32) {
     println!("3. Common Programming Concepts");
     chapter_3_1();
     chapter_3_2();

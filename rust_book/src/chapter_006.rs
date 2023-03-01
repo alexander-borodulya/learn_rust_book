@@ -1,11 +1,11 @@
-pub fn run () {
+pub fn run(_subchapter_index: u32) {
     println!("6. Enums and Pattern Matching");
     chapter_6_1();
     chapter_6_2();
     chapter_6_3();
 }
 
-pub fn run_external () {
+pub fn run_external (_subchapter_index: u32) {
 
     // Concise Control Flow with if let
     {

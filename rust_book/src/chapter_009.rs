@@ -1,6 +1,6 @@
 use std::error::Error;
 
-pub fn run() {
+pub fn run(_subchapter_index: u32) {
     println!("9. Error Handling");
     chapter_009_1();
     chapter_009_2().expect("rust_book::chapter_009_2 failed");

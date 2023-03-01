@@ -2,7 +2,7 @@ use std::env;
 use std::fs;
 
 /// Chapter 12. Run code samples
-pub fn run() {
+pub fn run(_subchapter_index: u32) {
     _ch_12_03_06_002();
 }
 

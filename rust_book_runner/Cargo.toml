@@ -6,6 +6,7 @@ edition = "2021"
 default-run = "rust_book_runner"
 
 [dependencies]
+clap = { version = "4.1.6", features = ["derive"] }
 
 # Local dependencies
 rust_book = { path = "../rust_book" }

@@ -5,7 +5,7 @@ use std::ops::RangeInclusive;
 use rand::Rng;
 
 /// adder entry point - fun function (i.e. main function)
-pub fn run() {
+pub fn run(_subchapter_index: u32) {
     let i = 100;
     let ai = add_one::add_one(i);
     println!("add_one: {i} + 1 = {}", ai);

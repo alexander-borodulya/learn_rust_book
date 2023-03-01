@@ -1,4 +1,4 @@
-pub fn run () {
+pub fn run(_subchapter_index: u32) {
     println!("4. Understanding Ownership");
     chapter_4_1();
     chapter_4_2();

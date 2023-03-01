@@ -1,4 +1,4 @@
-pub fn run () {
+pub fn run(_subchapter_index: u32) {
     println!("5. Using Structs to Structure Related Data");
     chapter_5_1();
     chapter_5_2();
