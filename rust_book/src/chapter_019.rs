@@ -151,8 +151,11 @@ fn chapter_019_1() {
         unsafe impl Send for A {}
         unsafe impl Sync for A {}
 
-        // Unsafe trait
-        unsafe trait ThisIsUnsafe {}
+        /// Unsafe trait
+        /// # Safety
+        /// Samle of the unsafe trait
+        unsafe trait ThisIsUnsafe {
+        }
         unsafe impl ThisIsUnsafe for A {}
     }
 
@@ -173,15 +176,15 @@ fn chapter_019_1() {
         impl std::fmt::Display for A {
             fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
                 unsafe {
-                    write!(f, "union A {{\n")?;
-                    write!(f, "    i_32  = {:?}\n", self.i_32)?;
-                    write!(f, "    i_16  = {:?}\n", self.i_16)?;
-                    write!(f, "    i_8   = {:?}\n", self.i_8)?;
-                    write!(f, "    u_8   = {:?}\n", self.u_8)?;
-                    write!(f, "    i_t_4 = {:?}\n", self.i_t_4)?;
-                    write!(f, "    u_t_4 = {:?}\n", self.u_t_4)?;
-                    write!(f, "    i_a_4 = {:?}\n", self.i_a_4)?;
-                    write!(f, "}} union A\n")
+                    writeln!(f, "union A {{")?;
+                    writeln!(f, "    i_32  = {:?}", self.i_32)?;
+                    writeln!(f, "    i_16  = {:?}", self.i_16)?;
+                    writeln!(f, "    i_8   = {:?}", self.i_8)?;
+                    writeln!(f, "    u_8   = {:?}", self.u_8)?;
+                    writeln!(f, "    i_t_4 = {:?}", self.i_t_4)?;
+                    writeln!(f, "    u_t_4 = {:?}", self.u_t_4)?;
+                    writeln!(f, "    i_a_4 = {:?}", self.i_a_4)?;
+                    writeln!(f, "}} union A")
                 }
             }
             // fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
@@ -609,7 +612,10 @@ fn chapter_019_2() {
         println!("v_of_i32: {}", &v_of_i32);
         dbg!("DEBUG: v_of_i32: {:?}", &v_of_i32);
 
-        let ref v_of_32_inner = *v_of_i32;
+        // clippy warning:
+        // warning: `ref` on an entire `let` pattern is discouraged, take a reference with `&` instead
+        // let ref v_of_32_inner = *v_of_i32;
+        let v_of_32_inner = &(*v_of_i32);
         println!("v_of_32_inner: {:?}", v_of_32_inner);
         println!("v_of_32_inner.len = {}", v_of_32_inner.len());
 
@@ -641,6 +647,7 @@ fn chapter_019_3() {
             type CloType = Box<dyn Fn() + Send + 'static>;
             let f: CloType = Box::new(|| println!("test"));
 
+            #[allow(clippy::borrowed_box)]
             fn takes_f_returns_f<'a>(
                 f: &'a Box<dyn Fn() + Send + 'static>
             ) -> &'a Box<dyn Fn() + Send + 'static>
@@ -649,7 +656,7 @@ fn chapter_019_3() {
                 f
             }
 
-            fn takes_f_returns_f_too<'a>(f: &'a CloType) -> &'a CloType {
+            fn takes_f_returns_f_too(f: &CloType) -> &CloType {
                 f();
                 f
             }
@@ -757,17 +764,17 @@ fn chapter_019_3() {
 
         // 2 - Unsized examples - ?Sized
         {
-            fn usized_with_ref_t<'a, T: ?Sized + std::fmt::Debug> (arg: &'a T) -> &'a T {
+            fn usized_with_ref_t<T: ?Sized + std::fmt::Debug> (arg: &T) -> &T {
                 println!("usized_with_ref_t :: arg: {:?}", &arg);
                 arg
             }
 
-            fn usized_with_box_t<'a, T:?Sized + std::fmt::Debug> (arg: Box<T>) -> Box<T> {
+            fn usized_with_box_t<T:?Sized + std::fmt::Debug> (arg: Box<T>) -> Box<T> {
                 println!("usized_with_box_t :: arg: {:?}", &arg);
                 arg
             }
 
-            fn usized_with_rc_t<'a, T:?Sized + std::fmt::Debug> (arg: Rc<T>) -> Rc<T> {
+            fn usized_with_rc_t<T:?Sized + std::fmt::Debug> (arg: Rc<T>) -> Rc<T> {
                 println!("usized_with_rc_t :: arg: {:?}", &arg);
                 arg
             }
@@ -821,7 +828,7 @@ fn chapter_019_4() {
             let vs1 = v.iter().map(|x| x.to_string()).collect::<Vec<String>>();
 
             fn my_to_string(x: &i32) -> String {
-                format!(" :: {} :: ", x.to_string())
+                format!(" :: {} :: ", x)
             }
             let vs2 = v.iter().map(my_to_string).collect::<Vec<String>>();
 
@@ -891,6 +898,9 @@ fn chapter_019_5() {
     println!("19.5. Macros");
     
     // Declarative Macros with macro_rules! for General Metaprogramming
+    // Allowed on purpose to suppress the clippy warning:
+    // https://rust-lang.github.io/rust-clippy/master/index.html#vec_init_then_push
+    #[allow(clippy::vec_init_then_push)]
     {
         #[macro_export]
         macro_rules! my_vec {

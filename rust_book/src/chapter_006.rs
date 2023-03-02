@@ -82,7 +82,7 @@ fn chapter_6_1 () {
     println!("v6: {:?}", v6);
 
     // 2
-    println!("");
+    println!();
 
     #[derive(Debug)]
     struct IpAddr {
@@ -113,7 +113,7 @@ fn chapter_6_1 () {
     IpAddr::print(&loopback);
 
     // 3
-    println!("");
+    println!();
     
     #[derive(Debug)]
     enum IpAddrConcise {
@@ -125,7 +125,7 @@ fn chapter_6_1 () {
     println!("IpAddrConcise: v4: {:?}, v6: {:?}", v4, v6);
 
     // 4
-    println!("");
+    println!();
     
     #[derive(Debug)]
     enum IpAddr2 {
@@ -138,7 +138,7 @@ fn chapter_6_1 () {
     println!("IpAddr2: v4: {:?}, v6: {:?}", v4, v6);
 
     // 5
-    println!("");
+    println!();
     
     #[derive(Debug)]
     struct IpAddrV4 {}
@@ -161,7 +161,7 @@ fn chapter_6_1 () {
     
     {
         use crate::common::chapter_006::Message;
-        println!("");
+        println!();
     
         let msg = Message::Quit;
         println!("msg: {:?}", msg);
@@ -181,7 +181,7 @@ fn chapter_6_1 () {
     }
 
     // The Option enum
-    println!("");
+    println!();
     
     {
         // Just Private Scope
@@ -240,7 +240,7 @@ fn chapter_6_2() {
     println!("Coin::Quater: {:?}", values_in_cents(Coin::Quater));
 
     // 2. Patterns that binds to values
-    println!("");
+    println!();
     
     #[derive(Debug)]
     enum GroupA {
@@ -323,7 +323,7 @@ fn chapter_6_2() {
     }
 
     // 3. Matching with Option<T>
-    println!("");
+    println!();
     
     fn handle_option_t(ov: Option<i32>) {
         match ov {
@@ -336,7 +336,7 @@ fn chapter_6_2() {
     handle_option_t(Some(100));
 
     // 4. Catch All and the _ Placeholder
-    println!("");
+    println!();
     
     fn handle_i32(i: i32) {
         match i {
@@ -368,13 +368,13 @@ fn chapter_6_2() {
         let string_value = match some_i32_value {
             10 => String::from("Ten"),
             11 => String::from("Eleven"),
-            other => String::from(format!("Other i32 values, {}", other)),
+            other => format!("Other i32 values, {}", other),
         };
         println!("handle_i32_underscore: some_i32_value: {}, string_value: {}", some_i32_value, string_value);
         string_value
     }
 
-    println!("");
+    println!();
 
     let s = handle_i32_to_string(0);
     println!("s: {}", s);
@@ -419,21 +419,21 @@ fn chapter_6_3 () {
     }
     
     #[derive(Debug)]
-    enum ETC {
+    enum Etc {
         ETC1,
         ETC2(ET),
     }
 
-    fn print_etc2_only(etc: ETC) {
-        if let ETC::ETC2(etc_etc2) = etc {
+    fn print_etc2_only(etc: Etc) {
+        if let Etc::ETC2(etc_etc2) = etc {
             println!("Sub-enum passed: {:?}", etc_etc2);
         } else {
             println!("Sub-enum else: {:?}", etc);
         }
     }
 
-    print_etc2_only(ETC::ETC1);
-    print_etc2_only(ETC::ETC2(ET::ET1));
-    print_etc2_only(ETC::ETC2(ET::ET2));
-    print_etc2_only(ETC::ETC2(ET::ET3));
+    print_etc2_only(Etc::ETC1);
+    print_etc2_only(Etc::ETC2(ET::ET1));
+    print_etc2_only(Etc::ETC2(ET::ET2));
+    print_etc2_only(Etc::ETC2(ET::ET3));
 }

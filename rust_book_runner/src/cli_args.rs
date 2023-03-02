@@ -60,7 +60,7 @@ fn parse_chapter_subchapter(s: &str) -> Result<ChapterID, Box<dyn Error + Send +
         return Ok(ChapterID::new(s.trim().parse()?, 0));
     }
 
-    let s = s.replace(" ", "");
+    let s = s.replace(' ', "");
     let s = s.trim_start_matches("ChapterID(");
     let s = s.trim();
     let s = s.trim_end_matches(')');
@@ -91,7 +91,7 @@ impl clap::builder::TypedValueParser for ChapterIdParser {
     ) -> Result<Self::Value, clap::Error> {
         let Some(arg_value) = value.to_str() else {
             let err = clap::Error::new(ErrorKind::ValueValidation)
-                .with_cmd(&cmd);
+                .with_cmd(cmd);
             return Err(err);
         };
         

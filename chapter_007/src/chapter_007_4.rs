@@ -69,14 +69,15 @@ pub fn chapter_007_4_impl() {
             use std::fmt;
             use std::io;
             
+            // Allowed on demo purposes
+            #[allow(clippy::let_and_return)]
             let f_fmt = || -> fmt::Result {
                 let r = fmt::Result::Ok(());
                 r
             };
             
             let f_io = || -> io::Result<i32> {
-                let r = io::Result::Ok(100);
-                r
+                io::Result::Ok(100)
             };
             
             println!("f_fmt: {:?}", f_fmt());

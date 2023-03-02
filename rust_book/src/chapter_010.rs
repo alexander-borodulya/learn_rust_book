@@ -274,6 +274,7 @@ fn chapter_010_1() {
 
         // impl <f64: std::fmt::Debug> MyObject <f64> {
         #[allow(non_camel_case_types)]
+        #[allow(clippy::builtin_type_shadow)]
         impl <f64> MyObject <f64>
         where
             f64: std::fmt::Debug
@@ -285,7 +286,7 @@ fn chapter_010_1() {
         }
 
         let mo_1 = MyObject::new("string value");
-        let mo_2 = MyObject::new_with_f64(3.14);
+        let mo_2 = MyObject::new_with_f64(13.14);
 
         println!("mo_1: {:?}, mo_2: {:?}", mo_1, mo_2)
     }
@@ -688,6 +689,8 @@ fn chapter_010_2() {
             let mut largest_index = 0;
             let mut current_index = 0;
 
+            // Allowed on demo purpose
+            #[allow(clippy::explicit_counter_loop)]
             for i in list {
                 if i > &list[largest_index] {
                     largest_index = current_index;
@@ -743,7 +746,7 @@ fn chapter_010_2() {
         // Conditionaly implemented ToString trait for Pair<T>
         impl <T: Display> ToString for Pair<T> {
             fn to_string(&self) -> String {
-                format!("Pair {{ x: {}, y: {} }}", self.x.to_string(), self.y.to_string())
+                format!("Pair {{ x: {}, y: {} }}", self.x, self.y)
             }
         }
 
@@ -890,13 +893,11 @@ fn chapter_010_2() {
             }
 
             fn get_my_trait_1() -> impl MyTrait {
-                let mo_1 = MyObject::new();
-                mo_1
+                MyObject::new()
             }
 
             fn get_my_trait_2() -> impl MyTrait {
-                let mo_1 = MyObjectB::new();
-                mo_1
+                MyObjectB::new()
             }
 
             //
@@ -951,9 +952,9 @@ fn chapter_010_3() {
 
     fn largest<'a >(l: &'a str, r: &'a str) -> &'a str {
         if l.len() > r.len() {
-            &l
+            l
         } else {
-            &r
+            r
         }
     }
 
@@ -1021,17 +1022,18 @@ fn chapter_010_3() {
         }
 
         let str_data = String::from("A B C");
-        let first_word = str_data.split(" ").next().unwrap();
+        let first_word = str_data.split(' ').next().unwrap();
 
         let _o1 = Object { data: "string slice" };
         let _o2 = Object { data: &str_data };
-        let _o3 = Object { data: &first_word };
+        let _o3 = Object { data: first_word };
 
         // _o3 can't live longer than the object that the inner data reference points to.
     }
 
     // Lifetime Elision
     {
+        #[allow(clippy::redundant_slicing)]
         fn first_word(s: &str) -> &str {
             let bytes = s.as_bytes();
             for (i, &item) in bytes.iter().enumerate() {
@@ -1043,7 +1045,7 @@ fn chapter_010_3() {
         }
 
         let s = "11 22 33";
-        let r = first_word(&s);
+        let r = first_word(s);
         println!("first_word of [{}] string is [{}]", s, r);
     }
 
@@ -1068,7 +1070,7 @@ fn chapter_010_3() {
 
         let s1 = "11111";
         let s2 = "15";
-        let _r = largest(&s1, &s2, "Rust Lifetime Annotations");
+        let _r = largest(s1, s2, "Rust Lifetime Annotations");
         println!("{}", _r);
     }
 }

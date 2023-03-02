@@ -10,6 +10,7 @@ fn chapter_018_1() {
 
     // match Arms
     {
+        #[allow(clippy::manual_map)]
         let x = match Some(10) {
             None => None,
             Some(i) => Some(i + 5),
@@ -65,7 +66,7 @@ fn chapter_018_1() {
     // let Statements
     {
         let (a, b, c) = (10, 20, 30);
-        let (x, y, z) = (1.2, "2", 3 as usize);
+        let (x, y, z) = (1.2, "2", 3_usize);
         println!("a = {}, b = {}, c = {}", a, b, c);
         println!("x = {}, y = {}, z = {}", x, y, z);
     }
@@ -276,13 +277,13 @@ fn chapter_018_3() {
         fn message_to_string(m: Message) -> String {
             match m {
                 Message::Quit =>
-                    "enum: Message::Quit".to_string(),
+                    "enum: Message::Quit".to_owned(),
                 Message::Move { x, y } => 
-                    format!("struct: Message::Move: {{ x: {x}, y: {y} }},").to_string(),
+                    format!("struct: Message::Move: {{ x: {x}, y: {y} }},"),
                 Message::Write(s) =>
-                    format!("string: Message::Write({s})").to_string(),
+                    format!("string: Message::Write({s})"),
                 Message::Color(r, g, b) =>
-                    format!("tuple: Message::Color({r}, {g}, {b})").to_string(),
+                    format!("tuple: Message::Color({r}, {g}, {b})"),
             }
         }
         let s = message_to_string(Message::Quit);
@@ -353,6 +354,9 @@ fn chapter_018_3() {
     // Ignoring Parts of a Value with a Nested _
     {
         let n = (5, 10, 15, 20, 25);
+
+        // Allow on demonstration purpose
+        #[allow(clippy::match_single_binding)]
         match n {
             (_, s, _, _, f) => {
                 println!("second part = {:?}", s);
@@ -397,6 +401,7 @@ fn chapter_018_3() {
         
         let s = Some(String::from("test"));
         // The owner of s still the same
+        #[allow(clippy::redundant_pattern_matching)]
         if let Some(_) = s {
             println!("s = {:?}", s);
         }
@@ -408,6 +413,8 @@ fn chapter_018_3() {
 
         let p4 = Point4::new(10, 20, 30, 40);
 
+        // Allow on demonstration purpose
+        #[allow(clippy::match_single_binding)]
         match p4 {
             // Point4 { x, y: _, z: _, w: _, .. } => {
             Point4 { x, .. } => {
@@ -417,6 +424,8 @@ fn chapter_018_3() {
 
         let numbers = (2, 4, 8, 16, 32, 64, 128);
 
+        // Allow on demonstration purpose
+        #[allow(clippy::match_single_binding)]
         match numbers {
             (first, .., last) => {
                 println!("Some numbers: {first}, {last}");

@@ -46,6 +46,12 @@ impl Button {
     }
 }
 
+impl Default for Button {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Draw for Button {
     fn draw(&self) {
         println!("Button: draw: {:?}", self);
@@ -57,6 +63,12 @@ pub struct Label {
     width: usize,
     height: usize,
     text: String,
+}
+
+impl Default for Label {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl Label {

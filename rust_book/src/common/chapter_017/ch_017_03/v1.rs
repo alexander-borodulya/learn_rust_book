@@ -19,7 +19,7 @@ trait State : std::fmt::Debug {
         ""
     }
     fn state_name(&self) -> String {
-        format!("{:?}", self).to_string()
+        format!("{:?}", self)
     }
     fn as_any(&self) -> &dyn Any;
 }
@@ -27,6 +27,12 @@ trait State : std::fmt::Debug {
 pub struct Post {
     state: Option<Box<dyn State>>,
     content: String,
+}
+
+impl Default for Post {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl Post {
@@ -54,23 +60,22 @@ impl Post {
                         self.content.push_str(text);
                     },
                     _ => {
-                        println!("");
+                        println!();
                         println!("    Post::add_text skipped,");
                         println!("    State is not a Draft,");
                         println!("    Skipped text:");
                         println!("        {:?}", text);
-                        println!("");
-                        ()
+                        println!();
                     },
                 }
             },
             None => {
-                println!("");
+                println!();
                 println!("    Post::add_text skipped,");
                 println!("    State is None,");
                 println!("    Skipped text:");
                 println!("        {:?}", text);
-                println!("");
+                println!();
             },
         }
 
@@ -92,12 +97,12 @@ impl Post {
         //             self.content.push_str(text);
         //         },
         //         _ => {
-        //             println!("");
+        //             println!();
         //             println!("    Post::add_text skipped,");
         //             println!("    State is not a Draft,");
         //             println!("    Skipped text:");
         //             println!("        :{:?}", text);
-        //             println!("");
+        //             println!();
         //         },
         //     };
         // }
@@ -108,7 +113,7 @@ impl Post {
         let s_ref = self.state.as_ref();
         let s_box = s_ref.unwrap();
         let s_cnt = s_box.content(self);
-        &s_cnt
+        s_cnt
 
         // Compact version
         // self.state.as_ref().unwrap().content(self)

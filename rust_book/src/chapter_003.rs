@@ -100,22 +100,22 @@ fn chapter_3_2 () {
     let var_i8_o = i8::wrapping_add(var_i8_o, 1);
     println!("var_i8_o + 1: {}", var_i8_o); // -128
     
-    let var_i8_o: Option<i8> = i8::checked_add(126 as i8, 1 as i8);
+    let var_i8_o: Option<i8> = i8::checked_add(126_i8, 1_i8);
     println!("i8::checked_add(126 as i8, 1 as i8): {:?}", var_i8_o); // Some(127)
     
-    let var_i8_o: Option<i8> = i8::checked_add(127 as i8, 1 as i8);
+    let var_i8_o: Option<i8> = i8::checked_add(127_i8, 1_i8);
     println!("i8::checked_add(127 as i8, 1 as i8): {:?}", var_i8_o); // None
 
-    let var_i8_o: (i8, bool) = i8::overflowing_add(126 as i8, 1 as i8);
+    let var_i8_o: (i8, bool) = i8::overflowing_add(126_i8, 1_i8);
     println!("i8::overflowing_add(126 as i8, 1 as i8): {:?}", var_i8_o); // (127, false)
     
-    let var_i8_o: (i8, bool) = i8::overflowing_add(127 as i8, 1 as i8);
+    let var_i8_o: (i8, bool) = i8::overflowing_add(127_i8, 1_i8);
     println!("i8::overflowing_add(127 as i8, 1 as i8): {:?}", var_i8_o); // (-128, true)
 
-    let var_i8_o = i8::saturating_add(126 as i8, 1 as i8);
+    let var_i8_o = i8::saturating_add(126_i8, 1_i8);
     println!("i8::saturating_add(126 as i8, 1 as i8): {}", var_i8_o); // 127
     
-    let var_i8_o = i8::saturating_add(127 as i8, 1 as i8);
+    let var_i8_o = i8::saturating_add(127_i8, 1_i8);
     println!("i8::saturating_add(127 as i8, 1 as i8): {}", var_i8_o); // 127
 
     // Floating-Point Types...
@@ -162,6 +162,7 @@ fn chapter_3_2 () {
     println!("{:p} {:p} {:p}", &var_tup1, &var_tup1.0, &sub1);
 
     // Unit type and unit value
+    #[allow(clippy::let_unit_value)]
     let var_unit: () = ();
     println!("var_unit: {:?}", var_unit);
 
