@@ -169,6 +169,13 @@ fn chapter_017_3() {
                 println!("A: consume: {:?}", self.data);
             }
 
+            // From the Rust Book:
+            // This syntax means the method is only valid when called on a Box holding the type. 
+            // This syntax takes ownership of Box<Self>, invalidating the old state
+            // so the state value of the Post can transform into a new state.
+            //
+            // Allowed on purpose
+            #[allow(clippy::boxed_local)]
             fn consume_boxed(self: Box<Self>) {
                 println!("A: consume_boxed: {:?}", self.data);
             }

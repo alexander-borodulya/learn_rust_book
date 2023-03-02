@@ -48,6 +48,7 @@ fn makes_copy(x: i32) {
     println!("x: {}", x);
 }
 
+#[allow(clippy::let_and_return)]
 fn gives_ownership() -> String {
     let s = String::from("From gives_ownership");
     s
@@ -99,7 +100,7 @@ fn chapter_4_2 () {
 }
 
 fn calculate_length(s: &String) -> usize {
-    return s.len()
+    s.len()
 }
 
 fn change(s: &mut String) {
@@ -128,7 +129,7 @@ fn chapter_4_3 () {
                             " a "];
     let nth = 0;
     for s in strings {
-        let test_s = String::from_str(&s).unwrap();
+        let test_s = String::from_str(s).unwrap();
         let w = nth_word(&test_s, nth);
         println!("s: {}, nth: {}, w: {}", s, nth, w);
     }
@@ -147,6 +148,8 @@ fn first_word(s: &str) -> &str {
             return &s[0..i];
         }
     }
+    // Allowed on purpose.
+    #[allow(clippy::redundant_slicing)]
     return &s[..]
 }
 
@@ -173,5 +176,5 @@ fn nth_word(s: &String, n: i32) -> &str {
         }
     }
     
-    return &s[from..to]
+    &s[from..to]
 }

@@ -51,6 +51,9 @@ struct User {
     sign_in_count: u64,
 }
 
+// Allowd on purpose
+#[allow(clippy::redundant_field_names)]
+#[allow(clippy::needless_return)]
 fn build_user(username: String, email: String) -> User {
     return User {
         active: true,
@@ -138,6 +141,8 @@ fn chapter_5_3() {
             self.width > 0
         }
 
+        // Specify type of self explicitly
+        #[allow(clippy::needless_arbitrary_self_type)]
         fn height(self: &Self) -> i32 {
             self.height
         }

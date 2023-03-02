@@ -18,8 +18,7 @@ pub fn run(_subchapter_index: u32) {
 pub fn add_sub_mult(left: isize, right: isize) -> isize {
     let p1 = add(left, right);
     let p2 = sub(left, right);
-    let p3 = mult(p1, p2);
-    p3
+    mult(p1, p2)
 }
 
 fn chapter_011_3() {

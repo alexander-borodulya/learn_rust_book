@@ -11,6 +11,7 @@ pub struct DraftPost {
 }
 
 impl Post {
+    #[allow(clippy::new_ret_no_self)]
     pub fn new() -> DraftPost {
         DraftPost { content: String::new() }
     }
@@ -21,6 +22,12 @@ impl Post {
 
     pub fn content(&self) -> &str {
         &self.content
+    }
+}
+
+impl Default for DraftPost {
+    fn default() -> Self {
+        Self::new()
     }
 }
 

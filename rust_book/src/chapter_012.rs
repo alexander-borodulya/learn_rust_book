@@ -27,7 +27,7 @@ fn _ch_12_02() {
     println!("Searching for {}", query);
     println!("In file {}", file_path);
 
-    let contents = fs::read_to_string(&file_path)
+    let contents = fs::read_to_string(file_path)
        .expect("Something went wrong reading the file");
 
     println!("[12.2] With text:\n{contents}");

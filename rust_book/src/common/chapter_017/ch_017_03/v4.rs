@@ -8,7 +8,7 @@ trait State : std::fmt::Debug {
         ""
     }
     fn state_name(&self) -> String {
-        format!("{:?}", self).to_string()
+        format!("{:?}", self)
     }
     fn pass_through<'a >(&self, _text: &'a str) -> &'a str {
         ""
@@ -22,6 +22,12 @@ trait State : std::fmt::Debug {
 pub struct Post {
     state: Option<Box<dyn State>>,
     content: String,
+}
+
+impl Default for Post {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl Post {
@@ -59,7 +65,7 @@ impl Post {
         let s_ref = self.state.as_ref();
         let s_box = s_ref.unwrap();
         let s_cnt = s_box.content(self);
-        &s_cnt
+        s_cnt
 
         // Compact version
         // self.state.as_ref().unwrap().content(self)

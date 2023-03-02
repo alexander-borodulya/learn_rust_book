@@ -31,8 +31,8 @@ pub fn make_chapters() -> ChaptersHashMap {
     chapters.insert(3, chapter_003::run);
     chapters.insert(4, chapter_004::run);
     chapters.insert(5, chapter_005::run);
-    chapters.insert(6, chapter_006::run);
     chapters.insert(6, chapter_006::run_external);
+    chapters.insert(6, chapter_006::run);
     chapters.insert(7, chapter_007::run);
     chapters.insert(8, chapter_008::run);
     chapters.insert(9, chapter_009::run);

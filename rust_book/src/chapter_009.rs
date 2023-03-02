@@ -24,7 +24,8 @@ pub fn chapter_009_3() {
                 }
             };
 
-            if guess < 1 || guess > 100 {
+            // if guess < 1 || guess > 100 {
+            if !(1..=100).contains(&guess) {
                 println!("The secret number must be between 1 and 100.");
                 continue;
             }
@@ -48,6 +49,7 @@ pub fn chapter_009_3() {
 
             impl Guess {
                 pub fn new(value: i32) -> Guess {
+                    #[allow(clippy::manual_range_contains)]
                     if value < 1 || value > 100 {
                         panic!("Guess range must be between 1 and 100: {}", value);
                     }
