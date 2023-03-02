@@ -1,20 +1,20 @@
 use std::collections::HashMap;
 
+use crate::chapter_011;
+use crate::chapter_012 as chapter_012_runner;
+use crate::chapter_013;
+use crate::chapter_014;
+use chapter_007;
 use rust_book::chapter_001;
 use rust_book::chapter_002;
 use rust_book::chapter_003;
 use rust_book::chapter_004;
 use rust_book::chapter_005;
 use rust_book::chapter_006;
-use chapter_007;
 use rust_book::chapter_008;
 use rust_book::chapter_009;
 use rust_book::chapter_010;
-use crate::chapter_011;
-use crate::chapter_012 as chapter_012_runner;
 use rust_book::chapter_012 as chapter_012_samples;
-use crate::chapter_013;
-use crate::chapter_014;
 use rust_book::chapter_015;
 use rust_book::chapter_016;
 use rust_book::chapter_017;

@@ -41,7 +41,9 @@ impl Button {
 
     pub fn new_with_args(width: usize, height: usize, label: String) -> Button {
         Button {
-            width, height, label,
+            width,
+            height,
+            label,
         }
     }
 }

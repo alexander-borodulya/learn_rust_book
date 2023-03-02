@@ -1,6 +1,6 @@
 //! add_one library crate
-use std::ops::RangeInclusive;
 use rand::Rng;
+use std::ops::RangeInclusive;
 
 /// Adds one to the argument and returns result
 pub fn add_one(x: i32) -> i32 {

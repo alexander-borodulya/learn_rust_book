@@ -1,16 +1,16 @@
 #![allow(dead_code)]
 
 // Initial implementation of the state pattern
-// 
+//
 // Allow users to add text content only when a post is in the Draft state - based on explicit type check
 
-use std::any::{Any};
+use std::any::Any;
 
-/// NOTE: 
+/// NOTE:
 /// For the `trait State : std::fmt::Debug {`
 /// `format!("{:?}", self).to_string()` below converts to string a type of an object that trait object points to
-trait State : std::fmt::Debug {
-// trait State {
+trait State: std::fmt::Debug {
+    // trait State {
     fn request_review(self: Box<Self>) -> Box<dyn State>;
     fn approve(self: Box<Self>) -> Box<dyn State>;
     fn reject(self: Box<Self>) -> Box<dyn State>;
@@ -51,22 +51,19 @@ impl Post {
     }
 
     pub fn add_text(&mut self, text: &str) {
-
         // Trait type check v1 - Expanded with verbosity
         match self.state.as_ref() {
-            Some(state) => {
-                match state.as_any().downcast_ref::<Draft>() {
-                    Some(_) => {
-                        self.content.push_str(text);
-                    },
-                    _ => {
-                        println!();
-                        println!("    Post::add_text skipped,");
-                        println!("    State is not a Draft,");
-                        println!("    Skipped text:");
-                        println!("        {:?}", text);
-                        println!();
-                    },
+            Some(state) => match state.as_any().downcast_ref::<Draft>() {
+                Some(_) => {
+                    self.content.push_str(text);
+                }
+                _ => {
+                    println!();
+                    println!("    Post::add_text skipped,");
+                    println!("    State is not a Draft,");
+                    println!("    Skipped text:");
+                    println!("        {:?}", text);
+                    println!();
                 }
             },
             None => {
@@ -76,7 +73,7 @@ impl Post {
                 println!("    Skipped text:");
                 println!("        {:?}", text);
                 println!();
-            },
+            }
         }
 
         // // Trait type check v1 - Compact without verbosity
@@ -172,11 +169,11 @@ impl State for PendingReview {
     fn request_review(self: Box<Self>) -> Box<dyn State> {
         self
     }
-    
+
     fn approve(self: Box<Self>) -> Box<dyn State> {
         Box::new(PendingReviewFinal {})
     }
-    
+
     fn reject(self: Box<Self>) -> Box<dyn State> {
         Box::new(Draft {})
     }
@@ -193,7 +190,7 @@ impl State for PendingReviewFinal {
     fn request_review(self: Box<Self>) -> Box<dyn State> {
         self
     }
-    
+
     fn approve(self: Box<Self>) -> Box<dyn State> {
         Box::new(Published {})
     }

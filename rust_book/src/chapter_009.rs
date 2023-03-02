@@ -31,12 +31,20 @@ pub fn chapter_009_3() {
             }
 
             match guess.cmp(&secret_number) {
-                std::cmp::Ordering::Less => println!("Less: guess = {}, secret_number = {}", guess, secret_number),
+                std::cmp::Ordering::Less => {
+                    println!("Less: guess = {}, secret_number = {}", guess, secret_number)
+                }
                 std::cmp::Ordering::Equal => {
-                    println!("Equal: guess = {}, secret_number = {}", guess, secret_number);
+                    println!(
+                        "Equal: guess = {}, secret_number = {}",
+                        guess, secret_number
+                    );
                     break;
                 }
-                std::cmp::Ordering::Greater => println!("Greater: guess = {}, secret_number = {}", guess, secret_number),
+                std::cmp::Ordering::Greater => println!(
+                    "Greater: guess = {}, secret_number = {}",
+                    guess, secret_number
+                ),
             }
         }
 
@@ -56,7 +64,7 @@ pub fn chapter_009_3() {
                     Guess { value }
                 }
 
-                pub fn value(&self) -> i32 { 
+                pub fn value(&self) -> i32 {
                     self.value
                 }
             }

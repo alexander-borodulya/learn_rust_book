@@ -1,6 +1,6 @@
-use std::fs;
-use std::error::Error;
 use std::env;
+use std::error::Error;
+use std::fs;
 
 pub struct Config {
     pub query: String,
@@ -9,10 +9,7 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn build(
-        mut args: impl Iterator<Item = String>,
-    ) -> Result<Config, &'static str> {
-
+    pub fn build(mut args: impl Iterator<Item = String>) -> Result<Config, &'static str> {
         args.next(); // skip the program name
 
         let query = match args.next() {
@@ -30,12 +27,12 @@ impl Config {
         };
 
         let ignore_case_env_var = env::var("IGNORE_CASE").is_ok();
-        let ignore_case_arg_var = env::args().any(|s| s == "-i" || s == "--ignore-case" );
+        let ignore_case_arg_var = env::args().any(|s| s == "-i" || s == "--ignore-case");
         let ignore_case = ignore_case_env_var || ignore_case_arg_var;
-        
+
         Ok(Config {
-            query, 
-            file_path, 
+            query,
+            file_path,
             ignore_case,
         })
     }
@@ -49,11 +46,11 @@ pub fn run(config: &Config) -> Result<(), Box<dyn Error>> {
     } else {
         search(&config.query, &contents)
     };
-    
+
     for line in results {
         println!("{line}");
     }
-    
+
     Ok(())
 }
 
@@ -64,10 +61,7 @@ pub fn search<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
         .collect()
 }
 
-pub fn search_case_insensitive<'a>(
-    query: &str, 
-    content: &'a str
-) -> Vec<&'a str> {
+pub fn search_case_insensitive<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
     let query = query.to_lowercase();
     let mut result = Vec::new();
     for line in content.lines() {
@@ -89,10 +83,10 @@ mod tests {
 one, one, one
 one, two, three
 1, 2, 3";
-        
+
         assert_eq!(vec!["one, two, three"], search(query, content));
     }
-    
+
     #[test]
     fn case_insensitive() {
         let query = "rUsT";

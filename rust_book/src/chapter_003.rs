@@ -7,15 +7,15 @@ pub fn run(_subchapter_index: u32) {
     chapter_3_5();
 }
 
-fn chapter_3_1 () {
+fn chapter_3_1() {
     println!("3.1. Variables and Mutability");
-    
+
     // Mutable var
     let mut x = 5;
     println!("x = {}", x);
     x = 20;
     println!("x = {}", x);
-    
+
     // Constant
     const MAX_ID: i32 = 1024;
     println!("MAX_ID = {}", MAX_ID);
@@ -23,11 +23,11 @@ fn chapter_3_1 () {
     // Shadowing
     let y = 10;
     println!("(1) y = {}", y);
-    
+
     // Shadows a value
     let y = 100;
     println!("(2) y = {}", y);
-    
+
     {
         // Shadows in a scope
         let y = 128;
@@ -50,9 +50,9 @@ fn chapter_3_1 () {
     // m = m.len(); // error: mismatched types
 }
 
-fn chapter_3_2 () {
+fn chapter_3_2() {
     println!("3.2. Data Types");
-    
+
     // Integers...
     let var_i8: i8 = i8::MAX;
     let var_i16: i16 = i16::MAX;
@@ -67,7 +67,7 @@ fn chapter_3_2 () {
     println!("var_i64: {}", var_i64);
     println!("var_i128: {}", var_i128);
     println!("var_isize: {}", var_isize);
-    
+
     let var_u8: u8 = u8::MAX;
     let var_u16: u16 = u16::MAX;
     let var_u32: u32 = u32::MAX;
@@ -83,10 +83,13 @@ fn chapter_3_2 () {
     println!("var_usize: {}", var_usize);
 
     // Integer literals...
-    println!("Integer literals: {:?}", (1_024, 0xBEAF, 0o73, 0b101011001111, b'A'));
+    println!(
+        "Integer literals: {:?}",
+        (1_024, 0xBEAF, 0o73, 0b101011001111, b'A')
+    );
 
     // Integer Overflow...
-    
+
     // let var_i8_o: i8 = 126;
     // println!("var_i8_o {}", var_i8_o);
     // let var_i8_o: i8 = var_i8_o + 2; // thread 'main' panicked at 'attempt to add with overflow', src/chapter_003.rs:96:24
@@ -99,22 +102,22 @@ fn chapter_3_2 () {
 
     let var_i8_o = i8::wrapping_add(var_i8_o, 1);
     println!("var_i8_o + 1: {}", var_i8_o); // -128
-    
+
     let var_i8_o: Option<i8> = i8::checked_add(126_i8, 1_i8);
     println!("i8::checked_add(126 as i8, 1 as i8): {:?}", var_i8_o); // Some(127)
-    
+
     let var_i8_o: Option<i8> = i8::checked_add(127_i8, 1_i8);
     println!("i8::checked_add(127 as i8, 1 as i8): {:?}", var_i8_o); // None
 
     let var_i8_o: (i8, bool) = i8::overflowing_add(126_i8, 1_i8);
     println!("i8::overflowing_add(126 as i8, 1 as i8): {:?}", var_i8_o); // (127, false)
-    
+
     let var_i8_o: (i8, bool) = i8::overflowing_add(127_i8, 1_i8);
     println!("i8::overflowing_add(127 as i8, 1 as i8): {:?}", var_i8_o); // (-128, true)
 
     let var_i8_o = i8::saturating_add(126_i8, 1_i8);
     println!("i8::saturating_add(126 as i8, 1 as i8): {}", var_i8_o); // 127
-    
+
     let var_i8_o = i8::saturating_add(127_i8, 1_i8);
     println!("i8::saturating_add(127 as i8, 1 as i8): {}", var_i8_o); // 127
 
@@ -134,12 +137,18 @@ fn chapter_3_2 () {
     let div_quotient = 32.5 / 32.8;
     let div_floored = 2 / 3;
     let remainder = 43 % 5;
-    println!("{:?}", (sum, diff, prod, div_quotient, div_floored, remainder));
+    println!(
+        "{:?}",
+        (sum, diff, prod, div_quotient, div_floored, remainder)
+    );
 
     // The Boolean Type...
     let var_b = true;
     let var_b2: bool = false;
-    println!("{:?}", (var_b, var_b.to_string(), var_b2, var_b2.to_string()));
+    println!(
+        "{:?}",
+        (var_b, var_b.to_string(), var_b2, var_b2.to_string())
+    );
 
     // The Character Type...
     let avo1: char = '🥝';
@@ -156,7 +165,10 @@ fn chapter_3_2 () {
     println!("tuple destructing: {}, {}, {}", sub1, sub2, sub3);
 
     // Access tuples elements
-    println!("tuple access: {}, {}, {}", var_tup1.0, var_tup1.1, var_tup1.2);
+    println!(
+        "tuple access: {}, {}, {}",
+        var_tup1.0, var_tup1.1, var_tup1.2
+    );
 
     // Print tuple addresses
     println!("{:p} {:p} {:p}", &var_tup1, &var_tup1.0, &sub1);
@@ -180,8 +192,7 @@ fn chapter_3_2 () {
     let index = "3".to_string();
     // Enables command line user input
     // io::stdin().read_line(&mut index).expect("Failed to read line");
-    let index: usize = index
-        .trim().parse().expect("Entered index is not a number");
+    let index: usize = index.trim().parse().expect("Entered index is not a number");
     let element = var_arr3[index];
     println!("Index: {}, value: {}", index, element);
     for x in var_arr3 {
@@ -189,7 +200,7 @@ fn chapter_3_2 () {
     }
 }
 
-fn chapter_3_3 () {
+fn chapter_3_3() {
     println!("3.3. Functions");
     another_function(10);
     let x = 100;
@@ -206,15 +217,15 @@ fn chapter_3_3 () {
     println!("r = {}, some_add returns {}", r, some_add(10, 20));
 }
 
-fn another_function (x: i32) {
+fn another_function(x: i32) {
     println!("x: {}", x);
 }
 
-fn some_add (x: i32, y: i32) -> i32 {
+fn some_add(x: i32, y: i32) -> i32 {
     x + y
 }
 
-fn chapter_3_4 () {
+fn chapter_3_4() {
     println!("3.4. Comments");
     // Some comment
     // Another comment
@@ -223,7 +234,7 @@ fn chapter_3_4 () {
     */
 }
 
-fn chapter_3_5 () {
+fn chapter_3_5() {
     println!("3.5. Control Flow");
     let number = 51;
     if number > 3 {
@@ -233,7 +244,7 @@ fn chapter_3_5 () {
     }
 
     // if else if else ...
-    if number % 4 == 0{
+    if number % 4 == 0 {
         println!("div by 4");
     } else if number % 3 == 0 {
         println!("div by 3");
@@ -242,7 +253,11 @@ fn chapter_3_5 () {
     }
 
     // Ternary operator
-    let result = if number == 51 { "Number is 51" } else { "False" };
+    let result = if number == 51 {
+        "Number is 51"
+    } else {
+        "False"
+    };
     println!("result: {}", result);
 
     // Repeating code with loop
@@ -296,7 +311,7 @@ fn chapter_3_5 () {
         println!("a[{}]: {}", i, a[i as usize]);
         i += 1;
     }
-    
+
     // Loop throught an array
     for e in a {
         println!("for range a[i]: {}", e);

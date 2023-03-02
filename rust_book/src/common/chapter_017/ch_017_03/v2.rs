@@ -13,7 +13,9 @@ pub struct DraftPost {
 impl Post {
     #[allow(clippy::new_ret_no_self)]
     pub fn new() -> DraftPost {
-        DraftPost { content: String::new() }
+        DraftPost {
+            content: String::new(),
+        }
     }
 
     pub fn new_post_with_string(content: String) -> Post {
@@ -33,7 +35,9 @@ impl Default for DraftPost {
 
 impl DraftPost {
     pub fn new() -> DraftPost {
-        DraftPost { content: String::new() }
+        DraftPost {
+            content: String::new(),
+        }
     }
 
     pub fn new_post_with_string(content: String) -> DraftPost {
@@ -57,11 +61,11 @@ impl PendingReviewPost {
     pub fn new(content: String) -> PendingReviewPost {
         PendingReviewPost { content }
     }
-    
+
     pub fn approve(self) -> PendingFinalReviewPost {
         PendingFinalReviewPost::new(self.content)
     }
-    
+
     pub fn reject(self) -> DraftPost {
         DraftPost::new_post_with_string(self.content)
     }
@@ -75,11 +79,11 @@ impl PendingFinalReviewPost {
     pub fn new(content: String) -> PendingFinalReviewPost {
         PendingFinalReviewPost { content }
     }
-    
+
     pub fn approve(self) -> Post {
         Post::new_post_with_string(self.content)
     }
-    
+
     pub fn reject(self) -> DraftPost {
         DraftPost::new_post_with_string(self.content)
     }

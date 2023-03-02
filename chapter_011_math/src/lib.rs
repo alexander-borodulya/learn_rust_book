@@ -14,13 +14,13 @@ pub fn mult(left: isize, right: isize) -> isize {
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn test_add() {
         let result = add(2, 2);
         assert_eq!(result, 4);
     }
-    
+
     #[test]
     fn test_sub() {
         let result = sub(2, 2);

@@ -57,7 +57,7 @@ fn chapter_018_1() {
 
     // for Loops
     {
-        let v = vec![1, 2, 3, 4, 5, 6, 7, 8,];
+        let v = vec![1, 2, 3, 4, 5, 6, 7, 8];
         for (index, value) in v.iter().enumerate() {
             println!("index = {}, value = {}", index, value);
         }
@@ -79,7 +79,7 @@ fn chapter_018_1() {
 
         let c = (2.2, 4.4);
         print_coordinates(&c);
-        
+
         // Using a closure
         let c_pc = |&(x, y): &(i32, i32)| {
             println!("c_pc :: x = {}, y = {}", x, y);
@@ -103,13 +103,13 @@ fn chapter_018_2() {
     let x = if let Some(sub_x) = o_val {
         println!("sub_x = {sub_x}");
         sub_x
-    } else { 
+    } else {
         -1
     };
     println!("x = {x}");
 
     // 2
-    let a =  if x >= 10 {
+    let a = if x >= 10 {
         println!("x = {x}");
         20
     } else {
@@ -117,7 +117,7 @@ fn chapter_018_2() {
     };
     println!("a = {a}");
 
-    // 3 
+    // 3
     if let Some(b) = o_val {
         println!("b = {b}");
     }
@@ -153,7 +153,6 @@ fn chapter_018_3() {
                 Some(3) => "Some(three)".to_owned(),
                 Some(_) => "Some(_)".to_owned(),
                 None => "None".to_owned(),
-
                 // Alternative way to handle all other cases
                 // _ => "_ => _ anything".to_owned(),
             }
@@ -172,14 +171,14 @@ fn chapter_018_3() {
         let _x = Some(5);
         let x = None;
         let y = 10;
-    
+
         match x {
             Some(50) => println!("Got 50"),
             Some(y) => println!("Matched, y = {y}"),
             _ => println!("Default case, x = {:?}", x),
         }
-    
-        println!("at the end: x = {:?}, y = {y}", x);        
+
+        println!("at the end: x = {:?}, y = {y}", x);
     }
 
     // Multiple Patterns
@@ -212,7 +211,7 @@ fn chapter_018_3() {
                 'A'..='Z' => "uppercase",
                 '0'..='9' => "number",
                 '!'..='+' => "punctuation",
-                        _ => "other",
+                _ => "other",
             }
         }
 
@@ -233,8 +232,8 @@ fn chapter_018_3() {
         use crate::common::chapter_018::Point;
 
         let p = Point::new(6500, 200_000_000_000);
-        
-        let Point { 
+
+        let Point {
             x: destructed_x,
             y: destructed_y,
         } = p;
@@ -247,25 +246,33 @@ fn chapter_018_3() {
         println!("x = {:?}", x);
         println!("y = {:?}", y);
 
-        
         let p = Point::new(1, 2);
         match p {
             Point { x: 6500, y: _ } => println!("Matching x only = {x}"),
-            Point { x, y: 200_000_000_000 } => println!("Matching both {x} and {y}"),
+            Point {
+                x,
+                y: 200_000_000_000,
+            } => println!("Matching both {x} and {y}"),
             Point { x, y } => println!("Matching anything, p = {:?}", (x, y)),
         }
 
         let p = Point::new(6500, 6501);
         match p {
             Point { x: 6500, y: _ } => println!("Matching x only = {x}"),
-            Point { x, y: 200_000_000_000 } => println!("Matching both {x} and {y}"),
+            Point {
+                x,
+                y: 200_000_000_000,
+            } => println!("Matching both {x} and {y}"),
             Point { x, y } => println!("Matching anything, p = {:?}", (x, y)),
         }
-        
+
         let p = Point::new(6501, 200_000_000_000);
         match p {
             Point { x: 6500, y: _ } => println!("Matching x only = {x}"),
-            Point { x, y: 200_000_000_000 } => println!("Matching both {x} and {y}"),
+            Point {
+                x,
+                y: 200_000_000_000,
+            } => println!("Matching both {x} and {y}"),
             Point { x, y } => println!("Matching anything, p = {:?}", (x, y)),
         }
     }
@@ -276,14 +283,10 @@ fn chapter_018_3() {
 
         fn message_to_string(m: Message) -> String {
             match m {
-                Message::Quit =>
-                    "enum: Message::Quit".to_owned(),
-                Message::Move { x, y } => 
-                    format!("struct: Message::Move: {{ x: {x}, y: {y} }},"),
-                Message::Write(s) =>
-                    format!("string: Message::Write({s})"),
-                Message::Color(r, g, b) =>
-                    format!("tuple: Message::Color({r}, {g}, {b})"),
+                Message::Quit => "enum: Message::Quit".to_owned(),
+                Message::Move { x, y } => format!("struct: Message::Move: {{ x: {x}, y: {y} }},"),
+                Message::Write(s) => format!("string: Message::Write({s})"),
+                Message::Color(r, g, b) => format!("tuple: Message::Color({r}, {g}, {b})"),
             }
         }
         let s = message_to_string(Message::Quit);
@@ -301,7 +304,7 @@ fn chapter_018_3() {
 
     // Destructuring Nested Structs and Enums
     {
-        use crate::common::chapter_006::{MessageV2, Color};
+        use crate::common::chapter_006::{Color, MessageV2};
 
         let mv2_1 = MessageV2::ChangeColor(Color::Rgb(1, 1, 1));
         let mv2_2 = MessageV2::ChangeColor(Color::Hsv(10, 10, 10));
@@ -326,17 +329,13 @@ fn chapter_018_3() {
         use crate::common::chapter_006::Message;
         use crate::common::chapter_018::Point;
         fn get_something_complex() -> (i32, i32, isize, isize) {
-            let (xx, yy, x, y) = 
-                if let (
-                    Message::Move { x: xx, y: yy }, Point { x, y }
-                ) = (
-                    Message::Move { x: 100, y: 200 },
-                    Point::new(1, 2)
-                ) { 
-                    (xx, yy, x, y) 
-                } else {
-                    (0, 0, 0, 0)
-                };
+            let (xx, yy, x, y) = if let (Message::Move { x: xx, y: yy }, Point { x, y }) =
+                (Message::Move { x: 100, y: 200 }, Point::new(1, 2))
+            {
+                (xx, yy, x, y)
+            } else {
+                (0, 0, 0, 0)
+            };
             (xx, yy, x, y)
         }
         let c = get_something_complex();
@@ -361,7 +360,7 @@ fn chapter_018_3() {
             (_, s, _, _, f) => {
                 println!("second part = {:?}", s);
                 println!("fifth part = {:?}", f);
-            },
+            }
         }
 
         let vo = vec![
@@ -378,10 +377,10 @@ fn chapter_018_3() {
             match (o1, o2, o3) {
                 (_, Some(_), Some(o3_v)) => {
                     println!("    Ignore any 1, 2 is any Some, o3_v = {:?}", o3_v);
-                },
+                }
                 (.., Some(o3_v)) => {
                     println!("    Ignore any 1 and 2, o3_v = {:?}", o3_v);
-                },
+                }
                 (.., None) => println!("    Ignore any 1 and 2, o3 is None"),
             }
         }
@@ -398,7 +397,7 @@ fn chapter_018_3() {
         if let Some(_s) = s {
             println!("s = {:?}", _s);
         }
-        
+
         let s = Some(String::from("test"));
         // The owner of s still the same
         #[allow(clippy::redundant_pattern_matching)]
@@ -452,13 +451,13 @@ fn chapter_018_3() {
             match s {
                 Some(s) if s == "test" => {
                     println!("TEST: s = {:?}", s);
-                },
+                }
                 Some(s) if s == "abc" => {
                     println!("ABC: s = {:?}", s);
-                },
+                }
                 Some(s) => {
                     println!("Other string: {}", s);
-                },
+                }
                 None => {
                     println!("None");
                 }
@@ -472,8 +471,8 @@ fn chapter_018_3() {
         let i = 25;
         match i {
             0..=30 if i == 25 => println!("i = 25"),
-            0..=30            => println!("0..=30"),
-            _                 => println!("i = {}", i),
+            0..=30 => println!("0..=30"),
+            _ => println!("i = {}", i),
         }
     }
 
@@ -485,15 +484,12 @@ fn chapter_018_3() {
                 println!("i = {}, i_variable = {}", i, i_variable);
             }
             31..=50 => println!("31..=50"),
-            _       => println!("i = {}", i),
+            _ => println!("i = {}", i),
         }
 
         #[derive(Debug)]
         enum Command {
-            Open {
-                id: i32,
-                name: String,
-            }
+            Open { id: i32, name: String },
         }
 
         let c = Command::Open {
@@ -503,18 +499,19 @@ fn chapter_018_3() {
 
         match c {
             Command::Open {
-                // Any value in the range between 0 and 49, no variable provided the get particaler value 
+                // Any value in the range between 0 and 49, no variable provided the get particaler value
                 id: 0..=49,
-                name 
+                name,
             } => println!("name = {}", name),
-            Command::Open { 
+            Command::Open {
                 // Any value in the range between 50 and 100, specific id provided the get particaler value
-                id: specific_id @  50..= 100,
+                id: specific_id @ 50..=100,
                 name,
             } => println!("id = {}, name = {}", specific_id, name),
             Command::Open {
                 // Any posible i32 value
-                id, name
+                id,
+                name,
             } => println!("Anything else, id = {}, name = {}", id, name),
             // _ => println!("id = {:?}", c),
         }

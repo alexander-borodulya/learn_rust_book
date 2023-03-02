@@ -5,7 +5,7 @@ pub fn run(_subchapter_index: u32) {
     chapter_4_3();
 }
 
-fn chapter_4_1 () {
+fn chapter_4_1() {
     println!("4.1. What is Ownership");
 
     // Mutate string
@@ -17,7 +17,7 @@ fn chapter_4_1 () {
     let s1 = String::from("abc");
     let s2 = s1;
     println!("s2: {}", s2);
-    
+
     // Simple String copy
     let s1 = String::from("abc");
     let s2 = s1.clone();
@@ -60,7 +60,7 @@ fn takes_and_gives_back(s: String) -> String {
 
 // ----------------------------------------------------------------
 
-fn chapter_4_2 () {
+fn chapter_4_2() {
     println!("4.2. References and Borrowing");
 
     let s = String::from("abc");
@@ -76,8 +76,8 @@ fn chapter_4_2 () {
     // Borrowing few mutable references
     let r1 = &mut s;
     println!("r1: {}", r1);
-        // let r2 = &mut s; // Error: cannot borrow s as mutable more than once at the time;
-        //println!("r1: {}, r2: {}", r1, r2);
+    // let r2 = &mut s; // Error: cannot borrow s as mutable more than once at the time;
+    //println!("r1: {}, r2: {}", r1, r2);
     {
         let r2 = &mut s; // is fine because r2 is scoped.
         println!("r2: {}", r2);
@@ -87,7 +87,7 @@ fn chapter_4_2 () {
     let r4 = &s;
     // let r5 = &mut s; // Error, someone can modify s using r5, so, as r3 and r4 are immutable, it's unexpected modification for them.
     println!("r3: {}, r4: {}", r3, r4);
-    
+
     // Reference Scope
     let r3 = &s;
     let r4 = &s;
@@ -114,19 +114,21 @@ fn change(s: &mut String) {
 
 use std::str::FromStr;
 
-fn chapter_4_3 () {
+fn chapter_4_3() {
     println!("4.3. The Slice Type");
     let s = String::from("abc def ghj");
     let first = first_word(&s);
     // s.clear(); // Error: cannot borrow s as mutable more than once...
     println!("first: {}", first);
 
-    let strings = ["", 
-                            "one_word", 
-                            "two  words", 
-                            "three words here", 
-                            "   ", 
-                            " a "];
+    let strings = [
+        "",
+        "one_word",
+        "two  words",
+        "three words here",
+        "   ",
+        " a ",
+    ];
     let nth = 0;
     for s in strings {
         let test_s = String::from_str(s).unwrap();
@@ -134,11 +136,11 @@ fn chapter_4_3 () {
         println!("s: {}, nth: {}, w: {}", s, nth, w);
     }
 
-        // Other Slices
-        let a = [0, 1, 2, 3, 4, 5];
-        let a_sl = &a[1..4];
-        // let a_sl = &[1..4]; // TODO: Ask about this construction
-        println!("a: {:?}, a_sl: {:?}", a, a_sl);
+    // Other Slices
+    let a = [0, 1, 2, 3, 4, 5];
+    let a_sl = &a[1..4];
+    // let a_sl = &[1..4]; // TODO: Ask about this construction
+    println!("a: {:?}, a_sl: {:?}", a, a_sl);
 }
 
 fn first_word(s: &str) -> &str {
@@ -150,7 +152,7 @@ fn first_word(s: &str) -> &str {
     }
     // Allowed on purpose.
     #[allow(clippy::redundant_slicing)]
-    return &s[..]
+    return &s[..];
 }
 
 /// nth_word - TODO: Return the nth word in a string
@@ -161,12 +163,10 @@ fn nth_word(s: &String, n: i32) -> &str {
     let to = bytes.len();
 
     for (i, &item) in bytes.iter().enumerate() {
-        
         if item == b' ' {
             println!("Space at: {}, nth: {}", i, space_count);
 
-            if from == 0 {
-            }
+            if from == 0 {}
 
             space_count += 1;
         }
@@ -175,6 +175,6 @@ fn nth_word(s: &String, n: i32) -> &str {
             from = i;
         }
     }
-    
+
     &s[from..to]
 }

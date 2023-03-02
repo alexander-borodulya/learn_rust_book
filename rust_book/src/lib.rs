@@ -1,6 +1,5 @@
 //! Contains source code implementation of most Rust Book chapters
 
-pub mod common;
 pub mod chapter_001;
 pub mod chapter_002;
 pub mod chapter_003;
@@ -17,7 +16,7 @@ pub mod chapter_016;
 pub mod chapter_017;
 pub mod chapter_018;
 pub mod chapter_019;
+pub mod common;
 
-pub use chapter_009::run;
 pub use chapter_009::chapter_009_2;
-
+pub use chapter_009::run;

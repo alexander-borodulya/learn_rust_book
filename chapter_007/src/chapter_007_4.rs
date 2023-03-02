@@ -10,7 +10,7 @@ mod module_b {
     // pub mod submodule_b {
     //     pub fn test_submodule_b() {
     //         println!("test_submodule_b about to call test_submodule_a");
-            
+
     //         // The following code:
     //         // submodule_a::test_submodule_a();
 
@@ -32,8 +32,6 @@ mod module_b {
     }
 }
 
-
-
 use std::collections::BinaryHeap;
 
 use module_a::submodule_a;
@@ -49,11 +47,11 @@ pub fn chapter_007_4_impl() {
     {
         // 1. From the scope of entire file
         submodule_a::test_submodule_a();
-    
+
         // 2. From the scope of a submodule_b
         submodule_b::test_submodule_b();
     }
-    
+
     // 2 - Creating Idiomatic use Paths
     {
         // Bringing HashMap collection
@@ -63,23 +61,21 @@ pub fn chapter_007_4_impl() {
             map.insert(1, 2);
             println!("map: {:?}", map);
         }
-        
+
         // Bringing different types of result
         {
             use std::fmt;
             use std::io;
-            
+
             // Allowed on demo purposes
             #[allow(clippy::let_and_return)]
             let f_fmt = || -> fmt::Result {
                 let r = fmt::Result::Ok(());
                 r
             };
-            
-            let f_io = || -> io::Result<i32> {
-                io::Result::Ok(100)
-            };
-            
+
+            let f_io = || -> io::Result<i32> { io::Result::Ok(100) };
+
             println!("f_fmt: {:?}", f_fmt());
             println!("f_io: {:?}", f_io());
         }
@@ -89,24 +85,24 @@ pub fn chapter_007_4_impl() {
     {
         use std::fmt::Result as FmtResult;
         use std::io::Result as IoResult;
-        
+
         let f_fmt = || -> FmtResult { FmtResult::Ok(()) };
         let f_io = || -> IoResult<i32> { IoResult::Ok(100) };
-        
+
         println!("f_fmt: {:?}", f_fmt());
         println!("f_io: {:?}", f_io());
     }
-    
+
     // 4 - Re-exporting Names with pub use
     {
         // Usege 1: Use full path to the function
         println!("Usage 1");
         chapter_007_4_reexport::module_c_caller::submodule_c_caller::submodule_c_caller_impl::test_submodule_c_caller();
-        
+
         // Usage 2: The path has been shortened using re-exporting
         println!("Usage 2");
         chapter_007_4_reexport::submodule_c_caller_impl::test_submodule_c_caller();
-        
+
         // Usage 3: Use reexported function from the chapter_007_4_reexport module
         println!("Usage 3");
         chapter_007_4_reexport::test_submodule_c_callee();
@@ -154,7 +150,7 @@ pub fn chapter_007_4_impl() {
         // 1
         {
             use std::collections::{BTreeMap, HashMap};
-            
+
             let mut btm: BTreeMap<i8, i8> = BTreeMap::default();
             btm.insert(1, 2);
             let mut hm = HashMap::new();

@@ -14,15 +14,15 @@ fn chapter_008_1() {
         let _or_vec_of_f64: Vec<f64> = Vec::new();
         println!("_v_of_i32: {:?}", _v_of_i32);
         println!("_or_vec_of_f64: {:?}", _or_vec_of_f64);
-        
+
         // Using vec! macro...
         let _m_v = vec![1, 2, 3, 4, 5];
         let _m_usize = vec![1_000_000_000usize, 2, 3, 4, 5];
-        
+
         println!("_m_v: {:?}", _m_v);
         println!("_m_usize: {:?}", _m_usize);
     }
-    
+
     // Updating a Vector
     {
         let mut v = Vec::new();
@@ -31,7 +31,7 @@ fn chapter_008_1() {
         v.push(12);
         println!("v (2): {:?}", v);
     }
-    
+
     // Reading Elements of Vectors
     #[allow(unused_assignments)]
     {
@@ -49,20 +49,20 @@ fn chapter_008_1() {
         println!("v_i_3_ref: {:?}", v_i_3_ref);
 
         // Using get
-        
+
         // 3
         let mut v_index = 3;
         {
             let v_i_3_get = v.get(v_index);
             println!("v_i_3_get: {:?}", v_i_3_get);
-    
+
             match v_i_3_get {
                 Some(value) => {
                     println!("v_i_3_get: {:?}", value);
-                },
+                }
                 None => {
                     println!("v_i_3_get: None: Bad index: {v_index}");
-                },
+                }
             }
         }
 
@@ -71,14 +71,14 @@ fn chapter_008_1() {
         {
             let v_val = v.get(v_index);
             println!("v_val[{v_index}] = {:?}", v_val);
-    
+
             match v_val {
                 Some(value) => {
                     println!("v_val: {:?}", value);
-                },
+                }
                 None => {
                     println!("v_val[{v_index}]: None: Bad index: {v_index}");
-                },
+                }
             }
         }
 
@@ -88,10 +88,10 @@ fn chapter_008_1() {
 
             let mut v = vec![100, 200, 300, 400, 500];
             println!("mut v: {:?}", v);
-            
+
             let v_i_1 = &v[1];
             println!("v_i_1 (1): {:?}", v_i_1);
-            
+
             // Calling this...
             //
             // v.push(1000); // <- Modification happened here
@@ -119,7 +119,8 @@ fn chapter_008_1() {
 
             let v = vec![10, 20, 30, 40, 50];
             // for i in v { <-- Move of v
-            for i in &v { // Borrow of v
+            for i in &v {
+                // Borrow of v
                 println!("i: {:?}", i);
             }
             println!("v, print 1: {:?}", v); // Safe to use v, because it was borrowed...
@@ -128,9 +129,9 @@ fn chapter_008_1() {
             // Mutate...
             let mut v_mut = vec![10, 20, 30, 40, 50];
             println!("v_mut (1): {:?}", v_mut);
-            
+
             for i in &mut v_mut {
-                *i = *i **i **i;
+                *i = *i * *i * *i;
             }
 
             println!("v_mut (2): {:?}", v_mut);
@@ -148,9 +149,10 @@ fn chapter_008_1() {
             }
 
             let v = vec![
-                BasicTypes::I32(100), 
+                BasicTypes::I32(100),
                 BasicTypes::F32(200.200),
-                BasicTypes::Text("String.to_owned".to_owned())];
+                BasicTypes::Text("String.to_owned".to_owned()),
+            ];
 
             println!("v: {:?}", &v);
             // let v_0 = v[0]; // Can't move: Doesn't implement Copy trait...
@@ -161,11 +163,11 @@ fn chapter_008_1() {
             }
 
             //
-            // 
+            //
             //
 
             #[derive(Debug)]
-            enum BasicTypeStringSlice <'a> {
+            enum BasicTypeStringSlice<'a> {
                 TextSlice(&'a str),
             }
 
@@ -184,16 +186,21 @@ fn chapter_008_1() {
             enum BasicTypesCombined<'a> {
                 USize(usize),
                 StringSlice(&'a str),
-                Any(())
+                Any(()),
             }
-            let v3 = vec![BasicTypesCombined::USize(321), BasicTypesCombined::StringSlice("s_l_i_c_e")];
+            let v3 = vec![
+                BasicTypesCombined::USize(321),
+                BasicTypesCombined::StringSlice("s_l_i_c_e"),
+            ];
             println!("v3: {:?}", v3);
 
             let mut btc: BasicTypesCombined = BasicTypesCombined::Any(());
 
             match btc {
                 BasicTypesCombined::USize(us) => println!("BasicTypesCombined::USize: {:?}", us),
-                BasicTypesCombined::StringSlice(s) => println!("BasicTypesCombined::StringSlice: {:?}", s),
+                BasicTypesCombined::StringSlice(s) => {
+                    println!("BasicTypesCombined::StringSlice: {:?}", s)
+                }
                 BasicTypesCombined::Any(a) => println!("BasicTypesCombined::Any: {:?}", a),
             }
 
@@ -201,7 +208,9 @@ fn chapter_008_1() {
 
             match btc {
                 BasicTypesCombined::USize(us) => println!("BasicTypesCombined::USize: {:?}", us),
-                BasicTypesCombined::StringSlice(s) => println!("BasicTypesCombined::StringSlice: {:?}", s),
+                BasicTypesCombined::StringSlice(s) => {
+                    println!("BasicTypesCombined::StringSlice: {:?}", s)
+                }
                 BasicTypesCombined::Any(a) => println!("BasicTypesCombined::Any: {:?}", a),
             }
         }
@@ -233,7 +242,7 @@ fn chapter_008_2() {
         let str_slice = "12345";
         s1.push_str(str_slice);
         println!("s1, str_slice: {:?}, {:?}", s1, str_slice);
-        
+
         s1.push('_');
         s1.push('A');
         s1.push('_');
@@ -256,7 +265,7 @@ fn chapter_008_2() {
             }
 
             impl Object {
-                pub fn new(s: String) -> Self { 
+                pub fn new(s: String) -> Self {
                     Object { s }
                 }
 
@@ -304,7 +313,7 @@ fn chapter_008_2() {
         //                    <String as Index<RangeToInclusive<usize>>>
         //                    <String as Index<std::ops::Range<usize>>>
         //                    <str as Index<I>>
-            
+
         //      For more information about this error, try `rustc --explain E0277`.
         //      error: could not compile `learn-rust-book` due to previous error
     }
@@ -373,7 +382,6 @@ fn chapter_008_3() {
 
     // Creating a new HashMap
     {
-        
         // Simple HashMap
         {
             use std::collections::HashMap;
@@ -384,23 +392,23 @@ fn chapter_008_3() {
             hm.insert("CDE", 345);
             println!("hm: {:?}", hm);
         }
-        
+
         // Expanded version
         {
             use std::collections::HashMap;
-            
+
             let teams = vec!["Team1", "Team2", "Team3"];
             let scores = vec![100, 200, 300];
-            
+
             let teams_iter = teams.into_iter();
             let scores_iter = scores.into_iter();
-            
+
             let zipped = teams_iter.zip(scores_iter);
             let teams_map: HashMap<_, _> = zipped.collect();
-            
+
             println!("teams: {:?}", teams_map);
         }
-        
+
         // Short for Teams
         {
             use std::collections::HashMap;
@@ -415,7 +423,7 @@ fn chapter_008_3() {
         // Short for Scores
         {
             use std::collections::HashMap;
-            
+
             let teams = vec!["Team1", "Team2", "Team3"];
             let scores = vec![100, 200, 300];
 
@@ -426,19 +434,19 @@ fn chapter_008_3() {
         // Hash Maps and Ownership
         {
             use std::collections::HashMap;
-    
+
             // Owned types
             {
                 let k = String::from("Filename");
                 let v = String::from("FieldValue");
-        
+
                 let mut m = HashMap::new();
                 m.insert(k, v); // k, v - value moved here
-        
+
                 println!("m: {:?}", m);
                 // println!("k, v: {:?}, {:?}", k, v); // k, v, ^ value borrowed here after move
             }
-    
+
             // Types that implements Copy trait
             {
                 let k = 100;
@@ -449,28 +457,28 @@ fn chapter_008_3() {
                 println!("k, v: {:?}, {:?}", k, v); // Ok
             }
         }
-    
+
         // Accessing Values in Hash Map
         {
             use std::collections::HashMap;
-    
+
             let mut scores = HashMap::new();
             scores.insert(String::from("key_a"), 100);
             scores.insert(String::from("key_b"), 200);
-    
+
             let team_name = "key_a".to_owned();
             let key_a_value = scores.get(&team_name);
             println!("key_a_value: {:?}", key_a_value);
-    
+
             let key_c_value = "key_c".to_owned();
             let key_c_value = scores.get(&key_c_value);
             println!("key_c_value: {:?}", key_c_value);
-    
+
             // Handle some
             if let Some(v) = key_a_value {
                 println!("Actual value: {:?}", v);
             }
-    
+
             // Iterating in for loop
             for (k, v) in &scores {
                 println!("{:?}: {:?}", k, v);
@@ -501,7 +509,7 @@ fn chapter_008_3() {
                 e.or_insert(500);
             }
             println!("scores: {:?}", scores);
-            
+
             let e = scores.entry("key_d".to_string()).or_default();
             *e = 1000;
             println!("scores: {:?}", scores);
@@ -522,10 +530,10 @@ fn chapter_008_3() {
 
     // Hashing Functions
     {
-        use std::collections::HashMap;
-        use std::collections::hash_map::RandomState;
-        use std::time::{Instant};
         use rand::Rng;
+        use std::collections::hash_map::RandomState;
+        use std::collections::HashMap;
+        use std::time::Instant;
 
         let mut rng = rand::thread_rng();
         let hasher = RandomState::new();
@@ -547,5 +555,4 @@ fn chapter_008_3() {
     {
         // TODO: Tasks...
     }
-
 }

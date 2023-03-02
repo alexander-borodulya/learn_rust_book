@@ -1,17 +1,19 @@
 pub mod ch_15_2 {
 
-    use std::{ops::{Deref, DerefMut}, fmt::Debug};
+    use std::{
+        fmt::Debug,
+        ops::{Deref, DerefMut},
+    };
 
     #[derive(Debug)]
     pub struct MyBox<T>(T)
-    where T: 
-        std::fmt::Debug
-    ;
+    where
+        T: std::fmt::Debug;
 
     #[allow(dead_code)]
-    impl <T> MyBox <T>
-    where T:
-        std::fmt::Debug
+    impl<T> MyBox<T>
+    where
+        T: std::fmt::Debug,
     {
         pub fn new(x: T) -> MyBox<T> {
             println!("MyBox<T>: new: {:?}", x);
@@ -19,9 +21,9 @@ pub mod ch_15_2 {
         }
     }
 
-    impl <T> Deref for MyBox <T>
-    where T:
-        std::fmt::Debug
+    impl<T> Deref for MyBox<T>
+    where
+        T: std::fmt::Debug,
     {
         type Target = T;
         fn deref(&self) -> &Self::Target {
@@ -29,18 +31,18 @@ pub mod ch_15_2 {
         }
     }
 
-    impl <T> DerefMut for MyBox <T>
-    where T:
-        std::fmt::Debug
+    impl<T> DerefMut for MyBox<T>
+    where
+        T: std::fmt::Debug,
     {
         fn deref_mut(&mut self) -> &mut Self::Target {
             &mut self.0
         }
     }
 
-    impl <T> Drop for MyBox <T>
-    where T:
-        std::fmt::Debug
+    impl<T> Drop for MyBox<T>
+    where
+        T: std::fmt::Debug,
     {
         fn drop(&mut self) {
             println!("MyBox: drop: {:p} - {:?}", self, self);
@@ -50,19 +52,18 @@ pub mod ch_15_2 {
 
 pub mod recursive_types {
 
-
     pub mod ch_15_6 {
-        
+
         use std::{cell::RefCell, rc::Rc};
         use List::{Cons, Nil};
-        
+
         #[allow(dead_code)]
         #[derive(Debug)]
         pub enum List {
             Cons(i32, RefCell<Rc<List>>),
             Nil,
         }
-        
+
         #[allow(dead_code)]
         impl List {
             pub fn tail(&self) -> Option<&RefCell<Rc<List>>> {
