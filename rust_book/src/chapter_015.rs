@@ -1,4 +1,8 @@
-use std::{ops::{Add, AddAssign}, rc::{Rc, Weak}, cell::RefCell};
+use std::{
+    cell::RefCell,
+    ops::{Add, AddAssign},
+    rc::{Rc, Weak},
+};
 
 pub fn run(_subchapter_index: u32) {
     println!("15. Smart Pointers");
@@ -13,7 +17,7 @@ pub fn run(_subchapter_index: u32) {
 
 fn chapter_015_1() {
     println!("15.1. Using Box<T> to Point to Data on the Heap");
-    
+
     // Using box<T> to Store Data on the Heap
     {
         let b_i32 = Box::new(128);
@@ -26,7 +30,7 @@ fn chapter_015_1() {
         struct Object {
             id: usize,
         }
-        let b_obj = Box::new( Object { id: 100 } );
+        let b_obj = Box::new(Object { id: 100 });
         println!("b_obj: {:?}", b_obj);
     }
 
@@ -37,13 +41,16 @@ fn chapter_015_1() {
             #[derive(Debug)]
             pub enum List {
                 Cons(i32, Box<List>),
-                Nil
+                Nil,
             }
         }
 
         use recursive_types_ch15_1::List::{Cons, Nil};
 
-        let cons_list = Box::new(Cons(100, Box::new(Cons(200, Box::new(Cons(300, Box::new(Nil)))))));
+        let cons_list = Box::new(Cons(
+            100,
+            Box::new(Cons(200, Box::new(Cons(300, Box::new(Nil))))),
+        ));
         println!("cons_list: {:?}", cons_list);
     }
 
@@ -64,23 +71,22 @@ fn chapter_015_1() {
     println!("b_i32: {:?}", b_i32);
     let sum = b_i32.add(512);
     println!("b_i32: {:?}, sum: {:?}", b_i32, sum);
-
 }
 
 /// Runs code for the chapter_015_2
 fn chapter_015_2() {
     println!("15.2. Treating Smart Pointers Like Regular References with the Deref Trait");
-    
+
     // Following the Pointer of the Value
     {
         let x = 5;
         println!("x: {:?}", x);
         println!("&x: {:?}", &x);
-        
+
         let x_r = &x;
         println!("x_r: {:?}", x_r);
         println!("*x_r: {:?}", *x_r);
-    
+
         let x_r2 = &x_r;
         let x_r1 = *x_r2;
         println!("x_r2: {:?}, x_r1: {:?}", x_r1, x_r2);
@@ -91,20 +97,20 @@ fn chapter_015_2() {
         println!("**x_r3: {:?}", **x_r3);
         println!("***x_r3: {:?}", ***x_r3);
     }
-    
+
     // Using Box<T> Like a Reference
     {
         // 1
         let x = 5;
         println!("x: {:?}", x);
         println!("&x: {:?}", &x);
-        
+
         // 2
         let box_y = Box::new(x);
         println!("box_y: {:?}", box_y);
         println!("*box_y: {:?}", *box_y);
         println!("&box_y: {:?}", &box_y);
-        
+
         // 3
         let box_ref_x = Box::new(&x);
         println!("x: {:?}", x);
@@ -117,7 +123,7 @@ fn chapter_015_2() {
         let borrow_box_ref_x = &box_ref_x;
         println!("deref_box_ref_x: {:?}", deref_box_ref_x);
         println!("borrow_box_ref_x: {:?}", borrow_box_ref_x);
-    
+
         // 5
         let box_r_box_y = Box::new(&box_y);
         let box_d_box_y = Box::new(*box_y);
@@ -159,20 +165,20 @@ fn chapter_015_2() {
         #[derive(Debug)]
         struct MyBox<T>(T);
 
-        impl <T> MyBox <T> {
+        impl<T> MyBox<T> {
             fn new(x: T) -> MyBox<T> {
                 MyBox(x)
             }
         }
 
-        impl <T> Deref for MyBox <T> {
+        impl<T> Deref for MyBox<T> {
             type Target = T;
             fn deref(&self) -> &Self::Target {
                 &self.0
             }
         }
 
-        impl <T> DerefMut for MyBox <T> {
+        impl<T> DerefMut for MyBox<T> {
             fn deref_mut(&mut self) -> &mut Self::Target {
                 &mut self.0
             }
@@ -189,7 +195,7 @@ fn chapter_015_2() {
 
             println!("&my_box_x: {:?}", &my_box_x);
             println!("*my_box_x: {:?}", *my_box_x);
-    
+
             let x_inner_1 = *(my_box_x.deref());
             let x_inner_2 = *my_box_x;
             println!("x_inner_1: {:?}", x_inner_1);
@@ -244,7 +250,7 @@ fn chapter_015_2() {
             print_string(&my_box_slice);
             print_string(&my_box_string);
             print_string(&my_inner_64);
-            
+
             // DerefMut
             let mut my_box = MyBox::new("prev".to_string());
             println!("(1) my_box: {:?}", *my_box);
@@ -310,7 +316,7 @@ fn chapter_015_3() {
                 println!("Level 2.2 - entered");
                 let p2_2 = MyCustomSmartPointer::new("Level 2.2".to_string());
                 println!("p2_2: {:?}", p2_2);
-                
+
                 println!("Level 2.2 - about to exit");
             } // Drop calls here...
             println!("Level 2.2 - exited");
@@ -383,7 +389,7 @@ fn chapter_015_4() {
             Cons(i32, Rc<List>),
             Nil,
         }
-        
+
         // Using Rc<T> to Share Data
         {
             use List::{Cons, Nil};
@@ -392,7 +398,7 @@ fn chapter_015_4() {
             let b = Rc::new(Cons(3, Rc::clone(&a)));
             let c = Cons(4, Rc::clone(&a));
             let d = Cons(6, Rc::clone(&b));
-            
+
             println!("a: {:?}", a);
             println!("b: {:?}", b);
             println!("c: {:?}", c);
@@ -404,38 +410,69 @@ fn chapter_015_4() {
             use List::{Cons, Nil};
 
             let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
-            println!("a.count: {:?}, {:?}", Rc::strong_count(&a), Rc::weak_count(&a));
-            
+            println!(
+                "a.count: {:?}, {:?}",
+                Rc::strong_count(&a),
+                Rc::weak_count(&a)
+            );
+
             let _b = Rc::new(Cons(3, Rc::clone(&a)));
-            println!("created b: a.count: {:?}, {:?}", Rc::strong_count(&a), Rc::weak_count(&a));
+            println!(
+                "created b: a.count: {:?}, {:?}",
+                Rc::strong_count(&a),
+                Rc::weak_count(&a)
+            );
             {
                 let _c = Cons(4, Rc::clone(&a));
-                println!("created c: a.count: {:?}, {:?}", Rc::strong_count(&a), Rc::weak_count(&a));
+                println!(
+                    "created c: a.count: {:?}, {:?}",
+                    Rc::strong_count(&a),
+                    Rc::weak_count(&a)
+                );
             }
-            println!("destroed c: a.count: {:?}, {:?}", Rc::strong_count(&a), Rc::weak_count(&a));
+            println!(
+                "destroed c: a.count: {:?}, {:?}",
+                Rc::strong_count(&a),
+                Rc::weak_count(&a)
+            );
         }
 
         // Call std::mem::drop on a Rc-smart-pointer
         {
             use crate::common::chapter_015::ch_15_2::MyBox;
-            
+
             let rc_mybox_1 = Rc::new(MyBox::new(1024));
             let rc_mybox_2 = Rc::clone(&rc_mybox_1);
             let rc_mybox_3 = Rc::clone(&rc_mybox_1);
-            
-            println!("rc_mybox_1: strong_count: {:?}", Rc::strong_count(&rc_mybox_1));
-            println!("rc_mybox_2: strong_count: {:?}", Rc::strong_count(&rc_mybox_2));
-            println!("rc_mybox_3: strong_count: {:?}", Rc::strong_count(&rc_mybox_3));
-            
+
+            println!(
+                "rc_mybox_1: strong_count: {:?}",
+                Rc::strong_count(&rc_mybox_1)
+            );
+            println!(
+                "rc_mybox_2: strong_count: {:?}",
+                Rc::strong_count(&rc_mybox_2)
+            );
+            println!(
+                "rc_mybox_3: strong_count: {:?}",
+                Rc::strong_count(&rc_mybox_3)
+            );
+
             std::mem::drop(rc_mybox_3);
-            
-            println!("rc_mybox_1: strong_count: {:?}", Rc::strong_count(&rc_mybox_1));
-            println!("rc_mybox_2: strong_count: {:?}", Rc::strong_count(&rc_mybox_2));
+
+            println!(
+                "rc_mybox_1: strong_count: {:?}",
+                Rc::strong_count(&rc_mybox_1)
+            );
+            println!(
+                "rc_mybox_2: strong_count: {:?}",
+                Rc::strong_count(&rc_mybox_2)
+            );
             // // Error: borrow of moved value
             // println!("rc_mybox_3: strong_count: {:?}", Rc::strong_count(&rc_mybox_3));
         }
 
-        // 
+        //
         {
             use crate::common::chapter_015::ch_15_2::MyBox;
 
@@ -443,11 +480,23 @@ fn chapter_015_4() {
             let rc_mybox_2 = Rc::clone(&rc_mybox_1);
             let rc_mybox_3 = Rc::clone(&rc_mybox_2);
             let rc_mybox_4 = Rc::clone(&rc_mybox_3);
-            
-            println!("rc_mybox_1: strong_count: {:?}", Rc::strong_count(&rc_mybox_1));
-            println!("rc_mybox_2: strong_count: {:?}", Rc::strong_count(&rc_mybox_2));
-            println!("rc_mybox_3: strong_count: {:?}", Rc::strong_count(&rc_mybox_3));
-            println!("rc_mybox_4: strong_count: {:?}", Rc::strong_count(&rc_mybox_4));
+
+            println!(
+                "rc_mybox_1: strong_count: {:?}",
+                Rc::strong_count(&rc_mybox_1)
+            );
+            println!(
+                "rc_mybox_2: strong_count: {:?}",
+                Rc::strong_count(&rc_mybox_2)
+            );
+            println!(
+                "rc_mybox_3: strong_count: {:?}",
+                Rc::strong_count(&rc_mybox_3)
+            );
+            println!(
+                "rc_mybox_4: strong_count: {:?}",
+                Rc::strong_count(&rc_mybox_4)
+            );
 
             assert_eq!(4, Rc::strong_count(&rc_mybox_1));
             assert_eq!(4, Rc::strong_count(&rc_mybox_2));
@@ -455,7 +504,6 @@ fn chapter_015_4() {
             assert_eq!(4, Rc::strong_count(&rc_mybox_4));
         }
     }
-
 }
 
 fn chapter_015_5() {
@@ -468,15 +516,15 @@ fn chapter_015_5() {
             pub trait Messenger {
                 fn send(&self, msg: &str);
             }
-    
+
             #[derive(Debug)]
             pub struct LimitTracker<'a, T: Messenger> {
                 messenger: &'a T,
                 value: usize,
                 max: usize,
             }
-    
-            impl <'a, T> LimitTracker<'a, T>
+
+            impl<'a, T> LimitTracker<'a, T>
             where
                 T: Messenger,
             {
@@ -484,10 +532,10 @@ fn chapter_015_5() {
                     LimitTracker {
                         messenger,
                         value: 0,
-                        max
+                        max,
                     }
                 }
-    
+
                 pub fn set_value(mut self, value: usize) {
                     self.value = value;
                     let percentage_of_max = self.value as f64 / self.max as f64;
@@ -500,16 +548,15 @@ fn chapter_015_5() {
                     }
                 }
             }
-    
+
             //
             //
             //
-    
+
             #[derive(Debug)]
             struct MockMessenger {
                 // OK:
                 send_messages: RefCell<Vec<String>>,
-    
                 // Calling with this...
                 //
                 // send_messages: Vec<String>,
@@ -524,7 +571,7 @@ fn chapter_015_5() {
                 // ...
                 // 426 |                 self.send_messages.push(String::from(msg));
                 //    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `self` is a `&` reference, so the data it refers to cannot be borrowed as mutable
-    
+
                 // warning: variable does not need to be mutable
                 //   --> src\chapter_015.rs:432:17
                 //    |
@@ -534,25 +581,27 @@ fn chapter_015_5() {
                 //    |                 help: remove this `mut`
                 //    |
                 //    = note: `#[warn(unused_mut)]` on by default
-    
+
                 // For more information about this error, try `rustc --explain E0596`.
                 // warning: `learn-rust-book` (bin "learn-rust-book") generated 1 warning
                 // error: could not compile `learn-rust-book` due to previous error; 1 warning emitted
             }
-    
+
             impl MockMessenger {
                 fn new() -> MockMessenger {
-                    MockMessenger { send_messages: RefCell::new(vec![]) }
+                    MockMessenger {
+                        send_messages: RefCell::new(vec![]),
+                    }
                 }
             }
-            
+
             impl Messenger for MockMessenger {
                 fn send(&self, msg: &str) {
-                    let mut vec_of_strings = self.send_messages.borrow_mut(); 
+                    let mut vec_of_strings = self.send_messages.borrow_mut();
                     vec_of_strings.push(String::from(msg));
                 }
             }
-    
+
             fn it_send_over_75_percent() {
                 let mock_messenger = MockMessenger::new();
                 let mut _limit_tracker = LimitTracker::new(&mock_messenger, 100);
@@ -560,9 +609,9 @@ fn chapter_015_5() {
                 // _limit_tracker has been moved
                 println!("mock_messenger: {:?}", mock_messenger);
             }
-    
+
             it_send_over_75_percent();
-    
+
             // #[cfg(test)]
             // mod tests {
             //     #[test]
@@ -580,7 +629,7 @@ fn chapter_015_5() {
             }
 
             let immutable_object = SomeObject {
-                data: RefCell::new(String::from("String Data"))
+                data: RefCell::new(String::from("String Data")),
             };
 
             // Panic
@@ -626,34 +675,41 @@ fn chapter_015_5() {
             let value_3 = Rc::clone(&value);
             let value_4 = Rc::clone(&value);
 
-            println!("(before edit) value: {:?}, value_2: {:?}, value_3: {:?}, value_4: {:?}",
-                value, value_2, value_3, value_4);
-            
+            println!(
+                "(before edit) value: {:?}, value_2: {:?}, value_3: {:?}, value_4: {:?}",
+                value, value_2, value_3, value_4
+            );
+
             // 1. Modify the value, ref_mut_value will live as long as the scope is active
             {
                 let mut ref_mut_value = value.borrow_mut();
                 *ref_mut_value = 200;
-                println!("(after edit - 1) value: {:?}, value_2: {:?}, value_3: {:?}, value_4: {:?}",
-                    value, value_2, value_3, value_4);
-                // Output: 
+                println!(
+                    "(after edit - 1) value: {:?}, value_2: {:?}, value_3: {:?}, value_4: {:?}",
+                    value, value_2, value_3, value_4
+                );
+                // Output:
                 // (before edit) value_2: RefCell { value: 100 }, value_3: RefCell { value: 100 }, value_4: RefCell { value: 100 }
                 // (after edit) value_2: RefCell { value: <borrowed> }, value_3: RefCell { value: <borrowed> }, value_4: RefCell { value: <borrowed> }
             }
-            
-            
+
             // *value.borrow_mut() = 500;
             // is equal of scoped code:
             {
                 let mut mr = value.borrow_mut();
                 *mr = 505;
-                println!("(after edit - 2) value: {:?}, value_2: {:?}, value_3: {:?}, value_4: {:?}",
-                value, value_2, value_3, value_4);
+                println!(
+                    "(after edit - 2) value: {:?}, value_2: {:?}, value_3: {:?}, value_4: {:?}",
+                    value, value_2, value_3, value_4
+                );
             }
 
             // 2. Modify the value, scoped
             *value.borrow_mut() = 500;
-            println!("(after edit - 3) value: {:?}, value_2: {:?}, value_3: {:?}, value_4: {:?}",
-                value, value_2, value_3, value_4);
+            println!(
+                "(after edit - 3) value: {:?}, value_2: {:?}, value_3: {:?}, value_4: {:?}",
+                value, value_2, value_3, value_4
+            );
         }
     }
 }
@@ -664,7 +720,7 @@ fn chapter_015_6() {
     // Creating a Reference Cycle
     {
         use crate::common::chapter_015::recursive_types::ch_15_6::List::{Cons, Nil};
-        
+
         let a = Rc::new(Cons(5, RefCell::new(Rc::new(Nil))));
 
         println!("a initial rc count: {}", Rc::strong_count(&a));
@@ -689,8 +745,8 @@ fn chapter_015_6() {
         //
         // Generates the following output:
         //
-        // a next item = Some(RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, 
-        //     RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: 
+        // a next item = Some(RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5,
+        //     RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value:
         //     ...
         //     Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell { value: Cons(5, RefCell { value: Cons(10, RefCell {
         //     thread 'main' has overflowed its stack
@@ -706,7 +762,7 @@ fn chapter_015_6() {
             parent: RefCell<Weak<Node>>,
             children: RefCell<Vec<Rc<Node>>>,
         }
-        let leaf = Rc::new(Node { 
+        let leaf = Rc::new(Node {
             value: 1,
             parent: RefCell::new(Weak::new()),
             children: RefCell::new(vec![]),
@@ -717,14 +773,14 @@ fn chapter_015_6() {
             parent: RefCell::new(Weak::new()),
             children: RefCell::new(vec![Rc::clone(&leaf)]),
         });
-        
+
         *leaf.parent.borrow_mut() = Rc::downgrade(&branch);
-        
+
         match leaf.parent.borrow().upgrade() {
             Some(value) => println!("leaf parent: {:?}", value),
             None => println!("leaf has been destroyed"),
         }
-        
+
         println!("{:?}", leaf.parent.borrow().upgrade());
     }
 
@@ -739,36 +795,52 @@ fn chapter_015_6() {
             children: RefCell<Vec<Rc<Node>>>,
         }
 
-        let leaf = Rc::new(Node { 
+        let leaf = Rc::new(Node {
             value: 1,
             parent: RefCell::new(Weak::new()),
             children: RefCell::new(vec![]),
         });
 
         println!("<<<Visualizing Changes to strong_count and weak_count>>>");
-        println!("leaf strong = {:?}, weak = {:?}, node = {:?}",
-            Rc::strong_count(&leaf), Rc::weak_count(&leaf), leaf);
-        
+        println!(
+            "leaf strong = {:?}, weak = {:?}, node = {:?}",
+            Rc::strong_count(&leaf),
+            Rc::weak_count(&leaf),
+            leaf
+        );
+
         {
             let branch = Rc::new(Node {
                 value: 2,
                 parent: RefCell::new(Weak::new()),
                 children: RefCell::new(vec![Rc::clone(&leaf)]),
             });
-            
+
             *leaf.parent.borrow_mut() = Rc::downgrade(&branch);
-            
+
             match leaf.parent.borrow().upgrade() {
                 Some(value) => println!("leaf parent: {:?}", value),
                 None => println!("leaf has been destroyed"),
             }
-            
-            println!("leaf strong = {:?}, weak = {:?}", Rc::strong_count(&leaf), Rc::weak_count(&leaf));
-            println!("branch strong = {}, weak = {}", Rc::strong_count(&branch), Rc::strong_count(&branch));
+
+            println!(
+                "leaf strong = {:?}, weak = {:?}",
+                Rc::strong_count(&leaf),
+                Rc::weak_count(&leaf)
+            );
+            println!(
+                "branch strong = {}, weak = {}",
+                Rc::strong_count(&branch),
+                Rc::strong_count(&branch)
+            );
         }
-        
+
         println!("leaf.parent: {:?}", leaf.parent.borrow().upgrade());
-        println!("leaf strong = {:?}, weak = {:?}", Rc::strong_count(&leaf), Rc::weak_count(&leaf));
+        println!(
+            "leaf strong = {:?}, weak = {:?}",
+            Rc::strong_count(&leaf),
+            Rc::weak_count(&leaf)
+        );
     }
 }
 
@@ -786,14 +858,14 @@ fn debuging_struct_that_holds_reference() {
 
     println!("s: {:?}", s);
     println!("a: {:?}", a);
-    
+
     s.borrow_mut().push_str(", added to s");
-    
+
     println!("s: {:?}", s);
     println!("a: {:?}", a);
-    
+
     a.data.borrow_mut().push_str(", add a.data");
-    
+
     println!("s: {:?}", s);
     println!("a: {:?}", a);
 }

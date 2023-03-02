@@ -1,4 +1,8 @@
-use std::{slice, ops::{Deref, DerefMut}, rc::Rc};
+use std::{
+    ops::{Deref, DerefMut},
+    rc::Rc,
+    slice,
+};
 
 pub fn run(_subchapter_index: u32) {
     println!("19. Advanced Features");
@@ -135,7 +139,7 @@ fn chapter_019_1() {
 
         println!("COUNTER = {:p}", unsafe { &COUNTER });
         println!("CONSTANT_VALUE = {:p}", &CONSTANT_VALUE);
-        
+
         unsafe {
             COUNTER += 1;
         }
@@ -154,8 +158,7 @@ fn chapter_019_1() {
         /// Unsafe trait
         /// # Safety
         /// Samle of the unsafe trait
-        unsafe trait ThisIsUnsafe {
-        }
+        unsafe trait ThisIsUnsafe {}
         unsafe impl ThisIsUnsafe for A {}
     }
 
@@ -194,12 +197,10 @@ fn chapter_019_1() {
         }
 
         let mut a = A {
-            i_t_4: (1, 1, 1, 1)
+            i_t_4: (1, 1, 1, 1),
         };
 
-        let a_i32 =  unsafe {
-            a.i_32
-        };
+        let a_i32 = unsafe { a.i_32 };
 
         println!("1. a_i32: {:?}", a_i32);
         println!("1. a: {}", a);
@@ -235,10 +236,7 @@ fn chapter_019_2() {
 
         impl Counter {
             pub fn new() -> Self {
-                Self { 
-                    i: 0,
-                    limit: 1024,
-                }
+                Self { i: 0, limit: 1024 }
             }
 
             pub fn limit(&self) -> i32 {
@@ -290,13 +288,13 @@ fn chapter_019_2() {
             let p_i32 = Point::<i32, i32>::new(1, 2);
             let p_f64 = Point::<f64, f64>::new(10.5, 2.5);
             let p_other = Point::new(100usize, 200isize);
-    
+
             p_i32.works_when_i32();
             p_i32.works_when_t_and_u();
-    
+
             p_f64.works_when_f64();
             p_f64.works_when_t_and_u();
-    
+
             p_other.works_when_t_and_u();
         }
 
@@ -307,10 +305,7 @@ fn chapter_019_2() {
             impl Add for Point {
                 type Output = Point<i32, i32>;
                 fn add(self, other: Point<i32, i32>) -> Self::Output {
-                    Point::new(
-                        self.x + other.x, 
-                        self.y + other.y
-                    )
+                    Point::new(self.x + other.x, self.y + other.y)
                 }
             }
 
@@ -323,7 +318,7 @@ fn chapter_019_2() {
 
             let p1 = Point::new(1, 2);
             let p2 = Point::new(3, 4);
-            
+
             let p3 = p1 + p2;
             assert_eq!(p3, Point::new(4, 6));
 
@@ -346,17 +341,13 @@ fn chapter_019_2() {
 
             impl std::fmt::Display for Millimeter {
                 fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-                    f.write_fmt(
-                        format_args!("{} mm", self.0)
-                    )
+                    f.write_fmt(format_args!("{} mm", self.0))
                 }
             }
 
             impl std::fmt::Display for Meters {
                 fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-                    f.write_fmt(
-                        format_args!("{} m", self.0)
-                    )
+                    f.write_fmt(format_args!("{} m", self.0))
                 }
             }
 
@@ -461,14 +452,13 @@ fn chapter_019_2() {
             fn print_me(&self);
             fn associated();
         }
-        
+
         trait B {
             fn print_me(&self);
             fn associated();
         }
 
-        struct C {
-        }
+        struct C {}
 
         impl A for C {
             fn print_me(&self) {
@@ -516,7 +506,7 @@ fn chapter_019_2() {
         // Supertrait - Outlined example
         {
             use crate::common::chapter_019::Point;
-    
+
             trait OutlinedPrint: std::fmt::Display {
                 fn outline_print(&self) {
                     let output = self.to_string();
@@ -528,15 +518,15 @@ fn chapter_019_2() {
                     println!("{}", "*".repeat(len + 4));
                 }
             }
-    
+
             impl std::fmt::Display for Point {
                 fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
                     write!(f, "(x = {}, y = {})", self.x, self.y)
                 }
             }
-    
+
             impl OutlinedPrint for Point {}
-    
+
             let p = Point { x: 1, y: 2 };
             println!("p = {}", p);
             p.outline_print();
@@ -588,8 +578,16 @@ fn chapter_019_2() {
         // 2. Implement external trait on a wrapper.
         impl std::fmt::Display for VecOfi32 {
             fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-                let vec_of_i32_as_strings = self.0.iter().map(|i| i.to_string()).collect::<Vec<String>>();
-                write!(f, "*** >>> {:?} <<< ***", vec_of_i32_as_strings.join(" then "))
+                let vec_of_i32_as_strings = self
+                    .0
+                    .iter()
+                    .map(|i| i.to_string())
+                    .collect::<Vec<String>>();
+                write!(
+                    f,
+                    "*** >>> {:?} <<< ***",
+                    vec_of_i32_as_strings.join(" then ")
+                )
             }
         }
 
@@ -620,10 +618,18 @@ fn chapter_019_2() {
         println!("v_of_32_inner.len = {}", v_of_32_inner.len());
 
         let mut v_of_i32 = VecOfi32::with_capacity(10);
-        println!("1. v_of_i32.capacity: {}, items: {:?}", v_of_i32.capacity(), v_of_i32);
+        println!(
+            "1. v_of_i32.capacity: {}, items: {:?}",
+            v_of_i32.capacity(),
+            v_of_i32
+        );
         v_of_i32.push(10);
         v_of_i32.push(20);
-        println!("2. v_of_i32.capacity: {}, items: {:?}", v_of_i32.capacity(), v_of_i32);
+        println!(
+            "2. v_of_i32.capacity: {}, items: {:?}",
+            v_of_i32.capacity(),
+            v_of_i32
+        );
     }
 }
 
@@ -649,9 +655,8 @@ fn chapter_019_3() {
 
             #[allow(clippy::borrowed_box)]
             fn takes_f_returns_f<'a>(
-                f: &'a Box<dyn Fn() + Send + 'static>
-            ) -> &'a Box<dyn Fn() + Send + 'static>
-            {
+                f: &'a Box<dyn Fn() + Send + 'static>,
+            ) -> &'a Box<dyn Fn() + Send + 'static> {
                 f();
                 f
             }
@@ -727,9 +732,9 @@ fn chapter_019_3() {
                     Ok(num) => num,
                     Err(e) => {
                         println!("error: {:?}", e);
-                        continue
-                    //  ^^^^^^^^ Returns !-type
-                    },
+                        continue;
+                        //  ^^^^^^^^ Returns !-type
+                    }
                 };
                 println!("guess: {}", guess);
                 break;
@@ -741,17 +746,17 @@ fn chapter_019_3() {
     {
         // 1 - Sized Types
         {
-            fn foo<T> (arg: T) -> T
+            fn foo<T>(arg: T) -> T
             where
                 T: std::fmt::Debug,
             {
                 println!("arg: {:?}", arg);
                 arg
             }
-            
+
             fn foo2<T>(arg: T) -> T
             where
-            T: std::fmt::Debug + Sized,
+                T: std::fmt::Debug + Sized,
             {
                 println!("arg: {:?}", arg);
                 arg
@@ -764,17 +769,17 @@ fn chapter_019_3() {
 
         // 2 - Unsized examples - ?Sized
         {
-            fn usized_with_ref_t<T: ?Sized + std::fmt::Debug> (arg: &T) -> &T {
+            fn usized_with_ref_t<T: ?Sized + std::fmt::Debug>(arg: &T) -> &T {
                 println!("usized_with_ref_t :: arg: {:?}", &arg);
                 arg
             }
 
-            fn usized_with_box_t<T:?Sized + std::fmt::Debug> (arg: Box<T>) -> Box<T> {
+            fn usized_with_box_t<T: ?Sized + std::fmt::Debug>(arg: Box<T>) -> Box<T> {
                 println!("usized_with_box_t :: arg: {:?}", &arg);
                 arg
             }
 
-            fn usized_with_rc_t<T:?Sized + std::fmt::Debug> (arg: Rc<T>) -> Rc<T> {
+            fn usized_with_rc_t<T: ?Sized + std::fmt::Debug>(arg: Rc<T>) -> Rc<T> {
                 println!("usized_with_rc_t :: arg: {:?}", &arg);
                 arg
             }
@@ -800,31 +805,28 @@ fn chapter_019_4() {
 
     // Function Pointers
     {
-        
         // 1
         {
-            fn add_one(x: i32) -> i32 { 
+            fn add_one(x: i32) -> i32 {
                 x + 1
             }
-    
+
             fn add_twice(f: fn(i32) -> i32, arg: i32) -> i32 {
                 f(arg) + f(arg)
             }
-    
-            let mult_by_2: fn(i32) -> i32 = |x: i32| -> i32 {
-                x * 2
-            };
-    
+
+            let mult_by_2: fn(i32) -> i32 = |x: i32| -> i32 { x * 2 };
+
             let r1 = add_twice(add_one, 100);
             let r2 = add_twice(mult_by_2, 555);
-    
+
             println!("r1: {:?}", r1);
             println!("r2: {:?}", r2);
         }
 
         // 2
         {
-            let v = vec![1, 2, 3, 4, 5, 6, 7, 8,];
+            let v = vec![1, 2, 3, 4, 5, 6, 7, 8];
             let vs1 = v.iter().map(|x| x.to_string()).collect::<Vec<String>>();
 
             fn my_to_string(x: &i32) -> String {
@@ -849,12 +851,9 @@ fn chapter_019_4() {
             // let s2 = States::Progress(25);
             // let s3 = States::Result("Hello".to_string());
 
-            let v_s_progress = (97..=100)
-                .map(States::Progress)
-                .collect::<Vec<States>>();
-                
-            let v_s_res = &["str1".to_owned(), "str2".to_owned()]
-                .map(States::Result);
+            let v_s_progress = (97..=100).map(States::Progress).collect::<Vec<States>>();
+
+            let v_s_res = &["str1".to_owned(), "str2".to_owned()].map(States::Result);
 
             println!("v_s_progress: {:?}", v_s_progress);
             println!("v_s_res: {:?}", v_s_res);
@@ -873,10 +872,10 @@ fn chapter_019_4() {
             fn returns_closure() -> impl Fn(i32) -> i32 {
                 |x| x + 1
             }
-            
+
             let c = returns_closure();
             let i = c(100);
-            
+
             println!("i: {:?}", i);
         }
 
@@ -888,7 +887,7 @@ fn chapter_019_4() {
 
             let c = returns_closure();
             let i = c(10);
-            
+
             println!("i: {:?}", i);
         }
     }
@@ -896,7 +895,7 @@ fn chapter_019_4() {
 
 fn chapter_019_5() {
     println!("19.5. Macros");
-    
+
     // Declarative Macros with macro_rules! for General Metaprogramming
     // Allowed on purpose to suppress the clippy warning:
     // https://rust-lang.github.io/rust-clippy/master/index.html#vec_init_then_push
@@ -904,10 +903,10 @@ fn chapter_019_5() {
     {
         #[macro_export]
         macro_rules! my_vec {
-            ( 
+            (
                 $(
                     $x:expr
-                ),* 
+                ),*
             ) => {
                 {
                     let mut temp_vec = Vec::new();
@@ -951,10 +950,10 @@ fn chapter_019_5() {
 
         // Import local derive macro
         use chapter_019_hello_macro_derive::HelloMacro;
-        
+
         #[derive(HelloMacro)]
         struct MyAnotherStruct;
-        
+
         MyAnotherStruct::hello_macro();
     }
 }

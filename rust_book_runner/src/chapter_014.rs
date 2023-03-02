@@ -1,8 +1,8 @@
 use add_one;
 use sub_one;
 
-use std::ops::RangeInclusive;
 use rand::Rng;
+use std::ops::RangeInclusive;
 
 /// adder entry point - fun function (i.e. main function)
 pub fn run(_subchapter_index: u32) {
@@ -28,9 +28,9 @@ pub fn run(_subchapter_index: u32) {
 }
 
 /// Returns a random number from a range between min and max
-pub fn get_rand_from_range<T>(min: T, max: T) -> T 
+pub fn get_rand_from_range<T>(min: T, max: T) -> T
 where
-    T: rand::distributions::uniform::SampleUniform + PartialOrd
+    T: rand::distributions::uniform::SampleUniform + PartialOrd,
 {
     let range = RangeInclusive::new(min, max);
     rand::thread_rng().gen_range(range)

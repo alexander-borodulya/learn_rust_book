@@ -33,7 +33,7 @@ fn chapter_017_1() {
                 Some(value) => {
                     self.update_avarage();
                     Some(value)
-                },
+                }
                 None => None,
             }
         }
@@ -61,13 +61,12 @@ fn chapter_017_1() {
     let removed = ac.remove();
     println!("[5] removed: {:?}", removed);
     println!("[5] ac.avarage: {}", ac.avarage());
-    
+
     while let Some(removed) = ac.remove() {
         println!(" - [6] removed: {:?}", removed);
         println!(" - [6] ac.avarage: {}", ac.avarage());
     }
     println!("[7] ac.avarage: {}", ac.avarage());
-    
 }
 
 #[allow(dead_code)]
@@ -75,21 +74,19 @@ fn chapter_017_2() {
     println!("17.2. Using Trait Objects That Allow for Values of Different Types");
 
     {
-        use crate::common::chapter_017::ch_017_02::{Screen, Button, Draw};
+        use crate::common::chapter_017::ch_017_02::{Button, Draw, Screen};
 
-        let mut screen = Screen::new(
-            vec![
-                Box::new(Button::new()),
-                Box::new(Button::new_with_args(128, 24, "Wide Button".to_owned())),
-            ]
-        );
+        let mut screen = Screen::new(vec![
+            Box::new(Button::new()),
+            Box::new(Button::new_with_args(128, 24, "Wide Button".to_owned())),
+        ]);
 
         println!("[1]");
 
         screen.run();
 
         println!("[2]");
-        
+
         #[derive(Debug)]
         struct SelectBox {
             width: usize,
@@ -109,16 +106,19 @@ fn chapter_017_2() {
 
         impl Draw for SelectBox {
             fn draw(&self) {
-                println!("SelectBox: draw: {:?}", (self.width, self.height, &self.options));
+                println!(
+                    "SelectBox: draw: {:?}",
+                    (self.width, self.height, &self.options)
+                );
             }
         }
-        
+
         screen.components.push(Box::new(SelectBox::new()));
         screen.run();
 
         println!("[3]");
     }
-    
+
     // Vector of &-references
     {
         use crate::common::chapter_017::ch_017_02::{Button, Draw, Label};
@@ -143,7 +143,6 @@ fn chapter_017_2() {
         }
         println!("[2.3] - done");
     }
-    
 }
 
 fn chapter_017_3() {
@@ -152,7 +151,7 @@ fn chapter_017_3() {
     // Box holding a type
     {
         /////////////////////////////////////////////////////////////////////
-        // 
+        //
         // Struct case
         //
         #[derive(Debug)]
@@ -170,7 +169,7 @@ fn chapter_017_3() {
             }
 
             // From the Rust Book:
-            // This syntax means the method is only valid when called on a Box holding the type. 
+            // This syntax means the method is only valid when called on a Box holding the type.
             // This syntax takes ownership of Box<Self>, invalidating the old state
             // so the state value of the Post can transform into a new state.
             //
@@ -189,13 +188,13 @@ fn chapter_017_3() {
         a.println_data();
         a.consume();
         // a.println_data(); // Error: borrow of moved value
-        
+
         //
         // Code below
         //
         // let a = A::new("Hello A".to_string());
         // a.consume_boxed();
-        // 
+        //
         // Generates the following output:
         //
         //     no method named `consume_boxed` found for struct `A` in the current scoperustcClick for full compiler diagnostic
@@ -219,7 +218,7 @@ fn chapter_017_3() {
         //     move occurs because `*a` has type `A`, which does not implement the `Copy` traitrustcClick for full compiler diagnostic
         //     chapter_017.rs(197, 11): `*a` moved due to this method call
         //     chapter_017.rs(164, 24): this function takes ownership of the receiver `self`, which moves `*a`
-        
+
         let a = Box::new(A::new("Hello Boxed A".to_string()));
         a.println_data();
         a.consume_boxed();
@@ -240,7 +239,7 @@ fn chapter_017_3() {
         }
 
         let b1 = Box::new(100);
-        let b2= Box::new(String::from("Hello"));
+        let b2 = Box::new(String::from("Hello"));
         let b3 = Box::new(A::new("some string".to_owned()));
 
         test(b1);
@@ -256,55 +255,66 @@ fn chapter_017_3() {
 
         let mut post = Post::new();
         println!("post.state: {:?}", post.state());
-        
+
         post.add_text("I read Rust Book everyday!");
         println!("post.state: {:?}", post.state());
         println!("post.content: {:?}", post.content());
         assert_eq!(post.content(), "");
-        
+
         post.request_review();
         println!("post.state: {:?}", post.state());
         println!("post.content: {:?}", post.content());
         assert_eq!(post.content(), "");
-        post.add_text("The add_text function is called, but ignored becase it is not a Draft state.");
-        
+        post.add_text(
+            "The add_text function is called, but ignored becase it is not a Draft state.",
+        );
+
         post.reject();
         println!("post.state: {:?}", post.state());
         println!("post.content: {:?}", post.content());
         assert_eq!(post.content(), "");
-        
+
         post.add_text(" After that, I program in Rust!");
-        
+
         post.approve();
         println!("post.state (after reject): {:?}", post.state());
         println!("post.content (after reject): {:?}", post.content());
         assert_eq!(post.content(), "");
-        
+
         post.request_review();
         println!("post.state (after request_review): {:?}", post.state());
         println!("post.content (after request_review): {:?}", post.content());
         assert_eq!("", post.content());
-        post.add_text("The add_text function is called, but ignored becase it is not a Draft state.");
-        
+        post.add_text(
+            "The add_text function is called, but ignored becase it is not a Draft state.",
+        );
+
         post.approve();
         println!("post.state (after approve, 1st): {:?}", post.state());
         println!("post.content (after approve, 1st): {:?}", post.content());
         assert_eq!(post.content(), "");
-        post.add_text("The add_text function is called, but ignored becase it is not a Draft state.");
-        
+        post.add_text(
+            "The add_text function is called, but ignored becase it is not a Draft state.",
+        );
+
         post.approve();
         println!("post.state (after approve, 2nd): {:?}", post.state());
         println!("post.content (after approve, 2nd): {:?}", post.content());
-        assert_eq!(post.content(), "I read Rust Book everyday! After that, I program in Rust!");
-        post.add_text("The add_text function is called, but ignored becase it is not a Draft state.");
+        assert_eq!(
+            post.content(),
+            "I read Rust Book everyday! After that, I program in Rust!"
+        );
+        post.add_text(
+            "The add_text function is called, but ignored becase it is not a Draft state.",
+        );
     }
-    
+
     // Encoding States and Behavior as Types
     {
         use crate::common::chapter_017::ch_017_03::v2::Post;
-        
+
         let mut post = Post::new();
-        
+
         post.add_text("I read Rust Book everyday!");
 
         let post = post.request_review();
@@ -320,6 +330,9 @@ fn chapter_017_3() {
         let post = post.approve();
 
         println!("post.content: {:?}", post.content());
-        assert_eq!(post.content(), "I read Rust Book everyday! After that, I program in Rust!");
+        assert_eq!(
+            post.content(),
+            "I read Rust Book everyday! After that, I program in Rust!"
+        );
     }
 }

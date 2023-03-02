@@ -44,14 +44,14 @@ fn greeting_wbug(_name: String) -> String {
 mod tests_chapter_011_1 {
     use super::*;
     use crate::common::chapter_005::Rectangle;
-    use crate::common::chapter_011::{Guess, Object, MyError};
+    use crate::common::chapter_011::{Guess, MyError, Object};
 
     #[test]
     fn exploration() {
         let result = add(2, 2);
         assert_eq!(result, 4);
     }
-    
+
     #[test]
     #[ignore]
     fn another() {
@@ -69,7 +69,7 @@ mod tests_chapter_011_1 {
     //
     // Checking Results with the assert! Macro
     //
-    
+
     #[test]
     fn test_larger_can_hold_smaller() {
         let larger = Rectangle {
@@ -105,7 +105,7 @@ mod tests_chapter_011_1 {
     //
     // Testing Equality with the assert_eq! and assert_ne! Macros
     //
-    
+
     #[test]
     fn test_add_two() {
         assert_eq!(4, add_two(2));
@@ -120,34 +120,34 @@ mod tests_chapter_011_1 {
     fn test_assert_ne() {
         assert_ne!(5, add_two(2));
     }
-    
+
     #[test]
     fn test_assert_eq_with_struct() {
         let r1 = Rectangle {
             width: 5,
             height: 5,
         };
-    
+
         let r2 = Rectangle {
             width: 5,
             height: 5,
         };
-        
+
         assert_eq!(r1, r2);
     }
-    
+
     #[test]
     fn test_assert_ne_with_struct() {
         let r1 = Rectangle {
             width: 50,
             height: 5,
         };
-    
+
         let r2 = Rectangle {
             width: 5,
             height: 5,
         };
-    
+
         assert_ne!(r1, r2);
     }
 
@@ -195,7 +195,7 @@ mod tests_chapter_011_1 {
     fn test_guess_gt100() {
         Guess::new(1001);
     }
-    
+
     #[test]
     #[should_panic]
     fn test_guess_gt100_wbug() {
@@ -218,7 +218,6 @@ mod tests_chapter_011_1 {
     #[should_panic(expected = "panic expected")]
     fn test_object_expected_panic() {
         Object::new(0);
-    
     }
 
     #[test]
@@ -242,7 +241,10 @@ mod tests_chapter_011_1 {
         if 10 == r1 {
             Ok(())
         } else {
-            Err(String::from(format!("add_two failed: Expected 10 got: {}", r1)))
+            Err(String::from(format!(
+                "add_two failed: Expected 10 got: {}",
+                r1
+            )))
         }
     }
 
@@ -252,15 +254,18 @@ mod tests_chapter_011_1 {
         if 10 == r1 {
             Ok(())
         } else {
-            Err(String::from(format!("add_two failed: Expected 10 got: {}", r1)))
+            Err(String::from(format!(
+                "add_two failed: Expected 10 got: {}",
+                r1
+            )))
         }
     }
 
     fn failed_if_ten(x: i32) -> Result<(), String> {
         if x == 10 {
             Err(String::from("X is 10, Failed!"))
-        } else { 
-            Ok(()) 
+        } else {
+            Ok(())
         }
     }
 
@@ -289,7 +294,7 @@ mod tests_chapter_011_1 {
 
 //
 // chapter_011_2 - Begin
-// 
+//
 #[cfg(test)]
 mod tests_chapter_011_2 {
 
@@ -309,11 +314,10 @@ mod tests_chapter_011_2 {
     fn test_always_ok_ch11_2_002() {
         assert_eq!(true, true, "Always ok: (test_always_ok_ch11_2_002)");
     }
-    
+
     #[test]
     #[ignore]
     fn test_always_ok_ch11_2_003() {
         assert_eq!(true, true, "Always ok: (test_always_ok_ch11_2_003)");
     }
 }
-

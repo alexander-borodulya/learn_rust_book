@@ -1,4 +1,3 @@
-
 use crate::chapters::make_chapters;
 use crate::cli_args::Args;
 
@@ -19,7 +18,7 @@ impl Runner {
 
         let fn_index = match args.chapter_id.chapter {
             0 => chapters.len() as u32,
-            _ => args.chapter_id.chapter
+            _ => args.chapter_id.chapter,
         };
 
         if let Some(ch_fn) = chapters.get(&fn_index) {

@@ -131,13 +131,13 @@ fn chapter_010_1() {
                 x: T,
                 y: T,
             }
-    
+
             let p_int = Point { x: 0, y: 1 };
             let p_float = Point { x: 1.0, y: 5.0 };
-            
+
             // Won't compile - Mismatched types int vs float
             // let p_int_float = Point { x: 0, y: 1.0 };
-    
+
             println!("p_int: {:?}", p_int);
             println!("p_float: {:?}", p_float);
         }
@@ -150,12 +150,15 @@ fn chapter_010_1() {
                 x: T,
                 y: U,
             }
-    
+
             let p_int = Point { x: 0, y: 1 };
             let p_float = Point { x: 1.0, y: 5.0 };
             let p_int_float = Point { x: 0, y: 1.0 }; // OK
-            let p_weird = Point { x: -100, y: "+200".to_string() };
-    
+            let p_weird = Point {
+                x: -100,
+                y: "+200".to_string(),
+            };
+
             println!("p_int: {:?}", p_int);
             println!("p_float: {:?}", p_float);
             println!("p_int_float: {:?}", p_int_float);
@@ -165,7 +168,7 @@ fn chapter_010_1() {
 
     // In Method Definitions
     {
-        struct Point <T> {
+        struct Point<T> {
             x: T,
             y: T,
         }
@@ -197,7 +200,10 @@ fn chapter_010_1() {
         println!("p_1_f32 {:?}", p_1_f32.distance_from_origin());
         println!("p_2_f32 {:?}", p_2_f32.distance_from_origin());
 
-        let p_usize = Point { x: 0_usize, y: 1_usize };
+        let p_usize = Point {
+            x: 0_usize,
+            y: 1_usize,
+        };
         println!("p_usize: {:?}", p_usize.usize_only_info());
 
         // Mixup Example - Split on two different versions
@@ -210,11 +216,11 @@ fn chapter_010_1() {
                     y: Y1,
                 }
 
-                impl <X1, Y1> Point<X1, Y1> {
-                    fn mixup (self, other: Point<X1, Y1>) -> Point<X1, Y1> {
-                        Point { 
-                            x: self.x, 
-                            y: other.y
+                impl<X1, Y1> Point<X1, Y1> {
+                    fn mixup(self, other: Point<X1, Y1>) -> Point<X1, Y1> {
+                        Point {
+                            x: self.x,
+                            y: other.y,
                         }
                     }
                 }
@@ -222,11 +228,11 @@ fn chapter_010_1() {
                 let p_1 = Point { x: 0, y: 1 };
                 let p_2 = Point { x: 2, y: 3 };
                 println!("Mixup 1: p_1: {:?}, p_2: {:?}", p_1, p_2);
-                
+
                 let p_3 = p_1.mixup(p_2);
                 println!("Mixup 1: p_3: {:?}", p_3);
             }
-            
+
             // Different Type Mixup
             {
                 #[derive(Debug)]
@@ -235,19 +241,22 @@ fn chapter_010_1() {
                     y: Y1,
                 }
 
-                impl <X1, Y1> Point<X1, Y1> {
-                    fn mixup <X2, Y2> (self, other: Point<X2, Y2>) -> Point<X1, Y2> {
-                        Point { 
-                            x: self.x, 
-                            y: other.y
+                impl<X1, Y1> Point<X1, Y1> {
+                    fn mixup<X2, Y2>(self, other: Point<X2, Y2>) -> Point<X1, Y2> {
+                        Point {
+                            x: self.x,
+                            y: other.y,
                         }
                     }
                 }
 
                 let p_1 = Point { x: 'A', y: 1.0 };
-                let p_2 = Point { x: 100 , y: "String".to_string() };
+                let p_2 = Point {
+                    x: 100,
+                    y: "String".to_string(),
+                };
                 println!("Mixup 2: p_1: {:?}, p_2: {:?}", p_1, p_2);
-    
+
                 let p_3 = p_1.mixup(p_2);
                 println!("Mixup 2: p_3: {:?}", p_3);
             }
@@ -258,16 +267,20 @@ fn chapter_010_1() {
     #[allow(dead_code)]
     {
         #[derive(Debug)]
-        struct MyObject <T> {
+        struct MyObject<T> {
             value: T,
         }
 
-        impl <T> MyObject <T>
+        impl<T> MyObject<T>
         where
             T: std::fmt::Debug,
         {
             fn new(value: T) -> Self {
-                println!("MyObject::new, T={:?}, value={:?}", std::any::type_name::<T>(), value);
+                println!(
+                    "MyObject::new, T={:?}, value={:?}",
+                    std::any::type_name::<T>(),
+                    value
+                );
                 Self { value }
             }
         }
@@ -275,9 +288,9 @@ fn chapter_010_1() {
         // impl <f64: std::fmt::Debug> MyObject <f64> {
         #[allow(non_camel_case_types)]
         #[allow(clippy::builtin_type_shadow)]
-        impl <f64> MyObject <f64>
+        impl<f64> MyObject<f64>
         where
-            f64: std::fmt::Debug
+            f64: std::fmt::Debug,
         {
             fn new_with_f64(value: f64) -> Self {
                 println!("MyObject::new, impl <f64> MyObject <f64>");
@@ -406,9 +419,9 @@ fn chapter_010_2() {
         impl Summary for Tweet {
             fn summarize_author(&self) -> String {
                 format!("@{}", self.username)
-            }            
+            }
         }
-        
+
         // Usage...
         {
             let article = NewsArticle {
@@ -432,7 +445,7 @@ fn chapter_010_2() {
         // Traits as Parameters
         {
             pub struct StackOverflow {}
-            
+
             impl StackOverflow {
                 pub fn summarize(&self) -> String {
                     "Stack Overflow Anwers are Boring...".to_string()
@@ -467,7 +480,7 @@ fn chapter_010_2() {
             // Calling this...
             //
             //notify(&so_answer);
-            // 
+            //
             // Generates the following output:
             //
             // error[E0277]: the trait bound `StackOverflow: chapter_010_2::Summary` is not satisfied
@@ -501,7 +514,7 @@ fn chapter_010_2() {
                 println!("notify_same (with bounds): a: {}", a.summarize());
                 println!("notify_same (with bounds): b: {}", b.summarize());
             }
-            
+
             pub fn notify_all(a: &impl Summary, b: &impl Summary) {
                 println!("notify_all (with bounds): a: {}", a.summarize());
                 println!("notify_all (with bounds): b: {}", b.summarize());
@@ -560,34 +573,48 @@ fn chapter_010_2() {
                 println!("notify_2: {}", item);
             }
 
-            let obj_1 = Object { id: "awesome-id".to_string() };
+            let obj_1 = Object {
+                id: "awesome-id".to_string(),
+            };
             notify_1(&obj_1);
             notify_2(&obj_1);
 
             // Clearer Trait Bounds with <where> Clauses
             {
-                pub fn notify_3 <T> (item: &T)
-                    where T: Summary + std::fmt::Display
+                pub fn notify_3<T>(item: &T)
+                where
+                    T: Summary + std::fmt::Display,
                 {
                     println!("notify_3: {}", item);
                 }
 
-                let obj_2 = Object { id: "awesome-id-obj_2".to_string() };
+                let obj_2 = Object {
+                    id: "awesome-id-obj_2".to_string(),
+                };
 
                 notify_3(&obj_2);
-                notify_3(&Object { id: "awesome-id-obj_tmp".to_string() });
+                notify_3(&Object {
+                    id: "awesome-id-obj_tmp".to_string(),
+                });
             }
         }
 
         // Clearer Trait Bounds with <where> Clauses
         {
-            pub fn some_function <T: std::fmt::Display + Clone, U: Clone + std::fmt::Debug> (t_val: &T, u_val: &U) -> i32 {
+            pub fn some_function<T: std::fmt::Display + Clone, U: Clone + std::fmt::Debug>(
+                t_val: &T,
+                u_val: &U,
+            ) -> i32 {
                 println!("Both satisfied: {} and {:?}", t_val, u_val);
                 128
             }
-            pub fn some_function_too <T: std::fmt::Display + Clone, U: Clone + std::fmt::Debug> (t_val: &T, u_val: &U) -> i32 
-                where T: std::fmt::Display + Clone,
-                      U: Clone + std::fmt::Debug
+            pub fn some_function_too<T: std::fmt::Display + Clone, U: Clone + std::fmt::Debug>(
+                t_val: &T,
+                u_val: &U,
+            ) -> i32
+            where
+                T: std::fmt::Display + Clone,
+                U: Clone + std::fmt::Debug,
             {
                 println!("Both satisfied to: {} and {:?}", t_val, u_val);
                 256
@@ -631,11 +658,11 @@ fn chapter_010_2() {
                 //             reply: true,
                 //             retweet: false,
                 //         }
-                //     }    
+                //     }
                 // }
-                // 
+                //
                 // Generates the following output:
-                // 
+                //
                 // error[E0308]: `if` and `else` have incompatible types
                 //    --> src\chapter_010.rs:593:25
                 //     |
@@ -716,15 +743,16 @@ fn chapter_010_2() {
             y: T,
         }
 
-        impl <T> Pair<T> {
+        impl<T> Pair<T> {
             // fn new (x: T, y: T) -> Pair<T> {
-            fn new (x: T, y: T) -> Self {
-                Self { x,  y }
+            fn new(x: T, y: T) -> Self {
+                Self { x, y }
             }
         }
 
-        impl <T> Pair<T> 
-            where T: Display + PartialOrd
+        impl<T> Pair<T>
+        where
+            T: Display + PartialOrd,
         {
             fn compare_and_display(&self) {
                 if self.x >= self.y {
@@ -744,7 +772,7 @@ fn chapter_010_2() {
         p3.compare_and_display();
 
         // Conditionaly implemented ToString trait for Pair<T>
-        impl <T: Display> ToString for Pair<T> {
+        impl<T: Display> ToString for Pair<T> {
             fn to_string(&self) -> String {
                 format!("Pair {{ x: {}, y: {} }}", self.x, self.y)
             }
@@ -777,12 +805,11 @@ fn chapter_010_2() {
 
         impl MyObject {
             fn new() -> Self {
-                Self { }
+                Self {}
             }
 
             fn my_method(&self) {
                 println!("This is my method for MyObject");
-
             }
         }
 
@@ -820,7 +847,7 @@ fn chapter_010_2() {
         impl Consumer for MyObject {
             fn consume(self) {
                 println!("Consumed: {:?}", self);
-            }            
+            }
         }
 
         mo_1.consume();
@@ -839,7 +866,7 @@ fn chapter_010_2() {
         // ...
         // 812 |         mo_1.consume();
         //    |              --------- `mo_1` moved due to this method call
-        // 813 |         
+        // 813 |
         // 814 |         mo_1.my_method();
         //    |         ^^^^^^^^^^^^^^^^ value borrowed here after move
         //    |
@@ -850,16 +877,18 @@ fn chapter_010_2() {
 
         #[derive(Debug, Clone, Copy)]
         struct MyObjectWithCopy {}
-        impl MyObjectWithCopy { 
-            fn new() -> Self { Self {} }
-            fn my_method(&self) { 
-                println!("MyObjectWithCopy::my_method: self: {:p}", &self); 
+        impl MyObjectWithCopy {
+            fn new() -> Self {
+                Self {}
+            }
+            fn my_method(&self) {
+                println!("MyObjectWithCopy::my_method: self: {:p}", &self);
             }
         }
-        impl Consumer for MyObjectWithCopy { 
-            fn consume(self) { 
-                println!("Consumed: {:?}:{:p}", self, &self); 
-            } 
+        impl Consumer for MyObjectWithCopy {
+            fn consume(self) {
+                println!("Consumed: {:?}:{:p}", self, &self);
+            }
         }
         let mo_c_1 = MyObjectWithCopy::new();
         mo_c_1.consume();
@@ -870,23 +899,22 @@ fn chapter_010_2() {
         {
             #[derive(Debug)]
             struct MyObjectB {}
-    
+
             impl MyObjectB {
                 fn new() -> Self {
-                    Self { }
+                    Self {}
                 }
-    
+
                 fn my_method(&self) {
                     println!("This is my method for MyObjectB");
-    
                 }
             }
-    
+
             impl MyTrait for MyObjectB {
                 fn required_method(&self) {
                     println!("This is required in impl MyTrait for MyObjectB");
                 }
-    
+
                 fn optional_method(&self) {
                     println!("This is optional in impl MyTrait for MyObjectB");
                 }
@@ -910,7 +938,7 @@ fn chapter_010_2() {
             //         get_my_trait_2()
             //     }
             // }
-            // 
+            //
             // Generates the following error message:
             //
             // error[E0308]: `if` and `else` have incompatible types
@@ -944,13 +972,12 @@ fn chapter_010_2() {
             println!("mo_3_string: {}", mo_3_string);
         }
     }
-
 }
 
 fn chapter_010_3() {
     println!("10.3. Validating References with Lifetimes");
 
-    fn largest<'a >(l: &'a str, r: &'a str) -> &'a str {
+    fn largest<'a>(l: &'a str, r: &'a str) -> &'a str {
         if l.len() > r.len() {
             l
         } else {
@@ -959,7 +986,7 @@ fn chapter_010_3() {
     }
 
     let s1 = "Multiple words in a sentence".to_string();
-    let s2 =  String::from("One");
+    let s2 = String::from("One");
     let s3 = largest(&s1, &s2);
     println!("s3: {}", s3);
 
@@ -981,7 +1008,7 @@ fn chapter_010_3() {
         // &'a i32;
         // &'a mut i32;
 
-        fn max_i32<'a >(first: &'a i32, second: &'a i32) -> &'a i32 {
+        fn max_i32<'a>(first: &'a i32, second: &'a i32) -> &'a i32 {
             if first > second {
                 first
             } else {
@@ -1017,14 +1044,16 @@ fn chapter_010_3() {
     // Lifetime Annotations in Struct Definitions
     #[allow(dead_code)]
     {
-        struct Object <'a> {
+        struct Object<'a> {
             data: &'a str,
         }
 
         let str_data = String::from("A B C");
         let first_word = str_data.split(' ').next().unwrap();
 
-        let _o1 = Object { data: "string slice" };
+        let _o1 = Object {
+            data: "string slice",
+        };
         let _o2 = Object { data: &str_data };
         let _o3 = Object { data: first_word };
 
@@ -1053,12 +1082,9 @@ fn chapter_010_3() {
     {
         use std::fmt::Display;
 
-        fn largest <'a, T> (
-            x: &'a str, 
-            y: &'a str, 
-            ann: T
-        ) -> &'a str 
-            where T: Display
+        fn largest<'a, T>(x: &'a str, y: &'a str, ann: T) -> &'a str
+        where
+            T: Display,
         {
             println!("ann: {}", ann);
             if x.len() > y.len() {

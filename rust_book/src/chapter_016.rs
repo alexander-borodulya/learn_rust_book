@@ -1,4 +1,8 @@
-use std::{thread, time::Duration, sync::{mpsc, Mutex, Arc}};
+use std::{
+    sync::{mpsc, Arc, Mutex},
+    thread,
+    time::Duration,
+};
 
 pub fn run(_subchapter_index: u32) {
     println!("16. Fearless Concurrency");
@@ -10,7 +14,7 @@ pub fn run(_subchapter_index: u32) {
 
 fn _chapter_016_1() {
     println!("16.1. Using Threads to Run Code Simultaneously");
-    
+
     // Creating thread using thread::spawn
     {
         std::thread::spawn(|| {
@@ -19,15 +23,15 @@ fn _chapter_016_1() {
                 thread::sleep(Duration::from_millis(10));
             }
         });
-        
+
         for i in 0..5 {
             println!("main thread, number {}", i);
             thread::sleep(Duration::from_millis(10));
         }
-    
+
         println!("main thread finished");
     }
-    
+
     // Waiting for All Threads to Finish Using join Handles
     {
         let hangle = std::thread::spawn(|| {
@@ -36,14 +40,14 @@ fn _chapter_016_1() {
                 thread::sleep(Duration::from_millis(5));
             }
         });
-        
+
         for i in 0..5 {
             println!("main thread, number {}", i);
             thread::sleep(Duration::from_millis(5));
         }
 
         println!("main thread finished");
-        
+
         hangle.join().unwrap();
     }
 
@@ -64,15 +68,13 @@ fn _chapter_016_1() {
         });
         handle.join().unwrap();
     }
-
 }
 
 fn _chapter_016_2() {
     println!("16.2. Using Message Passing to Transfer Data Between Threads");
 
     // Using Message Passing to Transfer Data Between Threads
-    fn mpsc_with_simple_msg_passing()
-    {
+    fn mpsc_with_simple_msg_passing() {
         let (tx, rx) = mpsc::channel();
 
         thread::spawn(move || {
@@ -85,8 +87,7 @@ fn _chapter_016_2() {
     }
 
     // Sending Multiple Values and Seeing the Receiver Waiting
-    fn mpsc_with_simple_mult_msg_passing()
-    {
+    fn mpsc_with_simple_mult_msg_passing() {
         let (tx, rx) = mpsc::channel();
 
         thread::spawn(move || {
@@ -110,8 +111,7 @@ fn _chapter_016_2() {
     }
 
     // Creating Multiple Producers by Cloning the Transmitter
-    fn mpsc_with_cloning_tx() 
-    {
+    fn mpsc_with_cloning_tx() {
         let (tx, rx) = mpsc::channel();
         let tx_clone = tx.clone();
 
@@ -147,7 +147,8 @@ fn _chapter_016_2() {
 
         for received_value in rx {
             println!("main thread: received value: {}", received_value);
-        }        let (tx, rx) = mpsc::channel();
+        }
+        let (tx, rx) = mpsc::channel();
 
         thread::spawn(move || {
             let values = vec![
@@ -170,8 +171,7 @@ fn _chapter_016_2() {
     }
 
     // Sending Multiple Values and Seeing the Receiver handles errors
-    fn mpsc_with_errors() 
-    {
+    fn mpsc_with_errors() {
         let (tx, rx) = mpsc::channel();
 
         let _handle = thread::spawn(move || {
@@ -188,29 +188,28 @@ fn _chapter_016_2() {
                 tx.send(value).unwrap();
                 thread::sleep(Duration::from_millis(500));
             }
-            
+
             thread::sleep(Duration::from_millis(1000));
 
             tx.send("Message 6".to_string()).unwrap();
         });
 
         let result = loop {
-
             let received_value = rx.try_recv();
 
             match received_value {
                 Ok(value) => {
                     println!("received value: {}", value);
-                },
+                }
                 Err(e) => {
                     match e {
                         mpsc::TryRecvError::Empty => {
                             println!("received error: {:?}, about to sleep for 100 ms...", e);
-                        },
+                        }
                         mpsc::TryRecvError::Disconnected => {
                             println!("received error: {:?}", e);
                             break 100;
-                        },
+                        }
                     }
                     thread::sleep(Duration::from_millis(200));
                 }
@@ -221,8 +220,7 @@ fn _chapter_016_2() {
     }
 
     // Sending Multiple Values and Seeing the Receiver handles errors using iterators
-    fn mpsc_with_errors_and_itors() 
-    {
+    fn mpsc_with_errors_and_itors() {
         let (tx, rx) = mpsc::channel();
 
         let _handle = thread::spawn(move || {
@@ -239,12 +237,11 @@ fn _chapter_016_2() {
                 tx.send(value).unwrap();
                 thread::sleep(Duration::from_millis(500));
             }
-            
+
             thread::sleep(Duration::from_millis(1000));
 
             tx.send("Message 6".to_string()).unwrap();
         });
-
 
         let mut iter = rx.iter();
 
@@ -252,7 +249,7 @@ fn _chapter_016_2() {
         // while let Some(value) = iter.next() {
         //     println!("received value from iterator: {}", value);
         // }
-        
+
         // Expanded versino
         loop {
             match iter.next() {
@@ -262,7 +259,7 @@ fn _chapter_016_2() {
                 None => {
                     println!("received None from iterartor");
                     break;
-                },
+                }
             }
         }
     }
@@ -299,14 +296,13 @@ fn _chapter_016_3() {
 
                     // Access value using deref coercion
                     print_mutex_guard_value(&m_g);
-                },
+                }
                 Err(e) => {
                     println!("e: {:?}", e);
-                },
+                }
             }
-
         }
-        
+
         // Compact
         {
             // Access value via .unwrap

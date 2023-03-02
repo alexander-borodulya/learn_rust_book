@@ -5,7 +5,7 @@ pub fn run(_subchapter_index: u32) {
     chapter_5_3();
 }
 
-fn chapter_5_1 () {
+fn chapter_5_1() {
     println!("5.1. Defining and Instantiating Structs");
     let user1 = User {
         active: false,
@@ -15,24 +15,56 @@ fn chapter_5_1 () {
     };
 
     let mut user2 = build_user(String::from("User 2"), String::from("user2@b.com"));
-    println!("user1: {:?}", (&user1.active, &user1.username, &user1.email, &user1.sign_in_count));
-    println!("user2: {:?}", (&user2.active, &user2.username, &user2.email, &user2.sign_in_count));
+    println!(
+        "user1: {:?}",
+        (
+            &user1.active,
+            &user1.username,
+            &user1.email,
+            &user1.sign_in_count
+        )
+    );
+    println!(
+        "user2: {:?}",
+        (
+            &user2.active,
+            &user2.username,
+            &user2.email,
+            &user2.sign_in_count
+        )
+    );
     user2.email = String::from("user2-modified@email.com");
-    println!("user2 (modified): {:?}", (&user2.active, &user2.username, &user2.email, &user2.sign_in_count));
-    
+    println!(
+        "user2 (modified): {:?}",
+        (
+            &user2.active,
+            &user2.username,
+            &user2.email,
+            &user2.sign_in_count
+        )
+    );
+
     // Struct update syntax
     let user3 = User {
         username: String::from("User 3"),
         ..user2
     };
-    println!("user3 (syntax update): {:?}", (&user3.active, &user3.username, &user3.email, &user3.sign_in_count));
+    println!(
+        "user3 (syntax update): {:?}",
+        (
+            &user3.active,
+            &user3.username,
+            &user3.email,
+            &user3.sign_in_count
+        )
+    );
     // println!("user2 (modified): {:?}", (&user2.active, &user2.username, &user2.email, &user2.sign_in_count)); // User2 invelidated after ..user2
 
     // Tuple Structs
-    struct Color (u8, u8, u8);
-    let green: Color = Color (0, 255, 0);
+    struct Color(u8, u8, u8);
+    let green: Color = Color(0, 255, 0);
     println!("green: {} {} {}", green.0, green.1, green.2);
-    
+
     // Destruct Tuple Struct
     let Color(r, g, b) = green; // (green.0, green.1, green.2);
     println!("r: {}, g: {}, b: {}", r, g, b);
@@ -60,7 +92,7 @@ fn build_user(username: String, email: String) -> User {
         username: username,
         email: email,
         sign_in_count: 1,
-    }
+    };
 }
 
 // ----------------------------------------------------------------
@@ -73,7 +105,8 @@ fn chapter_5_2() {
 fn rectangles() {
     #[derive(Debug)]
     struct Rectangle {
-        width: u32, height: u32,
+        width: u32,
+        height: u32,
     }
     #[derive(Debug)]
     struct Object {
@@ -81,18 +114,27 @@ fn rectangles() {
         name: String,
         rect: Rectangle,
     }
-    fn area_wh(w: u32, h: u32) -> u32 { w * h }
-    fn area_dim(dim: (u32, u32)) -> u32 { dim.0 * dim.1 }
-    fn area(rect: &Rectangle) -> u32 { rect.width * rect.height }
+    fn area_wh(w: u32, h: u32) -> u32 {
+        w * h
+    }
+    fn area_dim(dim: (u32, u32)) -> u32 {
+        dim.0 * dim.1
+    }
+    fn area(rect: &Rectangle) -> u32 {
+        rect.width * rect.height
+    }
 
     let w1 = 30;
     let h1 = 50;
     println!("Rect area, WH: {}", area_wh(w1, h1));
-    
+
     let rect1 = (30, 50);
     println!("Rect area, Dimensions: {}", area_dim(rect1));
-    
-    let rect2 = Rectangle { width: 30, height: 50 };
+
+    let rect2 = Rectangle {
+        width: 30,
+        height: 50,
+    };
     println!("Rect area, Struct: {}", area(&rect2));
 
     println!("rect2, debug-print: {:?}", rect2);
@@ -102,11 +144,15 @@ fn rectangles() {
         id: 100,
         name: String::from("Object Name"),
         rect: Rectangle {
-            width: 100, height: 200,
+            width: 100,
+            height: 200,
         },
     };
     println!("object: {:?}", object);
-    println!("object fields: {}, {}, {:?}", object.id, object.name, object.rect);
+    println!(
+        "object fields: {}, {}, {:?}",
+        object.id, object.name, object.rect
+    );
     println!("pretty-print: object: {:#?}", object);
 
     dbg!(&object);
@@ -152,10 +198,13 @@ fn chapter_5_3() {
         }
 
         fn info(&self) -> String {
-            format!("{:p}: Rectangle {{ width: {}, height: {} }}", &self, self.width, self.height)
+            format!(
+                "{:p}: Rectangle {{ width: {}, height: {} }}",
+                &self, self.width, self.height
+            )
         }
     }
-    
+
     // Adding another impl block for the Rectangle struct
     impl Rectangle {
         fn square(size: i32) -> Rectangle {
@@ -170,7 +219,7 @@ fn chapter_5_3() {
         width: 500,
         height: 350,
     };
-    
+
     println!("rect: {:#?}", rect); // Pretty debug output
     println!("rect.area(): {}", rect.area());
     println!("rect.width: {}", rect.width);

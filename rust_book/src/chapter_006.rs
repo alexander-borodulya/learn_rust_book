@@ -5,15 +5,14 @@ pub fn run(_subchapter_index: u32) {
     chapter_6_3();
 }
 
-pub fn run_external (_subchapter_index: u32) {
-
+pub fn run_external(_subchapter_index: u32) {
     // Concise Control Flow with if let
     {
         #[derive(Debug)]
         enum States {
             A,
             B,
-            C
+            C,
         }
 
         #[derive(Debug)]
@@ -23,9 +22,7 @@ pub fn run_external (_subchapter_index: u32) {
 
         impl StateContainer {
             pub fn new() -> Self {
-                StateContainer {
-                    state: States::A,
-                }
+                StateContainer { state: States::A }
             }
 
             pub fn next(&mut self) {
@@ -50,7 +47,6 @@ pub fn run_external (_subchapter_index: u32) {
         // Prints nothing
         sc.prints_if_state_b();
 
-
         // Change state to B
         sc.next();
         println!("sc: {:?}", sc);
@@ -65,9 +61,9 @@ pub fn run_external (_subchapter_index: u32) {
     }
 }
 
-fn chapter_6_1 () {
+fn chapter_6_1() {
     println!("6.1. Defining an Enum");
-    
+
     // 1
     #[derive(Debug)]
     enum IpAddrKind {
@@ -92,7 +88,10 @@ fn chapter_6_1 () {
 
     impl IpAddr {
         fn print(ip_addr: &IpAddr) {
-            println!("IpAddr::print {{ kind: {:?}, addr: {:?} }}", ip_addr.kind, ip_addr.addr);
+            println!(
+                "IpAddr::print {{ kind: {:?}, addr: {:?} }}",
+                ip_addr.kind, ip_addr.addr
+            );
         }
     }
 
@@ -108,13 +107,13 @@ fn chapter_6_1 () {
 
     println!("home: {:?}", home);
     println!("loopback: {:?}", loopback);
-    
+
     IpAddr::print(&home);
     IpAddr::print(&loopback);
 
     // 3
     println!();
-    
+
     #[derive(Debug)]
     enum IpAddrConcise {
         V4(String),
@@ -126,7 +125,7 @@ fn chapter_6_1 () {
 
     // 4
     println!();
-    
+
     #[derive(Debug)]
     enum IpAddr2 {
         V4(u8, u8, u8, u8),
@@ -139,42 +138,42 @@ fn chapter_6_1 () {
 
     // 5
     println!();
-    
+
     #[derive(Debug)]
     struct IpAddrV4 {}
-    
+
     #[derive(Debug)]
     struct IpAddrV6 {}
-    
+
     #[derive(Debug)]
     enum IpAddr3 {
         V4(IpAddrV4),
         V6(IpAddrV6),
     }
 
-    let v4 = IpAddr3::V4(IpAddrV4{});
-    let v6 = IpAddr3::V6(IpAddrV6{});
+    let v4 = IpAddr3::V4(IpAddrV4 {});
+    let v6 = IpAddr3::V6(IpAddrV6 {});
 
     println!("IpAddr3: v4: {:?}, v6: {:?}", v4, v6);
 
     // 6
-    
+
     {
         use crate::common::chapter_006::Message;
         println!();
-    
+
         let msg = Message::Quit;
         println!("msg: {:?}", msg);
         msg.print();
-        
+
         let msg = Message::Move { x: 100, y: 200 };
         println!("msg: {:?}", msg);
         msg.print();
-        
+
         let msg = Message::Write(String::from("enum message"));
         println!("msg: {:?}", msg);
         msg.print();
-        
+
         let msg = Message::Color(255, 0, 128);
         println!("msg: {:?}", msg);
         msg.print();
@@ -182,7 +181,7 @@ fn chapter_6_1 () {
 
     // The Option enum
     println!();
-    
+
     {
         // Just Private Scope
         #[derive(Debug)]
@@ -193,7 +192,6 @@ fn chapter_6_1 () {
         let mo1: MyOption<bool> = MyOption::None;
         let mo2 = MyOption::Some(false);
         println!("mo1: {:?}, mo2: {:?}", mo1, mo2);
-
     }
     let n = Some(10);
     let s = Some(String::from("a string"));
@@ -241,7 +239,7 @@ fn chapter_6_2() {
 
     // 2. Patterns that binds to values
     println!();
-    
+
     #[derive(Debug)]
     enum GroupA {
         GA0,
@@ -275,7 +273,7 @@ fn chapter_6_2() {
                     GroupB::GB1 => println!("    GroupB::GB1"),
                     GroupB::GB2 => println!("    GroupB::GB2"),
                 }
-            },
+            }
         }
     }
 
@@ -294,13 +292,13 @@ fn chapter_6_2() {
             GB1,
             GB2,
         }
-    
+
         #[derive(Debug)]
         enum ComplexGroup {
             CG0,
             CG2(GroupB),
         }
-    
+
         fn print_group(cg: ComplexGroup) {
             match cg {
                 ComplexGroup::CG0 => println!("ComplexGroup::CG_0"),
@@ -312,10 +310,10 @@ fn chapter_6_2() {
                         GroupB::GB1 => println!("    GroupB::GB1"),
                         GroupB::GB2 => println!("    GroupB::GB2"),
                     }
-                },
+                }
             }
         }
-    
+
         print_group(ComplexGroup::CG0);
         print_group(ComplexGroup::CG2(GroupB::GB0));
         print_group(ComplexGroup::CG2(GroupB::GB1));
@@ -324,7 +322,7 @@ fn chapter_6_2() {
 
     // 3. Matching with Option<T>
     println!();
-    
+
     fn handle_option_t(ov: Option<i32>) {
         match ov {
             None => println!("handle None..."),
@@ -337,7 +335,7 @@ fn chapter_6_2() {
 
     // 4. Catch All and the _ Placeholder
     println!();
-    
+
     fn handle_i32(i: i32) {
         match i {
             1 => println!("One, {}", i),
@@ -353,7 +351,7 @@ fn chapter_6_2() {
 
     fn handle_i32_underscore(i: i32) {
         match i {
-             1 => println!("One, {}", i),
+            1 => println!("One, {}", i),
             10 => println!("Two, {}", i),
             _ => println!("Matches any other value and does not bind to that value..."),
         }
@@ -370,7 +368,10 @@ fn chapter_6_2() {
             11 => String::from("Eleven"),
             other => format!("Other i32 values, {}", other),
         };
-        println!("handle_i32_underscore: some_i32_value: {}, string_value: {}", some_i32_value, string_value);
+        println!(
+            "handle_i32_underscore: some_i32_value: {}, string_value: {}",
+            some_i32_value, string_value
+        );
         string_value
     }
 
@@ -386,14 +387,14 @@ fn chapter_6_2() {
     println!("s: {}", s);
 }
 
-fn chapter_6_3 () {
+fn chapter_6_3() {
     println!("6.3. Concise Control Flow with if let");
 
     // Using match
     let some_int = Some(100);
     match some_int {
         Some(i) => println!("match some_int -> i: {}", i),
-        _ => println!("None")
+        _ => println!("None"),
     }
 
     // Using if let
@@ -417,7 +418,7 @@ fn chapter_6_3 () {
         ET2,
         ET3,
     }
-    
+
     #[derive(Debug)]
     enum Etc {
         ETC1,

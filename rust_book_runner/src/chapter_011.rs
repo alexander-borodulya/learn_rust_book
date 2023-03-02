@@ -1,10 +1,10 @@
 //
 // Import functions from the chapter_011_math library crate
-// 
+//
 
 use chapter_011_math::add;
-use chapter_011_math::sub;
 use chapter_011_math::mult;
+use chapter_011_math::sub;
 
 /// Runs payload test
 pub fn run(_subchapter_index: u32) {
@@ -14,7 +14,7 @@ pub fn run(_subchapter_index: u32) {
 
 //
 // Binary crate functionality that re-use library functions.
-// 
+//
 pub fn add_sub_mult(left: isize, right: isize) -> isize {
     let p1 = add(left, right);
     let p2 = sub(left, right);
@@ -23,13 +23,13 @@ pub fn add_sub_mult(left: isize, right: isize) -> isize {
 
 fn chapter_011_3() {
     println!("11.3. Test Organization");
-    
+
     // [Some Payload] Use functions from the library crate
     {
         let i1 = add(100, 25);
         let i2 = sub(100, 25);
         println!("i1 = {}, i2 = {}", i1, i2);
-    
+
         let i3 = add_sub_mult(100, 25);
         println!("i3 = {}", i3);
     }
@@ -37,7 +37,7 @@ fn chapter_011_3() {
 
 //
 // Binary crate unit tests.
-// 
+//
 #[cfg(test)]
 mod tests_chapter_011_3 {
     use super::*;
