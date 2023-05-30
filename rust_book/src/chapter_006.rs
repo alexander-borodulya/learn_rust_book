@@ -6,6 +6,7 @@ pub fn run(_subchapter_index: u32) {
 }
 
 pub fn run_external(_subchapter_index: u32) {
+    println!("6. Enums and Pattern Matching - external - [Begin]");
     // Concise Control Flow with if let
     {
         #[derive(Debug)]
@@ -59,6 +60,7 @@ pub fn run_external(_subchapter_index: u32) {
         // Prints nothing
         sc.prints_if_state_b();
     }
+    println!("6. Enums and Pattern Matching - external - [End]");
 }
 
 fn chapter_6_1() {
