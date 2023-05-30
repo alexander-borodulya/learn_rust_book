@@ -21,31 +21,43 @@ use rust_book::chapter_017;
 use rust_book::chapter_018;
 use rust_book::chapter_019;
 
-type ChaptersHashMap = HashMap<u32, fn(u32)>;
+type ChaptersHashMap = HashMap<u32, Vec<fn(u32)>>;
 
 /// Constructs HashMap with all the chapters.
 pub fn make_chapters() -> ChaptersHashMap {
     let mut chapters: ChaptersHashMap = HashMap::new();
-    chapters.insert(1, chapter_001::run);
-    chapters.insert(2, chapter_002::run);
-    chapters.insert(3, chapter_003::run);
-    chapters.insert(4, chapter_004::run);
-    chapters.insert(5, chapter_005::run);
-    chapters.insert(6, chapter_006::run_external);
-    chapters.insert(6, chapter_006::run);
-    chapters.insert(7, chapter_007::run);
-    chapters.insert(8, chapter_008::run);
-    chapters.insert(9, chapter_009::run);
-    chapters.insert(10, chapter_010::run);
-    chapters.insert(11, chapter_011::run);
-    chapters.insert(12, chapter_012_samples::run);
-    chapters.insert(12, chapter_012_runner::run);
-    chapters.insert(13, chapter_013::run);
-    chapters.insert(14, chapter_014::run);
-    chapters.insert(15, chapter_015::run);
-    chapters.insert(16, chapter_016::run);
-    chapters.insert(17, chapter_017::run);
-    chapters.insert(18, chapter_018::run);
-    chapters.insert(19, chapter_019::run);
+    chapters.insert(1, vec![chapter_001::run]);
+    chapters.insert(2, vec![chapter_002::run]);
+    chapters.insert(3, vec![chapter_003::run]);
+    chapters.insert(4, vec![chapter_004::run]);
+    chapters.insert(5, vec![chapter_005::run]);
+    chapters
+        .entry(6)
+        .or_insert_with(Vec::new)
+        .push(chapter_006::run_external);
+    chapters
+        .entry(6)
+        .or_insert_with(Vec::new)
+        .push(chapter_006::run);
+    chapters.insert(7, vec![chapter_007::run]);
+    chapters.insert(8, vec![chapter_008::run]);
+    chapters.insert(9, vec![chapter_009::run]);
+    chapters.insert(10, vec![chapter_010::run]);
+    chapters.insert(11, vec![chapter_011::run]);
+    chapters
+        .entry(12)
+        .or_insert_with(Vec::new)
+        .push(chapter_012_samples::run);
+    chapters
+        .entry(12)
+        .or_insert_with(Vec::new)
+        .push(chapter_012_runner::run);
+    chapters.insert(13, vec![chapter_013::run]);
+    chapters.insert(14, vec![chapter_014::run]);
+    chapters.insert(15, vec![chapter_015::run]);
+    chapters.insert(16, vec![chapter_016::run]);
+    chapters.insert(17, vec![chapter_017::run]);
+    chapters.insert(18, vec![chapter_018::run]);
+    chapters.insert(19, vec![chapter_019::run]);
     chapters
 }

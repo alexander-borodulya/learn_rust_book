@@ -1,10 +1,18 @@
 use crate::chapters::make_chapters;
 use crate::cli_args::Args;
 
+use thiserror::Error;
+
+#[derive(Error, Debug)]
+pub enum RunnerError {
+    #[error("Unexpected error occured: {0}")]
+    UnexpetedError(String),
+}
+
 pub struct Runner;
 
 impl Runner {
-    pub fn run(args: Args) -> Result<(), Box<dyn std::error::Error>> {
+    pub fn run(args: Args) -> Result<(), RunnerError> {
         let chapters = make_chapters();
 
         if args.list {
@@ -22,7 +30,9 @@ impl Runner {
         };
 
         if let Some(ch_fn) = chapters.get(&fn_index) {
-            ch_fn(args.chapter_id.subchapter);
+            ch_fn
+                .iter()
+                .for_each(|ch_fn| ch_fn(args.chapter_id.subchapter));
         }
 
         Ok(())
