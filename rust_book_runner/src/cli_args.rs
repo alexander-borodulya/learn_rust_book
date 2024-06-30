@@ -1,6 +1,7 @@
 use clap::error::ErrorKind;
 use clap::Parser;
-use std::error::Error;
+
+use crate::error::Result;
 
 /// Run specific chapter and subchapter.
 ///
@@ -53,7 +54,7 @@ impl std::fmt::Display for ChapterID {
 
 /// Parse string representation of the `ChapterID` type.
 /// Returns ChapterID instance.
-fn parse_chapter_subchapter(s: &str) -> Result<ChapterID, Box<dyn Error + Send + Sync + 'static>> {
+fn parse_chapter_subchapter(s: &str) -> Result<ChapterID> {
     // We are expect here a single number that represents the chapter number only.
     // Subchapter number is equal to 0 in this case.
     if !s.chars().any(|c| c == '.' || c == ',') {
@@ -68,7 +69,9 @@ fn parse_chapter_subchapter(s: &str) -> Result<ChapterID, Box<dyn Error + Send +
 
     let pos = s
         .find(|c| c == '.' || c == ',')
-        .ok_or_else(|| format!("Invalid (index.sub-index) value: no `.` found in `{s:?}`"))?;
+        .ok_or_else(|| crate::error::Error::InvalidInput(
+            format!("Invalid (index.sub-index) value: no `.` found in `{s:?}`")
+        ))?;
 
     Ok(ChapterID::new(
         s[..pos].trim().parse()?,
@@ -88,17 +91,15 @@ impl clap::builder::TypedValueParser for ChapterIdParser {
         cmd: &clap::Command,
         _arg: Option<&clap::Arg>,
         value: &std::ffi::OsStr,
-    ) -> Result<Self::Value, clap::Error> {
+    ) -> std::result::Result<Self::Value, clap::error::Error> {
         let Some(arg_value) = value.to_str() else {
             let err = clap::Error::new(ErrorKind::ValueValidation)
                 .with_cmd(cmd);
             return Err(err);
         };
 
-        let chapter_id = match parse_chapter_subchapter(arg_value) {
-            Ok(chapter_id) => chapter_id,
-            Err(_e) => ChapterID::new(0, 0),
-        };
+        let chapter_id = parse_chapter_subchapter(arg_value)
+            .map_err(|_err| clap::Error::new(ErrorKind::InvalidValue))?;
 
         Ok(chapter_id)
     }
@@ -185,4 +186,14 @@ mod tests {
             parse_chapter_subchapter(" 5 ").unwrap()
         );
     }
+
+    // Expect to be failed for the value 1.a
+    #[test]
+    fn test_parse_chapter_subchapter_1_a() {
+        assert!(parse_chapter_subchapter("1.a").is_err());
+        assert!(parse_chapter_subchapter(" 1.a").is_err());
+        assert!(parse_chapter_subchapter("1.a ").is_err());
+        assert!(parse_chapter_subchapter(" 1.a ").is_err());
+    }
+    
 }
