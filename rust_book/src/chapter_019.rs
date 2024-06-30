@@ -1,16 +1,17 @@
 use std::{
-    ops::{Deref, DerefMut},
-    rc::Rc,
-    slice,
+    ops::{Deref, DerefMut}, rc::Rc, slice
 };
 
 pub fn run(_subchapter_index: u32) {
     println!("19. Advanced Features");
-    chapter_019_1();
-    chapter_019_2();
-    chapter_019_3();
-    chapter_019_4();
-    chapter_019_5();
+    match _subchapter_index {
+        1 => chapter_019_1(),
+        2 => chapter_019_2(),
+        3 => chapter_019_3(),
+        4 => chapter_019_4(),
+        5 => chapter_019_5(),
+        unknown_subchapter @ _ => println!("unknown_subchapter: {}", unknown_subchapter),
+    }
 }
 
 fn chapter_019_1() {
@@ -805,7 +806,6 @@ fn chapter_019_4() {
 
     // Function Pointers
     {
-        // 1
         {
             fn add_one(x: i32) -> i32 {
                 x + 1
@@ -840,25 +840,133 @@ fn chapter_019_4() {
 
         // 3
         {
-            #[derive(Debug)]
-            enum States {
-                _Start,
-                Progress(isize),
-                Result(String),
-            }
+            use crate::common::chapter_019::subchapter_04::*;
 
-            // let s1 = States::Start;
-            // let s2 = States::Progress(25);
-            // let s3 = States::Result("Hello".to_string());
+            let s1 = States::Pending;
+            let s2 = States::Progress(25);
+            let s3 = States::Result("Hello".to_string());
 
-            let v_s_progress = (97..=100).map(States::Progress).collect::<Vec<States>>();
+            let v_s = vec![s1, s2, s3];
+            println!("v_s: {:?}", v_s);
+
+            let v_s_progress = (97..=100)
+                .map(States::Progress)
+                .collect::<Vec<States>>();
+            let v_s_progress_expected = vec![
+                States::Progress(97),
+                States::Progress(98),
+                States::Progress(99),
+                States::Progress(100),
+            ];
+            println!("v_s_progress: {:?}", v_s_progress);
+            assert_eq!(v_s_progress, v_s_progress_expected);
+            
 
             let v_s_res = &["str1".to_owned(), "str2".to_owned()].map(States::Result);
-
-            println!("v_s_progress: {:?}", v_s_progress);
+            for s in v_s_res {
+                if let States::Progress(progress_state) = s {
+                    println!("progress_state: {:?}", progress_state);
+                } else {
+                    println!("not a progress state: {}", s);
+                }
+            }
             println!("v_s_res: {:?}", v_s_res);
+            for (idx, &ref s) in v_s_res.iter().enumerate() {
+                if let States::Result(result_state) = s {
+                    println!("result_state: {}, {:?}", idx, result_state);
+                }
+            }
+
+            let v_s_progress_as_strings: Vec<String> = v_s_progress.iter().map(ToString::to_string).collect();
+            println!("v_s_progress_as_strings: {:?}", v_s_progress_as_strings);
+        }
+            
+        // 4
+        {
+            let arg_closure_sum = |x: i32, y: i32| -> i32 {
+                x + y
+            };
+
+            fn arg_fn_sum(x: i32, y: i32) -> i32 {
+                (x + y) * 10
+            }
+
+            // But, accpets fn pointers, becase a fn pointer implements all three closure traits: Fn, FnMut, FnOnce
+            fn accepts_closure(c: impl Fn(i32, i32) -> i32, arg_1: i32, arg_2: i32) -> i32 {
+                c(arg_1, arg_2)
+            }
+
+            // But, accepts closure that doesn't capture environment variables
+            fn accepts_fn(f: fn(i32, i32) -> i32, arg_1: i32, arg_2: i32) -> i32 {
+                f(arg_1, arg_2)
+            }
+
+            let arg_1 = 100;
+            let arg_2 = 900;
+
+            let r = accepts_closure(arg_closure_sum, arg_1, arg_2);
+            println!("accepts_closure, arg_1 {}, arg_2 {}, r {}", arg_1, arg_2, r);
+            
+            let r = accepts_closure(arg_fn_sum, arg_1, arg_2);
+            println!("accepts_closure, arg_1 {}, arg_2 {}, r {}", arg_1, arg_2, r);
+            
+            let r = accepts_fn(arg_closure_sum, arg_1, arg_2);
+            println!("accepts_fn, arg_1 {}, arg_2 {}, r {}", arg_1, arg_2, r);
+            
+            let r = accepts_fn(arg_fn_sum, arg_1, arg_2);
+            println!("accepts_fn, arg_1 {}, arg_2 {}, r {}", arg_1, arg_2, r);
+
+            fn accepts_generic<T, AT1, AT2, RT>(g: T, arg_1: AT1, arg_2: AT2) -> RT 
+                where T: Fn(AT1, AT2) -> RT
+            {
+                let r: RT = g(arg_1, arg_2);
+                r
+            }
+
+            let arg_1 = 100;
+            let arg_2: f64 = 500f64;
+            let arg_closure_sum = |x: i32, y: f64| -> usize {
+                (x + y as i32) as usize
+            };
+            let r = accepts_generic(arg_closure_sum, arg_1, arg_2);
+            println!("accepts_generic, arg_1 {}, arg_2 {}, r {}", arg_1, arg_2, r);
+
+            // Some advance example: std::ops::Not + PhantomData
+            {
+                // TODO:
+                // Implement function signatures:
+                // - Accepts a closure as a parameter;
+                // - Accepts a fn as a parameter;
+                // - Accepts both a closure and a fn as a parameter;
+                // - Accepts only a closure, but not a fn as a parameter;
+                // - Accepts only a fn, but not a closure as a parameter;
+
+                /*
+
+                use std::marker::PhantomData;
+                use std::ops::Not;
+
+                // Define a marker type
+                struct IsClosure<F: Fn()>(PhantomData<F>);
+
+                // Implement the Not trait for the marker type to create the restriction
+                impl<F: Fn()> Not for IsClosure<F> {}
+
+                // Function that accepts only closures, not function pointers
+                fn accepts_closure_only<F>(closure: F)
+                where
+                    F: Fn(),
+                    IsClosure<F>: Not,
+                {
+                    closure();
+                }
+                
+                */
+            }
         }
     }
+
+    // std::process::exit(0);
 
     // Returning closures
     {
